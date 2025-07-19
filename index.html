@@ -8,6 +8,12 @@
   <style>
     html, body { margin:0; padding:0; height:100%; overflow: hidden;}
     body { font-family: 'Noto Sans KR', 'Pretendard', sans-serif; color:#222; background:#fff; min-height:100vh;}
+    .circle-card, .circle-card *:focus, .circle-card *:active,
+    .gra_btn, .gra_btn:focus, .gra_btn:active,
+    .inquiry-btn, .inquiry-btn:focus, .inquiry-btn:active {
+      outline: none !important;
+      box-shadow: none !important;
+    }
     header {
       background: rgba(24,24,24,0.35);
       position:fixed; top:0; left:0; width:100vw; z-index:1000;
@@ -30,15 +36,11 @@
       .nav-right { gap:16px;}
       .menu-link { font-size:0.97rem; }
     }
-    /* 슬라이드 메뉴 */
     .slide-menu-backdrop { position:fixed; inset:0; background:rgba(20,21,28,0.18); z-index:2100; opacity:0; pointer-events:none; transition:opacity .23s;}
     .slide-menu-backdrop.active { opacity:1; pointer-events:auto;}
-    .slide-menu {
-      position:fixed; top:0; right:0; height:100vh; width:270px; max-width:88vw;
-      background:#fff; z-index:2200;
-      box-shadow: -4px 0 26px 0 rgba(38,36,40,0.11);
-      transform: translateX(102%);
-      transition: transform .33s cubic-bezier(.77,0,.18,1);
+    .slide-menu { position:fixed; top:0; right:0; height:100vh; width:270px; max-width:88vw;
+      background:#fff; z-index:2200; box-shadow: -4px 0 26px 0 rgba(38,36,40,0.11);
+      transform: translateX(102%); transition: transform .33s cubic-bezier(.77,0,.18,1);
       display: flex; flex-direction:column; padding:0; border-radius:0 0 0 17px;
     }
     .slide-menu.active { transform:translateX(0);}
@@ -51,279 +53,147 @@
     .slide-menu-list a:hover, .slide-menu-list a:focus { color: #d22626; background:transparent;}
     .slide-menu-info { font-size: 0.73rem; color: #b4b4b4; font-family: 'Noto Sans KR', 'Pretendard', sans-serif; padding: 1.1rem 1.7em 0.8rem 2.1em; border-top: 1px solid #f0f0f0; background: none; line-height: 1.5; word-break: keep-all; letter-spacing: 0.01em;}
     .slide-menu-list { margin-bottom:2.2rem;}
-    .snap-slide-section {
-      width:100vw; height:100vh; min-height:400px;
-      position:relative; overflow:hidden;
-      margin:0; padding:0;
-      display:flex; flex-direction:column; justify-content:center; align-items:center;
-      z-index:1;
-      background: #111;
-    }
+    .snap-slide-section { width:100vw; height:100vh; min-height:400px; position:relative; overflow:hidden; margin:0; padding:0; display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:1; background: #111;}
     .main-banner-img-area { position:absolute; top:0; left:0; width:100vw; height:100vh; z-index:1; overflow:hidden;}
     .main-banner-img-area img { width:100vw; height:100vh; min-height:500px; object-fit:cover; object-position:center; display:block;}
     .main-content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2; width:100vw; display:flex; flex-direction:column; align-items:center; pointer-events:none;}
     .main-title-eloom { font-family: 'Noto Serif KR', 'Noto Serif', serif; font-size:6.5vw; font-weight:700; color:rgba(255,255,255,0.98); text-shadow: 0 2px 16px rgba(20,20,20,0.17), 0 1.5px 14px rgba(60,40,60,0.10); letter-spacing:0.14em; text-align:center; text-transform:uppercase; line-height:1.08; margin:0;}
     @media (max-width:900px) { .main-title-eloom { font-size:11vw;} }
     @media (max-width:600px) { .main-title-eloom { font-size:15vw;} }
-    .scroll-arrow {
-      position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%);
-      z-index: 5; font-size: 2.1rem; color: #fff; opacity: 0.92; cursor: pointer;
-      animation: arrow-down-bounce 1.4s infinite; transition: opacity 0.33s;
-      user-select: none; pointer-events: auto; filter: drop-shadow(0 0 9px rgba(0,0,0,0.22));
-    }
-    @keyframes arrow-down-bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0);}
-      50% { transform: translateX(-50%) translateY(13px);}
-    }
+    .scroll-arrow { position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%); z-index: 5; font-size: 2.1rem; color: #fff; opacity: 0.92; cursor: pointer; animation: arrow-down-bounce 1.4s infinite; transition: opacity 0.33s; user-select: none; pointer-events: auto; filter: drop-shadow(0 0 9px rgba(0,0,0,0.22)); }
+    @keyframes arrow-down-bounce { 0%, 100% { transform: translateX(-50%) translateY(0);} 50% { transform: translateX(-50%) translateY(13px);} }
     .scroll-arrow.hide { opacity: 0; pointer-events: none; }
-    /* ===== 동그란 카드 슬라이더 & 패널 ===== */
-    .circle-slider-section {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center; justify-content: center;
-      background: #fff;
-      overflow: hidden;
-      position: relative;
-      z-index: 2;
-    }
-    .circle-slider-arrow {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      color: #333; font-size: 3rem; font-weight: 700;
-      z-index: 10; cursor: pointer; background: none; border: none;
-      opacity: 0.88;
-      padding: 0 10px;
-      user-select: none;
-      transition: color 0.15s;
-      outline: none;
-    }
+    .circle-slider-section { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; background: #fff; overflow: hidden; position: relative; z-index: 2; }
+    .circle-slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); color: #333; font-size: 3rem; font-weight: 700; z-index: 10; cursor: pointer; background: none; border: none; opacity: 0.88; padding: 0 10px; user-select: none; transition: color 0.15s; outline: none; }
     .circle-slider-arrow.left { left: 1vw; }
     .circle-slider-arrow.right { right: 1vw; }
-    .circle-slider-arrow:active,
-    .circle-slider-arrow:focus { color: #d22626; }
-    .circle-slider-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100vw; height: 100%;
-      overflow: visible;
-      position: relative;
-      z-index: 5;
-    }
-    .circle-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 370px;
-      background: none;
-      box-shadow: none;
-      border: none;
-      margin: 0 auto;
-      transition: none;
-      cursor: pointer;
-    }
-    .circle-img-area {
-      width: 280px; height: 280px;
-      min-width: 160px; min-height: 160px;
-      max-width: 370px; max-height: 370px;
-      border-radius: 50%;
-      overflow: hidden;
-      background: #eee;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 32px;
-      box-shadow: none;
-      border: none;
-    }
-    .circle-img-area img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center;
-      display: block; pointer-events: none;
-      user-drag: none; background: none; border: none;
-    }
-    .circle-card-title {
-      width: 100%;
-      font-family: 'Noto Sans KR', 'Pretendard', sans-serif;
-      font-size: 1.45rem;
-      font-weight: 700;
-      color: #1a1a1a;
-      text-align: center;
-      margin-bottom: 11px;
-      letter-spacing: 0.09em;
-      background: none;
-      text-shadow: none;
-    }
-    .circle-card-desc {
-      width: 100%;
-      color: #333;
-      font-size: 1.07rem;
-      text-align: center;
-      font-weight: 400;
-      background: none;
-      border-radius: 0;
-      box-shadow: none;
-      padding: 0;
-      line-height: 1.7;
-    }
+    .circle-slider-arrow:active, .circle-slider-arrow:focus { color: #d22626; }
+    .circle-slider-wrapper { display: flex; align-items: center; justify-content: center; width: 100vw; height: 100%; overflow: visible; position: relative; z-index: 5; }
+    .circle-card { display: flex; flex-direction: column; align-items: center; width: 370px; background: none; box-shadow: none; border: none; margin: 0 auto; transition: none; cursor: pointer; }
+    .circle-img-area { width: 280px; height: 280px; min-width: 160px; min-height: 160px; max-width: 370px; max-height: 370px; border-radius: 50%; overflow: hidden; background: #eee; display: flex; align-items: center; justify-content: center; margin-bottom: 32px; box-shadow: none; border: none; }
+    .circle-img-area img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; pointer-events: none; user-drag: none; background: none; border: none; transition: transform 0.26s cubic-bezier(.73,.04,.36,.98);}
+    .circle-card:hover .circle-img-area img, .circle-card:focus-within .circle-img-area img { transform: scale(1.11);}
+    .circle-card-title { width: 100%; font-family: 'Noto Sans KR', 'Pretendard', sans-serif; font-size: 1.45rem; font-weight: 700; color: #1a1a1a; text-align: center; margin-bottom: 11px; letter-spacing: 0.09em; background: none; text-shadow: none; }
+    .circle-card-desc { width: 100%; color: #333; font-size: 1.07rem; text-align: center; font-weight: 400; background: none; border-radius: 0; box-shadow: none; padding: 0; line-height: 1.7; }
+    .gra_btn.md.fff { display: flex; align-items: center; justify-content: center; margin: 18px auto 0 auto; font-family: 'Noto Sans KR', 'Pretendard', sans-serif; font-size: 1rem; font-weight: 700; border: none; border-radius: 999px; padding: 12px 28px; cursor: pointer; box-shadow: 0 3px 12px rgba(220,50,50,0.08); gap: 8px; transition: background 0.17s, color 0.13s, transform 0.14s; }
+    .gra_btn.md.red { background: linear-gradient(90deg, #d22626 0%, #e4562b 100%); color: #fff;}
+    .gra_btn.md.red:hover, .gra_btn.md.red:focus { background: linear-gradient(90deg, #b82020 0%, #b53d19 100%); color: #fff; transform: translateY(-2px) scale(1.05);}
+    .gra_btn.md.blue { background: linear-gradient(90deg, #244069 0%, #3175ce 100%); color: #fff;}
+    .gra_btn.md.blue:hover, .gra_btn.md.blue:focus { background: linear-gradient(90deg, #15355c 0%, #1650a9 100%); color: #fff; transform: translateY(-2px) scale(1.05);}
+    .arrow-text { font-size: 1.2em; margin-left: 7px; font-weight: 700; line-height: 1; }
     @media (max-width:900px) {
       .circle-card { width: 89vw;}
       .circle-img-area { width: 52vw; height: 52vw; min-width: 100px; min-height: 100px;}
       .circle-card-title { font-size: 4vw;}
       .circle-card-desc { font-size: 0.97rem;}
       .circle-slider-arrow { font-size: 2.2rem; }
+      .gra_btn.md.fff { font-size: 0.97rem; padding: 12px 16vw;}
     }
     @media (max-width:550px) {
       .circle-img-area { width: 84vw; height: 84vw;}
       .circle-card-title { font-size: 6vw;}
       .circle-card-desc { font-size: 0.93rem;}
       .circle-slider-arrow { font-size: 1.7rem;}
+      .gra_btn.md.fff { font-size: 0.94rem; padding: 12px 8vw;}
+    }
+    footer { width: 100vw; background: #f5f5f7; border-top: 1.5px solid #dadada; padding: 34px 0 18px 0; margin: 0 auto 0 auto; box-sizing: border-box; text-align: center;}
+    .eloom-footer-wrap { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 13px; max-width: 1100px; margin: 0 auto 0 auto;}
+    .eloom-footer-brand-row { display: flex; align-items: center; justify-content: center; gap: 0.44em; margin-bottom: 7px;}
+    .eloom-footer-brand-row img { height: 1.18em; width: auto; vertical-align: middle; display: block; background: none;}
+    .eloom-footer-brand-row span { font-family: 'Noto Sans KR', 'Pretendard', sans-serif; font-size: 1.17em; font-weight: 600; color: #222; letter-spacing: 0.01em; line-height: 1.1; display: flex; align-items: center; text-transform: uppercase;}
+    .eloom-footer-info { color: #3b3b3b; font-size: 14px; margin-bottom: 2px; font-weight: 400;}
+    .eloom-footer-info span { color: #b0b0b0; margin: 0 0.45em; font-weight:300;}
+    .eloom-footer-sub { color: #666; font-size: 13px; line-height: 1.6; margin-bottom: 1px; font-weight: 400; word-break: keep-all;}
+    .eloom-footer-copy { color: #bcbcbc; font-size: 12px; font-weight: 400; margin-top: 12px;}
+    @media (max-width:700px) { .eloom-footer-wrap { max-width: 97vw; padding-left:2vw; padding-right:2vw;} .eloom-footer-brand-row img { height: 1em;} .eloom-footer-brand-row span { font-size: 1em;} .eloom-footer-info, .eloom-footer-sub { font-size:12px;} }
+    @media (max-width:600px) {
+      .snap-slide-section, .circle-slider-section, body > div[style*="height:100vh"] {
+        height: auto !important; min-height: 0 !important; overflow: visible !important; position: static !important; display: block !important;
+      }
+      .main-banner-img-area, .main-content { position: static !important; transform: none !important; width: 100% !important;}
+      .scroll-arrow { display: none !important; }
     }
 
-    /* ===== 상담 슬라이드 패널 폼 ===== */
+    /* 상담 패널 전체높이, 폼만 중앙 */
     .inquiryBg {
-      position: fixed; top: 0; right: 0; height: 100vh; width: 420px; max-width: 100vw;
-      background: #fff;
-      box-shadow: -6px 0 30px rgba(0,0,0,0.13);
-      transform: translateX(102%);
-      transition: transform .38s cubic-bezier(.7,0,.18,1);
-      z-index: 9999;
-      display: flex; flex-direction: column;
-      border-top-left-radius: 18px; border-bottom-left-radius: 18px;
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(30,30,32,0.21);
+      z-index: 3000;
+      display: none;
+      transition: opacity 0.25s;
     }
-    .inquiryBg.active { transform: translateX(0); }
-    @media (max-width: 600px) {
-      .inquiryBg { width: 100vw; min-width: 0; border-radius: 0;}
-      .inquiryCloseBtn { top: 13px; right: 13px; font-size: 2.2rem;}
-    }
-    .inquiryCloseBtn {
-      position: absolute; top: 17px; right: 18px; z-index: 100;
-      background: none; border: none; color: #888; font-size: 2.1rem; font-weight: 800;
-      cursor: pointer; opacity: 0.84; transition: color 0.17s;
-    }
-    .inquiryCloseBtn:hover { color: #d22626; opacity: 1;}
+    .inquiryBg.active { display: block; }
     .inquiryForm {
-      width: 100%;
-      padding: 0 38px 24px 38px;
-      max-width: 430px;
-      margin: 0 auto;
-      font-family: 'Noto Sans KR', 'Pretendard', sans-serif;
-      background: none;
-      box-sizing: border-box;
-      display: flex; flex-direction: column;
-      justify-content: center; min-height: 100vh;
-    }
-    @media (max-width:600px){
-      .inquiryForm { padding: 0 18px 20px 18px; max-width: 100vw;}
-    }
-    .top_title {
-      margin-top: 44px; margin-bottom: 35px; text-align:center;
-      font-size: 1.11rem; color: #1a1a1a; font-weight: 500;
-      letter-spacing: 0.01em; line-height: 1.45;
-    }
-    .top_title b { color: #d22626;}
-    .form_box { margin-bottom: 19px;}
-    .form_box_cate input {
-      width: 100%; font-size: 1.05rem; color: #444; background: #f8f8fa; border: 1px solid #e5e6eb; border-radius: 7px;
-      padding: 13px 17px; box-sizing: border-box; font-weight: 500; letter-spacing: 0.01em;
-    }
-    .form_box_cate input:focus { outline: 2px solid #d22626;}
-    .form_box_phone {
-      display: flex; align-items: center; gap: 8px;
-    }
-    .form_box_phone input[type="tel"] {
-      flex: 1; font-size: 1.08rem; color: #333; background: #f8f8fa; border: 1px solid #e5e6eb; border-radius: 7px;
-      padding: 13px 17px; box-sizing: border-box; font-weight: 500; letter-spacing: 0.01em;
-    }
-    .form_box_phone input[type="tel"]:focus { outline: 2px solid #d22626;}
-    .form_clear_btn {
-      border: none; background: #eee; color: #888; font-size: 1.1rem; border-radius: 50%; width: 29px; height: 29px; display: flex; align-items: center; justify-content: center;
-      margin-left: 2px; cursor: pointer; opacity: 0.7; transition: background 0.15s, color 0.16s;
-    }
-    .form_clear_btn:hover { background: #f0dddd; color: #d22626;}
-    .receive_chk_box {
-      font-size: 0.98rem; color: #333; margin-bottom: 13px; display: flex; align-items: center; gap: 6px;
-    }
-    .receive_chk_box input[type="checkbox"] { width: 17px; height: 17px; accent-color: #d22626; margin-right:6px;}
-    .form_bt_btn {
-      width: 100%; background: #d22626; color: #fff; font-size: 1.09rem; font-weight: 700; border: none; border-radius: 8px;
-      padding: 15px 0; cursor: pointer; transition: background 0.17s, color 0.13s; margin-top: 10px;
-      box-shadow: 0 3px 18px rgba(220,50,50,0.08);
-    }
-    .form_bt_btn:active, .form_bt_btn:focus { background: #bb1e1e; color: #fff;}
-    .inquiry_step2 {
-      text-align: center;
-    }
-    /* ===== 하단 고정 footer ===== */
-    footer {
-      width: 100vw;
-      background: #f5f5f7;
-      border-top: 1.5px solid #dadada;
-      padding: 34px 0 18px 0;
-      margin: 0 auto 0 auto;
-      box-sizing: border-box;
-      text-align: center;
-    }
-    .eloom-footer-wrap {
+      position: fixed;
+      top: 0; right: 0;
+      width: 370px; max-width: 97vw; height: 100vh;
+      background: #fff;
+      box-shadow: -8px 0 40px rgba(60,50,50,0.13), -2px 0 10px rgba(60,50,50,0.07);
+      border-radius: 0 0 0 24px;
+      padding: 0;
+      transform: translateX(102%);
+      transition: transform 0.39s cubic-bezier(.77,0,.18,1);
+      z-index: 3010;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 13px;
-      max-width: 1100px;
-      margin: 0 auto 0 auto;
-    }
-    .eloom-footer-brand-row {
-      display: flex;
-      align-items: center;
       justify-content: center;
-      gap: 0.44em;
-      margin-bottom: 7px;
+      align-items: stretch;
     }
-    .eloom-footer-brand-row img {
-      height: 1.18em;
-      width: auto;
-      vertical-align: middle;
-      display: block;
-      background: none;
+    .inquiryBg.active .inquiryForm {
+      transform: translateX(0%);
     }
-    .eloom-footer-brand-row span {
-      font-family: 'Noto Sans KR', 'Pretendard', sans-serif;
-      font-size: 1.17em;
-      font-weight: 600;
-      color: #222;
-      letter-spacing: 0.01em;
-      line-height: 1.1;
+    .inquiryForm-inner {
+      margin: 0 auto;
+      max-width: 320px;
+      width: 100%;
       display: flex;
-      align-items: center;
-      text-transform: uppercase;
+      flex-direction: column;
+      justify-content: center;
+      align-items: stretch;
     }
-    .eloom-footer-info {
-      color: #3b3b3b;
-      font-size: 14px;
-      margin-bottom: 2px;
-      font-weight: 400;
+    .inquiryCloseBtn {
+      position: absolute; top: 21px; right: 18px;
+      font-size: 2.25rem; color: #696969; background: none; border: none;
+      cursor: pointer; opacity: 0.72; font-weight: 900; line-height: 1;
+      transition: color .18s, opacity .13s;
+      z-index: 2;
     }
-    .eloom-footer-info span {
-      color: #b0b0b0; margin: 0 0.45em; font-weight:300;
+    .inquiryCloseBtn:hover { color: #d22626; opacity: 1; }
+    .inquiry_step1 .top_title p { font-size: 1.09rem; text-align: center; color: #232323; margin: 0 0 16px 0;}
+    .form_box { margin-bottom: 18px; }
+    .form_box input[type="text"], .form_box input[type="tel"] {
+      width: 100%; font-size: 1.07rem; padding: 13px 12px; border: 1px solid #e1e1e1;
+      border-radius: 7px; box-sizing: border-box; background: #fafbfc;
+      outline: none; transition: border .15s;
     }
-    .eloom-footer-sub {
-      color: #666;
-      font-size: 13px;
-      line-height: 1.6;
-      margin-bottom: 1px;
-      font-weight: 400;
-      word-break: keep-all;
+    .form_box input[type="text"]:focus, .form_box input[type="tel"]:focus {
+      border-color: #d22626;
+      background: #fff;
     }
-    .eloom-footer-copy {
-      color: #bcbcbc;
-      font-size: 12px;
-      font-weight: 400;
-      margin-top: 12px;
+    .form_clear_btn {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; font-size: 1.07rem; color: #b3b3b3; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0.75; padding: 0; height: 2.2em; width: 2.2em;
+    }
+    .form_clear_btn:hover { color: #d22626; }
+    .receive_chk_box { margin: 0 0 15px 0; font-size: 0.99rem; color: #333; }
+    .receive_chk_box input[type="checkbox"] { margin-right: 6px; }
+    .form_bt_btn {
+      width: 100%; padding: 14px 0; background: linear-gradient(90deg,#d22626 0%,#e4562b 100%);
+      border: none; border-radius: 9px; color: #fff; font-size: 1.12rem; font-weight: 700; cursor: pointer;
+      transition: background .16s, transform .13s;
+    }
+    .form_bt_btn:hover, .form_bt_btn:focus {
+      background: linear-gradient(90deg, #b82020 0%, #b53d19 100%);
+      transform: translateY(-2px) scale(1.03);
     }
     @media (max-width:700px) {
-      .eloom-footer-wrap { max-width: 97vw; padding-left:2vw; padding-right:2vw;}
-      .eloom-footer-brand-row img { height: 1em;}
-      .eloom-footer-brand-row span { font-size: 1em;}
-      .eloom-footer-info, .eloom-footer-sub { font-size:12px;}
+      .inquiryForm { width: 99vw; min-width: 0; }
+      .inquiryForm-inner { max-width: 97vw; }
+    }
+    @media (max-width:400px) {
+      .inquiryForm-inner { padding: 13px 3vw 13px 3vw; }
     }
   </style>
 </head>
@@ -370,66 +240,67 @@
     </div>
     <div class="scroll-arrow" id="scrollArrow" title="아래로 이동">&#8595;</div>
   </div>
-
-  <!-- === 동그란 카드 중앙 슬라이더 (서비스 카드) === -->
   <div class="circle-slider-section" id="wideImageSection">
     <button class="circle-slider-arrow left" id="circleSliderPrev" aria-label="이전">〈</button>
     <div class="circle-slider-wrapper" id="circleSliderWrapper">
-      <div class="circle-card">
+      <div class="circle-card" tabindex="0">
         <div class="circle-img-area">
           <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=900&q=80" alt="개인회생">
         </div>
         <div class="circle-card-title">개인회생</div>
         <div class="circle-card-desc">급여 압류 중단, 3년 내 신속 면책.<br>채무·이자 최대 90% 탕감 가능</div>
+        <button data-inquiry-option="채무 탕감" data-case="개인회생파산" type="button" class="gra_btn md fff red inquiry-btn">
+          개인회생파산 상담 신청하기
+          <span class="arrow-text">〉</span>
+        </button>
       </div>
-      <div class="circle-card">
+      <div class="circle-card" tabindex="0">
         <div class="circle-img-area">
           <img src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=900&q=80" alt="파산 면책">
         </div>
         <div class="circle-card-title">파산 면책</div>
         <div class="circle-card-desc">법원의 판결로 모든 빚 100% 탕감.<br>회생이 불가능한 경우, 완전 새출발 지원</div>
+        <button data-inquiry-option="채무 탕감" data-case="개인회생파산" type="button" class="gra_btn md fff blue inquiry-btn">
+          개인회생파산 상담 신청하기
+          <span class="arrow-text">〉</span>
+        </button>
       </div>
-      <!-- 카드 추가 복사해서 붙이면 됩니다 -->
     </div>
     <button class="circle-slider-arrow right" id="circleSliderNext" aria-label="다음">〉</button>
   </div>
-
-  <!-- 상담신청 슬라이드 패널 (여기부터 완전히 새로 만듭니다) -->
   <div class="inquiryBg" id="inquiryBg">
-    <button class="inquiryCloseBtn" id="inquiryCloseBtn" aria-label="닫기">&times;</button>
     <div class="inquiryForm">
-      <!-- STEP 1 -->
-      <div class="inquiry_step1 show" id="inquiryStep1">
-        <div class="top_title">
-          <p>연락처를 남겨주시면, <br><b>실시간 상담</b>을 도와드리겠습니다.</p>
+      <button class="inquiryCloseBtn" id="inquiryCloseBtn" aria-label="닫기">&times;</button>
+      <div class="inquiryForm-inner">
+        <div class="inquiry_step1 show" id="inquiryStep1">
+          <div class="top_title">
+            <p>연락처를 남겨주시면, <br><b>실시간 상담</b>을 도와드리겠습니다.</p>
+          </div>
+          <div class="form_box form_box_cate">
+            <input id="inquiryCategory" readonly type="text" name="wr_subject" value="" placeholder="카테고리"/>
+          </div>
+          <div class="form_box form_box_phone" style="position:relative;">
+            <input placeholder="연락처를 입력해주세요." id="inquiryPhone" type="tel" name="telTemp" maxlength="20" autocomplete="tel" />
+            <button type="button" class="form_clear_btn" id="clearPhoneBtn" tabindex="-1" style="display:none;">✕</button>
+          </div>
+          <div class="receive_chk_box">
+            <input id="inquiry_receive_chk" type="checkbox" value="y" checked name="agree_check2" />
+            <label for="inquiry_receive_chk">상담을 위한 전화 및 문자메시지 수신에 동의합니다.</label>
+          </div>
+          <button type="button" class="form_bt_btn inquriySubmtBtn" id="inquirySubmitBtn">신청하기</button>
         </div>
-        <div class="form_box form_box_cate">
-          <input id="inquiryCategory" readonly type="text" name="wr_subject" value="" placeholder="카테고리"/>
+        <div class="inquiry_step2" id="inquiryStep2" style="display:none;">
+          <div style="text-align:center;padding-top:30px;padding-bottom:20px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="완료" width="72" style="margin-bottom:14px;opacity:0.7;">
+            <div style="font-size:1.2rem; font-weight:600; color:#222;">상담 신청이 접수되었습니다!</div>
+            <div style="font-size:1rem; color:#666; margin-top:8px;">담당자가 곧 연락드릴 예정입니다.</div>
+          </div>
+          <button type="button" class="form_bt_btn inquriyEndBtn" id="inquiryEndBtn" style="margin:0 auto 26px auto;display:block;width:80%;">확인</button>
         </div>
-        <div class="form_box form_box_phone">
-          <input placeholder="연락처를 입력해주세요." id="inquiryPhone" type="tel" name="telTemp" maxlength="20" autocomplete="tel" />
-          <button type="button" class="form_clear_btn" id="clearPhoneBtn" tabindex="-1" style="display:none;">✕</button>
-        </div>
-        <div class="receive_chk_box">
-          <input id="inquiry_receive_chk" type="checkbox" value="y" checked name="agree_check2" />
-          <label for="inquiry_receive_chk">상담을 위한 전화 및 문자메시지 수신에 동의합니다.</label>
-        </div>
-        <button type="button" class="form_bt_btn inquriySubmtBtn" id="inquirySubmitBtn">신청하기</button>
-      </div>
-      <!-- STEP 2 (신청 완료) -->
-      <div class="inquiry_step2" id="inquiryStep2" style="display:none;">
-        <div style="text-align:center;padding-top:30px;padding-bottom:20px;">
-          <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="완료" width="72" style="margin-bottom:14px;opacity:0.7;">
-          <div style="font-size:1.2rem; font-weight:600; color:#222;">상담 신청이 접수되었습니다!</div>
-          <div style="font-size:1rem; color:#666; margin-top:8px;">담당자가 곧 연락드릴 예정입니다.</div>
-        </div>
-        <button type="button" class="form_bt_btn inquriyEndBtn" id="inquiryEndBtn" style="margin:0 auto 26px auto;display:block;width:80%;">확인</button>
       </div>
     </div>
   </div>
-
   <div style="width:100vw;height:100vh;min-height:400px;background:#fff;position:relative;display:flex;justify-content:center;align-items:center;z-index:2;"></div>
-  <!-- ======= 하단 고정 Footer (로고+글씨 한줄) ======= -->
   <footer>
     <div class="eloom-footer-wrap">
       <div class="eloom-footer-brand-row">
@@ -450,7 +321,6 @@
     </div>
   </footer>
   <script>
-    // === 슬라이드 메뉴 ===
     const openBtn = document.getElementById('menu-link');
     const closeBtn = document.getElementById('close-menu-btn');
     const menu = document.getElementById('slide-menu');
@@ -468,15 +338,21 @@
     openBtn.onclick = openMenu;
     closeBtn.onclick = closeMenu;
     backdrop.onclick = closeMenu;
-
-    // ==== 3단 슬라이드 (메인 <-> wide <-> 빈칸 <-> footer) ====
+    document.addEventListener('keydown', function(e){
+      if(e.key === "Escape") {
+        if(menu.classList.contains('active')) closeMenu();
+        if(inquiryBg.classList.contains('active')) closeInquiryPanel();
+      }
+    });
     const scrollArrow = document.getElementById('scrollArrow');
     const mainBanner = document.getElementById('mainBanner');
     const wideImageSection = document.getElementById('wideImageSection');
     const blankSection = document.querySelector('body > div[style*="height:100vh"]');
-    let current = 0; // 0: main, 1: wide, 2: blank, 3: footer
+    let current = 0;
     let isScrolling = false;
+    function isMobile() { return window.innerWidth <= 600; }
     function slideToSection(dir){
+      if(isMobile()) return;
       if(isScrolling) return;
       isScrolling = true;
       if(dir === 'down'){
@@ -506,27 +382,22 @@
       setTimeout(toggleArrow, 850);
     }
     if(scrollArrow){
-      scrollArrow.addEventListener('click', function(){
-        slideToSection('down');
-      });
+      scrollArrow.addEventListener('click', function(){ slideToSection('down'); });
     }
     function handleWheel(e){
+      if(isMobile()) return;
       if(isScrolling) return;
-      if(e.deltaY > 30){
-        slideToSection('down');
-        e.preventDefault();
-      }else if(e.deltaY < -30){
-        slideToSection('up');
-        e.preventDefault();
-      }
+      if(e.deltaY > 30){ slideToSection('down'); e.preventDefault(); }
+      else if(e.deltaY < -30){ slideToSection('up'); e.preventDefault(); }
     }
     window.addEventListener('wheel', handleWheel, {passive:false});
-    // 터치(모바일)
     let touchStartY = 0;
     window.addEventListener('touchstart', function(e){
+      if(isMobile()) return;
       if(e.touches.length===1) touchStartY = e.touches[0].clientY;
     });
     window.addEventListener('touchend', function(e){
+      if(isMobile()) return;
       if(e.changedTouches.length===1){
         const deltaY = touchStartY - e.changedTouches[0].clientY;
         if(Math.abs(deltaY)>45){
@@ -535,9 +406,8 @@
         }
       }
     });
-    // 화살표 보이기/숨기기
     function toggleArrow(){
-      if(current===0){
+      if(current===0 && !isMobile()){
         scrollArrow.classList.remove('hide');
       }else{
         scrollArrow.classList.add('hide');
@@ -546,13 +416,10 @@
     document.addEventListener('DOMContentLoaded', toggleArrow);
     window.addEventListener('wheel', toggleArrow);
     window.addEventListener('touchend', toggleArrow);
-    // 최초 화면 리셋 (새로고침 시 항상 메인)
     window.addEventListener('beforeunload', function(){
       window.scrollTo(0,0);
       current = 0;
     });
-
-    // ===== 동그란 카드 중앙 슬라이더(순환, 클릭 시 상담패널) =====
     const wrapper = document.getElementById('circleSliderWrapper');
     const cards = Array.from(wrapper.children);
     let position = 0;
@@ -570,7 +437,6 @@
     }
     document.getElementById('circleSliderPrev').onclick = () => goTo(position - 1);
     document.getElementById('circleSliderNext').onclick = () => goTo(position + 1);
-    // 터치, 마우스 드래그 지원
     let startX = 0, isDown = false;
     wrapper.addEventListener('mousedown', e => {
       isDown = true; startX = e.clientX;
@@ -595,8 +461,6 @@
     });
     window.addEventListener('resize', updateSlider);
     updateSlider();
-
-    // ===== 상담 패널 로직 (카드 클릭 시 오픈, 입력/전송/완료) =====
     const inquiryBg = document.getElementById('inquiryBg');
     const inquiryCloseBtn = document.getElementById('inquiryCloseBtn');
     const inquiryStep1 = document.getElementById('inquiryStep1');
@@ -607,31 +471,45 @@
     const inquirySubmitBtn = document.getElementById('inquirySubmitBtn');
     const inquiryEndBtn = document.getElementById('inquiryEndBtn');
     const clearPhoneBtn = document.getElementById('clearPhoneBtn');
-
-    // 카드 클릭 시: 카테고리명 자동입력 + 패널 열기
-    cards.forEach(card => {
-      card.style.cursor = "pointer";
-      card.onclick = () => {
-        // 카테고리명(타이틀) 반영
-        const title = card.querySelector('.circle-card-title')?.textContent?.trim() || '';
-        inquiryCategory.value = title;
-        inquiryPhone.value = '';
-        inquiryReceiveChk.checked = true;
-        inquiryStep1.style.display = 'block';
-        inquiryStep2.style.display = 'none';
-        inquiryBg.classList.add('active');
-        document.body.style.overflow = "hidden";
-      };
+    let openedCardIndex = null;
+    function handleCardClick(card) {
+      if (!card) return;
+      if (inquiryBg.classList.contains('active') && openedCardIndex === cards.indexOf(card)) {
+        closeInquiryPanel();
+        return;
+      }
+      const title = card.querySelector('.circle-card-title')?.textContent?.trim() || '';
+      inquiryCategory.value = title;
+      inquiryPhone.value = '';
+      inquiryReceiveChk.checked = true;
+      inquiryStep1.style.display = 'block';
+      inquiryStep2.style.display = 'none';
+      inquiryBg.classList.add('active');
+      document.body.style.overflow = "hidden";
+      openedCardIndex = cards.indexOf(card);
+    }
+    wrapper.addEventListener('click', function(e) {
+      let card = e.target.closest('.circle-card');
+      if (!card) return;
+      handleCardClick(card);
     });
-    // 닫기
+    wrapper.querySelectorAll('.inquiry-btn').forEach(btn => {
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        let card = btn.closest('.circle-card');
+        handleCardClick(card);
+      });
+    });
+    inquiryBg.addEventListener('click', function(e){
+      if(e.target === inquiryBg) closeInquiryPanel();
+    });
     function closeInquiryPanel(){
       inquiryBg.classList.remove('active');
       document.body.style.overflow = "";
+      openedCardIndex = null;
     }
     inquiryCloseBtn.onclick = closeInquiryPanel;
     if(inquiryEndBtn) inquiryEndBtn.onclick = closeInquiryPanel;
-
-    // 입력 필드 클리어 버튼
     inquiryPhone.addEventListener('input', function(){
       clearPhoneBtn.style.display = inquiryPhone.value ? 'flex' : 'none';
     });
@@ -640,10 +518,7 @@
       clearPhoneBtn.style.display = 'none';
       inquiryPhone.focus();
     };
-
-    // 신청 버튼 로직
     inquirySubmitBtn.onclick = function(){
-      // 연락처 입력/체크박스 체크 필수
       const phone = inquiryPhone.value.trim();
       if(!phone) {
         inquiryPhone.focus();
@@ -657,11 +532,14 @@
         setTimeout(()=>{inquiryReceiveChk.parentElement.style.color='';}, 1000);
         return;
       }
-      // (여기서 서버로 전송할 수도 있음)
       inquiryStep1.style.display = 'none';
       inquiryStep2.style.display = 'block';
     };
-
+    document.addEventListener('keydown', function(e){
+      if(e.key === "Escape") {
+        if(inquiryBg.classList.contains('active')) closeInquiryPanel();
+      }
+    });
   </script>
 </body>
 </html>

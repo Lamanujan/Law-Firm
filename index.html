@@ -6,14 +6,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&family=Noto+Serif+KR:wght@700&display=swap">
   <style>
-    html, body { margin:0; padding:0; height:100%; overflow: hidden;}
-    body { font-family: 'Noto Sans KR', 'Pretendard', sans-serif; color:#222; background:#fff; min-height:100vh;}
-    .circle-card, .circle-card *:focus, .circle-card *:active,
-    .gra_btn, .gra_btn:focus, .gra_btn:active,
-    .inquiry-btn, .inquiry-btn:focus, .inquiry-btn:active {
-      outline: none !important;
-      box-shadow: none !important;
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body { font-family: 'Noto Sans KR', 'Pretendard', sans-serif; background: #fff; color: #222; }
+    /* 메인 고정 */
+    .main-fixed-section {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 10;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      pointer-events: none;
+      background: #111;
     }
+    .main-banner-img-area {
+      position:absolute; top:0; left:0; width:100vw; height:100vh; z-index:1; overflow:hidden;
+    }
+    .main-banner-img-area img { width:100vw; height:100vh; object-fit:cover; object-position:center; display:block;}
+    .main-content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2; width:100vw; display:flex; flex-direction:column; align-items:center; pointer-events:auto;}
+    .main-title-eloom { font-family: 'Noto Serif KR', 'Noto Serif', serif; font-size:6.5vw; font-weight:700; color:rgba(255,255,255,0.98); text-shadow: 0 2px 16px rgba(20,20,20,0.17), 0 1.5px 14px rgba(60,40,60,0.10); letter-spacing:0.14em; text-align:center; text-transform:uppercase; line-height:1.08; margin:0;}
+    @media (max-width:900px) { .main-title-eloom { font-size:11vw;} }
+    @media (max-width:600px) { .main-title-eloom { font-size:15vw;} }
+    .scroll-arrow { position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%); z-index: 5; font-size: 2.1rem; color: #fff; opacity: 0.92; cursor: pointer; animation: arrow-down-bounce 1.4s infinite; transition: opacity 0.33s; user-select: none; pointer-events: auto; filter: drop-shadow(0 0 9px rgba(0,0,0,0.22)); }
+    @keyframes arrow-down-bounce { 0%, 100% { transform: translateX(-50%) translateY(0);} 50% { transform: translateX(-50%) translateY(13px);} }
+    .scroll-arrow.hide { opacity: 0; pointer-events: none; }
+    /* 아래 모든 페이지(카드/섹션) 래퍼 */
+    .content-wrap {
+      position: relative;
+      margin-top: 100vh; /* 메인 fixed 만큼 띄우기 */
+      z-index: 20;
+      background: #fff;
+    }
+    /* --- 이하 기존 코드 모두 그대로 --- */
     header {
       background: rgba(24,24,24,0.35);
       position:fixed; top:0; left:0; width:100vw; z-index:1000;
@@ -53,17 +75,8 @@
     .slide-menu-list a:hover, .slide-menu-list a:focus { color: #d22626; background:transparent;}
     .slide-menu-info { font-size: 0.73rem; color: #b4b4b4; font-family: 'Noto Sans KR', 'Pretendard', sans-serif; padding: 1.1rem 1.7em 0.8rem 2.1em; border-top: 1px solid #f0f0f0; background: none; line-height: 1.5; word-break: keep-all; letter-spacing: 0.01em;}
     .slide-menu-list { margin-bottom:2.2rem;}
-    .snap-slide-section { width:100vw; height:100vh; min-height:400px; position:relative; overflow:hidden; margin:0; padding:0; display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:1; background: #111;}
-    .main-banner-img-area { position:absolute; top:0; left:0; width:100vw; height:100vh; z-index:1; overflow:hidden;}
-    .main-banner-img-area img { width:100vw; height:100vh; min-height:500px; object-fit:cover; object-position:center; display:block;}
-    .main-content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2; width:100vw; display:flex; flex-direction:column; align-items:center; pointer-events:none;}
-    .main-title-eloom { font-family: 'Noto Serif KR', 'Noto Serif', serif; font-size:6.5vw; font-weight:700; color:rgba(255,255,255,0.98); text-shadow: 0 2px 16px rgba(20,20,20,0.17), 0 1.5px 14px rgba(60,40,60,0.10); letter-spacing:0.14em; text-align:center; text-transform:uppercase; line-height:1.08; margin:0;}
-    @media (max-width:900px) { .main-title-eloom { font-size:11vw;} }
-    @media (max-width:600px) { .main-title-eloom { font-size:15vw;} }
-    .scroll-arrow { position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%); z-index: 5; font-size: 2.1rem; color: #fff; opacity: 0.92; cursor: pointer; animation: arrow-down-bounce 1.4s infinite; transition: opacity 0.33s; user-select: none; pointer-events: auto; filter: drop-shadow(0 0 9px rgba(0,0,0,0.22)); }
-    @keyframes arrow-down-bounce { 0%, 100% { transform: translateX(-50%) translateY(0);} 50% { transform: translateX(-50%) translateY(13px);} }
-    .scroll-arrow.hide { opacity: 0; pointer-events: none; }
-    .circle-slider-section { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; background: #fff; overflow: hidden; position: relative; z-index: 2; }
+    /* 카드/슬라이드/기타 모든 스타일은 기존 코드와 동일하게 */
+    .circle-slider-section { min-height: 100vh; width: 100vw; display: flex; align-items: center; justify-content: center; background: #fff; position: relative; }
     .circle-slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); color: #333; font-size: 3rem; font-weight: 700; z-index: 10; cursor: pointer; background: none; border: none; opacity: 0.88; padding: 0 10px; user-select: none; transition: color 0.15s; outline: none; }
     .circle-slider-arrow.left { left: 1vw; }
     .circle-slider-arrow.right { right: 1vw; }
@@ -96,6 +109,13 @@
       .circle-slider-arrow { font-size: 1.7rem;}
       .gra_btn.md.fff { font-size: 0.94rem; padding: 12px 8vw;}
     }
+    @media (max-width:600px) {
+      .main-title-eloom { font-size:15vw;}
+      .circle-slider-section, .after-section, body > div[style*="height:100vh"] {
+        min-height: auto !important; height: auto !important;
+      }
+    }
+    .after-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;}
     footer { width: 100vw; background: #f5f5f7; border-top: 1.5px solid #dadada; padding: 34px 0 18px 0; margin: 0 auto 0 auto; box-sizing: border-box; text-align: center;}
     .eloom-footer-wrap { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 13px; max-width: 1100px; margin: 0 auto 0 auto;}
     .eloom-footer-brand-row { display: flex; align-items: center; justify-content: center; gap: 0.44em; margin-bottom: 7px;}
@@ -105,15 +125,6 @@
     .eloom-footer-info span { color: #b0b0b0; margin: 0 0.45em; font-weight:300;}
     .eloom-footer-sub { color: #666; font-size: 13px; line-height: 1.6; margin-bottom: 1px; font-weight: 400; word-break: keep-all;}
     .eloom-footer-copy { color: #bcbcbc; font-size: 12px; font-weight: 400; margin-top: 12px;}
-    @media (max-width:700px) { .eloom-footer-wrap { max-width: 97vw; padding-left:2vw; padding-right:2vw;} .eloom-footer-brand-row img { height: 1em;} .eloom-footer-brand-row span { font-size: 1em;} .eloom-footer-info, .eloom-footer-sub { font-size:12px;} }
-    @media (max-width:600px) {
-      .snap-slide-section, .circle-slider-section, body > div[style*="height:100vh"] {
-        height: auto !important; min-height: 0 !important; overflow: visible !important; position: static !important; display: block !important;
-      }
-      .main-banner-img-area, .main-content { position: static !important; transform: none !important; width: 100% !important;}
-      .scroll-arrow { display: none !important; }
-    }
-
     /* 상담 패널 전체높이, 폼만 중앙 */
     .inquiryBg {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -198,6 +209,7 @@
   </style>
 </head>
 <body>
+  <!-- 헤더/메뉴 (화면 최상단 고정) -->
   <header>
     <div class="nav-bar">
       <div class="nav-left">
@@ -231,7 +243,9 @@
       <div style="margin-top:0.6em; font-weight:500;">Copyright 2022 이룸 All rights reserved</div>
     </div>
   </nav>
-  <div class="snap-slide-section" id="mainBanner">
+
+  <!-- 메인 섹션: 고정(fixed) -->
+  <div id="mainBanner" class="main-fixed-section">
     <div class="main-banner-img-area">
       <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80" alt="대표 이미지">
     </div>
@@ -240,34 +254,64 @@
     </div>
     <div class="scroll-arrow" id="scrollArrow" title="아래로 이동">&#8595;</div>
   </div>
-  <div class="circle-slider-section" id="wideImageSection">
-    <button class="circle-slider-arrow left" id="circleSliderPrev" aria-label="이전">〈</button>
-    <div class="circle-slider-wrapper" id="circleSliderWrapper">
-      <div class="circle-card" tabindex="0">
-        <div class="circle-img-area">
-          <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=900&q=80" alt="개인회생">
+
+  <!-- 아래 컨텐츠 전체를 래핑 -->
+  <div class="content-wrap">
+    <!-- 카드 슬라이드 등 모든 섹션은 여기서부터 -->
+    <div class="circle-slider-section" id="wideImageSection">
+      <button class="circle-slider-arrow left" id="circleSliderPrev" aria-label="이전">〈</button>
+      <div class="circle-slider-wrapper" id="circleSliderWrapper">
+        <div class="circle-card" tabindex="0">
+          <div class="circle-img-area">
+            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=900&q=80" alt="개인회생">
+          </div>
+          <div class="circle-card-title">개인회생</div>
+          <div class="circle-card-desc">급여 압류 중단, 3년 내 신속 면책.<br>채무·이자 최대 90% 탕감 가능</div>
+          <button data-inquiry-option="채무 탕감" data-case="개인회생파산" type="button" class="gra_btn md fff red inquiry-btn">
+            개인회생파산 상담 신청하기
+            <span class="arrow-text">〉</span>
+          </button>
         </div>
-        <div class="circle-card-title">개인회생</div>
-        <div class="circle-card-desc">급여 압류 중단, 3년 내 신속 면책.<br>채무·이자 최대 90% 탕감 가능</div>
-        <button data-inquiry-option="채무 탕감" data-case="개인회생파산" type="button" class="gra_btn md fff red inquiry-btn">
-          개인회생파산 상담 신청하기
-          <span class="arrow-text">〉</span>
-        </button>
-      </div>
-      <div class="circle-card" tabindex="0">
-        <div class="circle-img-area">
-          <img src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=900&q=80" alt="파산 면책">
+        <div class="circle-card" tabindex="0">
+          <div class="circle-img-area">
+            <img src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=900&q=80" alt="파산 면책">
+          </div>
+          <div class="circle-card-title">파산 면책</div>
+          <div class="circle-card-desc">법원의 판결로 모든 빚 100% 탕감.<br>회생이 불가능한 경우, 완전 새출발 지원</div>
+          <button data-inquiry-option="채무 탕감" data-case="개인회생파산" type="button" class="gra_btn md fff blue inquiry-btn">
+            개인회생파산 상담 신청하기
+            <span class="arrow-text">〉</span>
+          </button>
         </div>
-        <div class="circle-card-title">파산 면책</div>
-        <div class="circle-card-desc">법원의 판결로 모든 빚 100% 탕감.<br>회생이 불가능한 경우, 완전 새출발 지원</div>
-        <button data-inquiry-option="채무 탕감" data-case="개인회생파산" type="button" class="gra_btn md fff blue inquiry-btn">
-          개인회생파산 상담 신청하기
-          <span class="arrow-text">〉</span>
-        </button>
       </div>
+      <button class="circle-slider-arrow right" id="circleSliderNext" aria-label="다음">〉</button>
     </div>
-    <button class="circle-slider-arrow right" id="circleSliderNext" aria-label="다음">〉</button>
+    <div class="after-section">
+      <h2>이 아래로 추가 섹션</h2>
+      <p>여기에 원하는 컨텐츠 계속 추가</p>
+    </div>
+    <footer>
+      <div class="eloom-footer-wrap">
+        <div class="eloom-footer-brand-row">
+          <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/logo.png?raw=true" alt="ELOOM LAW FIRM" loading="lazy" decoding="async">
+          <span>ELOOM LAW FIRM</span>
+        </div>
+        <div class="eloom-footer-info">
+          대표 장혜승
+          <span>ㅣ</span> 사업자등록번호 306-12-67673
+        </div>
+        <div class="eloom-footer-sub">
+          <b>ADD</b> 부산광역시 연제구 법원남로15번길 9, 3층(거제동, 덕원빌딩)<br>
+          <b>TEL</b> 1533-0560 <span>ㅣ</span> <b>FAX</b> 051-714-0168 <span>ㅣ</span> <b>E-MAIL</b> ipa@withlp.com
+        </div>
+        <div class="eloom-footer-copy">
+          Copyright 2022 이룸 All rights reserved
+        </div>
+      </div>
+    </footer>
   </div>
+  
+  <!-- 상담 패널 (오버레이) -->
   <div class="inquiryBg" id="inquiryBg">
     <div class="inquiryForm">
       <button class="inquiryCloseBtn" id="inquiryCloseBtn" aria-label="닫기">&times;</button>
@@ -300,27 +344,9 @@
       </div>
     </div>
   </div>
-  <div style="width:100vw;height:100vh;min-height:400px;background:#fff;position:relative;display:flex;justify-content:center;align-items:center;z-index:2;"></div>
-  <footer>
-    <div class="eloom-footer-wrap">
-      <div class="eloom-footer-brand-row">
-        <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/logo.png?raw=true" alt="ELOOM LAW FIRM" loading="lazy" decoding="async">
-        <span>ELOOM LAW FIRM</span>
-      </div>
-      <div class="eloom-footer-info">
-        대표 장혜승
-        <span>ㅣ</span> 사업자등록번호 306-12-67673
-      </div>
-      <div class="eloom-footer-sub">
-        <b>ADD</b> 부산광역시 연제구 법원남로15번길 9, 3층(거제동, 덕원빌딩)<br>
-        <b>TEL</b> 1533-0560 <span>ㅣ</span> <b>FAX</b> 051-714-0168 <span>ㅣ</span> <b>E-MAIL</b> ipa@withlp.com
-      </div>
-      <div class="eloom-footer-copy">
-        Copyright 2022 이룸 All rights reserved
-      </div>
-    </div>
-  </footer>
+  
   <script>
+    // 메뉴
     const openBtn = document.getElementById('menu-link');
     const closeBtn = document.getElementById('close-menu-btn');
     const menu = document.getElementById('slide-menu');
@@ -328,106 +354,29 @@
     function openMenu() {
       menu.classList.add('active');
       backdrop.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = '';
     }
     function closeMenu() {
       menu.classList.remove('active');
       backdrop.classList.remove('active');
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = '';
     }
     openBtn.onclick = openMenu;
     closeBtn.onclick = closeMenu;
     backdrop.onclick = closeMenu;
-    document.addEventListener('keydown', function(e){
-      if(e.key === "Escape") {
-        if(menu.classList.contains('active')) closeMenu();
-        if(inquiryBg.classList.contains('active')) closeInquiryPanel();
-      }
-    });
-    const scrollArrow = document.getElementById('scrollArrow');
-    const mainBanner = document.getElementById('mainBanner');
-    const wideImageSection = document.getElementById('wideImageSection');
-    const blankSection = document.querySelector('body > div[style*="height:100vh"]');
-    let current = 0;
-    let isScrolling = false;
-    function isMobile() { return window.innerWidth <= 600; }
-    function slideToSection(dir){
-      if(isMobile()) return;
-      if(isScrolling) return;
-      isScrolling = true;
-      if(dir === 'down'){
-        if(current === 0){
-          wideImageSection.scrollIntoView({behavior:"smooth"});
-          current = 1;
-        }else if(current === 1){
-          blankSection.scrollIntoView({behavior:"smooth"});
-          current = 2;
-        }else if(current === 2){
-          document.querySelector('footer').scrollIntoView({behavior:"smooth"});
-          current = 3;
-        }
-      }else if(dir === 'up'){
-        if(current === 3){
-          blankSection.scrollIntoView({behavior:"smooth"});
-          current = 2;
-        }else if(current === 2){
-          wideImageSection.scrollIntoView({behavior:"smooth"});
-          current = 1;
-        }else if(current === 1){
-          mainBanner.scrollIntoView({behavior:"smooth"});
-          current = 0;
-        }
-      }
-      setTimeout(()=>{isScrolling=false;}, 800);
-      setTimeout(toggleArrow, 850);
-    }
-    if(scrollArrow){
-      scrollArrow.addEventListener('click', function(){ slideToSection('down'); });
-    }
-    function handleWheel(e){
-      if(isMobile()) return;
-      if(isScrolling) return;
-      if(e.deltaY > 30){ slideToSection('down'); e.preventDefault(); }
-      else if(e.deltaY < -30){ slideToSection('up'); e.preventDefault(); }
-    }
-    window.addEventListener('wheel', handleWheel, {passive:false});
-    let touchStartY = 0;
-    window.addEventListener('touchstart', function(e){
-      if(isMobile()) return;
-      if(e.touches.length===1) touchStartY = e.touches[0].clientY;
-    });
-    window.addEventListener('touchend', function(e){
-      if(isMobile()) return;
-      if(e.changedTouches.length===1){
-        const deltaY = touchStartY - e.changedTouches[0].clientY;
-        if(Math.abs(deltaY)>45){
-          if(deltaY > 0) slideToSection('down');
-          else if(deltaY < 0) slideToSection('up');
-        }
-      }
-    });
-    function toggleArrow(){
-      if(current===0 && !isMobile()){
-        scrollArrow.classList.remove('hide');
-      }else{
-        scrollArrow.classList.add('hide');
-      }
-    }
-    document.addEventListener('DOMContentLoaded', toggleArrow);
-    window.addEventListener('wheel', toggleArrow);
-    window.addEventListener('touchend', toggleArrow);
-    window.addEventListener('beforeunload', function(){
-      window.scrollTo(0,0);
-      current = 0;
-    });
+
+    // 카드 슬라이드
     const wrapper = document.getElementById('circleSliderWrapper');
     const cards = Array.from(wrapper.children);
     let position = 0;
     let maxPosition = cards.length - 1;
+
     function updateSlider() {
-      cards.forEach((card, i) => {
-        card.style.display = i === position ? 'flex' : 'none';
-      });
+      if (window.innerWidth <= 600) {
+        cards.forEach(card => { card.style.display = 'flex'; });
+      } else {
+        cards.forEach((card, i) => { card.style.display = i === position ? 'flex' : 'none'; });
+      }
     }
     function goTo(pos) {
       if (pos < 0) position = maxPosition;
@@ -437,6 +386,8 @@
     }
     document.getElementById('circleSliderPrev').onclick = () => goTo(position - 1);
     document.getElementById('circleSliderNext').onclick = () => goTo(position + 1);
+
+    // Drag & Touch
     let startX = 0, isDown = false;
     wrapper.addEventListener('mousedown', e => {
       isDown = true; startX = e.clientX;
@@ -461,6 +412,8 @@
     });
     window.addEventListener('resize', updateSlider);
     updateSlider();
+
+    // 상담 패널
     const inquiryBg = document.getElementById('inquiryBg');
     const inquiryCloseBtn = document.getElementById('inquiryCloseBtn');
     const inquiryStep1 = document.getElementById('inquiryStep1');
@@ -540,6 +493,11 @@
         if(inquiryBg.classList.contains('active')) closeInquiryPanel();
       }
     });
+
+    // 아래로 이동 클릭시
+    document.getElementById('scrollArrow').onclick = function() {
+      window.scrollTo({top: window.innerHeight, behavior: 'smooth'});
+    };
   </script>
 </body>
 </html>

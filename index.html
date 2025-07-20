@@ -6,20 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&family=Noto+Serif+KR:wght@700&display=swap">
   <style>
-    html, body { height: 100%; margin: 0; padding: 0; }
-    /* 스크롤바 안보이게 */
     html, body {
-      scrollbar-width: none;      /* Firefox */
-      -ms-overflow-style: none;   /* IE, Edge */
-      overscroll-behavior: none;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      /* 모든 브라우저 스크롤바 숨기기 */
+      scrollbar-width: none !important;    /* Firefox */
+      -ms-overflow-style: none !important; /* IE, Edge */
     }
-    body::-webkit-scrollbar { display: none; }
-    html::-webkit-scrollbar { display: none; }
+    html::-webkit-scrollbar, body::-webkit-scrollbar {
+      display: none !important; /* Chrome, Safari, Opera, Edge(Chromium) */
+    }
     body {
       font-family: 'Noto Sans KR', 'Pretendard', sans-serif;
       background: #fff; color: #222;
     }
-    /* 카드 포커스/클릭 아웃라인 제거 */
+    /* 카드 포커스 아웃라인 제거 */
     .circle-card:focus,
     .circle-card:active,
     .circle-card *:focus,
@@ -27,9 +29,9 @@
       outline: none !important;
       box-shadow: none !important;
     }
+    /* ----------- 메인 배너(여러장 페이드) ----------- */
     .main-fixed-section {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       z-index: 10;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       pointer-events: none;
@@ -55,12 +57,22 @@
     .scroll-arrow { position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%); z-index: 5; font-size: 2.1rem; color: #fff; opacity: 0.92; cursor: pointer; animation: arrow-down-bounce 1.4s infinite; transition: opacity 0.33s; user-select: none; pointer-events: auto; filter: drop-shadow(0 0 9px rgba(0,0,0,0.22)); }
     @keyframes arrow-down-bounce { 0%, 100% { transform: translateX(-50%) translateY(0);} 50% { transform: translateX(-50%) translateY(13px);} }
     .scroll-arrow.hide { opacity: 0; pointer-events: none; }
-    .content-wrap {
-      position: relative;
-      margin-top: 100vh;
-      z-index: 20;
-      background: #fff;
+    /* ------- 이미지 전용 풀스크린 섹션 -------- */
+    .fullscreen-img-section {
+      width: 100vw; height: 100vh; min-height: 320px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+      background: #191a1c;
     }
+    .fullscreen-img-section img {
+      width: 100vw; height: 100vh;
+      object-fit: cover; object-position: center;
+      display: block;
+      /* 모바일 세로, PC 모두 딱 맞게 */
+      max-width: 100vw; max-height: 100vh;
+    }
+    /* --- */
+    .content-wrap { position: relative; margin-top: 100vh; z-index: 20; background: #fff; }
     header {
       background: rgba(24,24,24,0.35);
       position:fixed; top:0; left:0; width:100vw; z-index:1000;
@@ -232,7 +244,7 @@
   </style>
 </head>
 <body>
-  <!-- 헤더/메뉴 -->
+  <!-- 헤더/메뉴 (화면 최상단 고정) -->
   <header>
     <div class="nav-bar">
       <div class="nav-left">
@@ -266,20 +278,22 @@
       <div style="margin-top:0.6em; font-weight:500;">Copyright 2022 이룸 All rights reserved</div>
     </div>
   </nav>
-
-  <!-- 메인 섹션: 고정(fixed) -->
+  <!-- 메인 섹션: 고정(fixed, 여러장 페이드) -->
   <div id="mainBanner" class="main-fixed-section">
     <div class="main-banner-img-area" id="mainBannerImgs">
-      <!-- 여러장 이미지 JS로 삽입 -->
+      <!-- 여러장 이미지 JS로 들어감 -->
     </div>
     <div class="main-content">
       <h1 class="main-title-eloom">ELOOM</h1>
     </div>
     <div class="scroll-arrow" id="scrollArrow" title="아래로 이동">&#8595;</div>
   </div>
-
-  <!-- 아래 컨텐츠 전체를 래핑 -->
   <div class="content-wrap">
+    <!-- [이미지 전용 풀스크린 섹션] -->
+    <section class="fullscreen-img-section">
+      <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/i%20(3).jpg?raw=true" alt="풀스크린 이미지">
+      <!-- 예시: 1800x1200 또는 1920x1080 이상 고화질로 넣으세요 -->
+    </section>
     <!-- 카드 슬라이드 등 모든 섹션은 여기서부터 -->
     <div class="circle-slider-section" id="wideImageSection">
       <button class="circle-slider-arrow left" id="circleSliderPrev" aria-label="이전">〈</button>
@@ -333,7 +347,6 @@
       </div>
     </footer>
   </div>
-  
   <!-- 상담 패널 (오버레이) -->
   <div class="inquiryBg" id="inquiryBg">
     <div class="inquiryForm">
@@ -367,7 +380,6 @@
       </div>
     </div>
   </div>
-  
   <script>
     // 메뉴
     const openBtn = document.getElementById('menu-link');
@@ -393,7 +405,6 @@
     const cards = Array.from(wrapper.children);
     let position = 0;
     let maxPosition = cards.length - 1;
-
     function updateSlider() {
       if (window.innerWidth <= 600) {
         cards.forEach(card => { card.style.display = 'flex'; });
@@ -409,7 +420,6 @@
     }
     document.getElementById('circleSliderPrev').onclick = () => goTo(position - 1);
     document.getElementById('circleSliderNext').onclick = () => goTo(position + 1);
-
     // Drag & Touch
     let startX = 0, isDown = false;
     wrapper.addEventListener('mousedown', e => {
@@ -519,9 +529,9 @@
 
     // 메인 이미지 여러장 페이드
     const bannerImgs = [
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80"
+      "https://github.com/Lamanujan/Law-Firm/raw/main/images/i%20(1).jpg?raw=true",
+      "https://github.com/Lamanujan/Law-Firm/raw/main/images/i%20(2).jpg?raw=true",
+      "https://github.com/Lamanujan/Law-Firm/raw/main/images/i%20(4).jpg?raw=true"
     ];
     const mainBannerImgsArea = document.getElementById('mainBannerImgs');
     let currentBannerIdx = 0;

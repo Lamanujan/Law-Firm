@@ -33,22 +33,97 @@
     .sidebar-link img { height:16px; width:16px; }
     .sidebar-blank-area { flex:1; }
     .sidebar-bottom-info { padding: 0 24px 16px 24px; }
-    .sidebar-bottom-info .sidebar-company-info { color:#333; font-size:0.93rem; line-height:1.55; margin-bottom:15px; font-weight:500; letter-spacing:0.01em; text-align:left;}
-    .sidebar-sns { display:flex; gap:10px; margin-bottom:8px; }
+    .sidebar-bottom-info .sidebar-company-info { color:#333; font-size:0.78rem; line-height:1.6; font-weight:400; letter-spacing:0.01em; text-align:left; margin-bottom:12px;}
+    .sidebar-sns { display:flex; gap:10px; margin-bottom:4px;}
     .sidebar-sns a { display:inline-flex; }
-    .sidebar-sns svg { width:22px; height:22px; }
-
+    .sidebar-sns svg { width:19px; height:19px; }
     @media (max-width:500px) {
       .sidebar-container { width:90vw; min-width:0; }
       .sidebar-header { padding:16px 13px 0 13px;}
-      .sidebar-link { font-size:0.97rem; padding:8px 13px 8px 13px;}
+      .sidebar-link { font-size:0.95rem; padding:8px 13px 8px 13px;}
       .sidebar-bottom-info { padding:0 13px 13px 13px;}
-      .sidebar-sns svg { width:18px; height:18px;}
+      .sidebar-sns svg { width:16px; height:16px;}
       .sidebar-logo-img { width:26px; height:26px;}
-      .sidebar-brand { font-size:1.04rem;}
-      .sidebar-company-info { font-size:0.80rem;}
+      .sidebar-brand { font-size:0.98rem;}
+      .sidebar-company-info { font-size:0.69rem;}
     }
 
+    /* ===== 상담 패널 ===== */
+    .inquiryBg {
+      position: fixed; left: 0; top:0; width: 100vw; height: 100dvh;
+      background: rgba(0,0,0,0.39); z-index: 2000;
+      display: block;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s;
+    }
+    .inquiryBg.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .inquiryForm {
+      position: fixed; right: 0; top: 0; width: 370px; max-width: 97vw; height: 100dvh;
+      background: #fff; box-shadow: -8px 0 40px rgba(60,50,50,0.13), -2px 0 10px rgba(60,50,50,0.07);
+      border-radius: 0 0 0 24px; padding: 0; z-index: 2010;
+      display: flex; flex-direction: column; justify-content: center; align-items: stretch;
+      transform: translateX(100%); opacity: 0;
+      transition: transform 0.85s cubic-bezier(.77,0,.18,1), opacity 0.85s cubic-bezier(.77,0,.18,1);
+    }
+    .inquiryBg.active .inquiryForm {
+      transform: translateX(0); opacity: 1;
+    }
+    .inquiry-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;   /* ← 중요! 왼쪽 정렬 */
+  position: relative;
+  padding: 14px 22px 6px 24px;
+  box-sizing: border-box;
+  min-height: 44px;
+  background: #fff;
+}
+.inquiry-header .logo-area {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  justify-content: flex-start;   /* ← 중요! 왼쪽 정렬 */
+  margin-right: 0;               /* 오른쪽 여백 없앰 */
+}
+    .inquiry-header .logo-area img { height: 32px; width: 32px; border-radius: 50%; object-fit: cover;}
+    .inquiry-header .logo-area span { font-weight: 700; font-size: 1.14rem; letter-spacing: 0.03em; color: #232323;}
+    .inquiryCloseBtn { position: absolute; top: 10px; right: 16px; font-size: 2.2rem; color: #686868; background: none; border: none; cursor: pointer; opacity: 0.88; font-weight: 900; line-height: 1; transition: color .18s, opacity .13s; z-index: 2; padding: 0 8px;}
+    .inquiryCloseBtn:hover { color: #d22626; opacity: 1; }
+    .inquiryForm-inner { margin: 0 auto; max-width: 320px; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; min-height: 0; }
+    .inquiryForm-content-center { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; width: 100%; min-height: 0; height: 100%; }
+    .inquiry_step1 .top_title p { font-size: 1.13rem; text-align: center; color: #232323; margin: 0 0 15px 0;}
+    .form_box { margin-bottom: 13px; width: 100%; }
+    .form_box input[type="text"], .form_box input[type="tel"] { width: 100%; font-size: 1.09rem; padding: 12px 10px; border: 1px solid #e1e1e1; border-radius: 7px; box-sizing: border-box; background: #fafbfc; outline: none; transition: border .15s;}
+    .form_box input[type="text"]:focus, .form_box input[type="tel"]:focus { border-color: #d22626; background: #fff;}
+    .form_clear_btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 1.07rem; color: #b3b3b3; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.75; padding: 0; height: 2.2em; width: 2.2em;}
+    .form_clear_btn:hover { color: #d22626; }
+    .receive_chk_box { margin: 0 0 12px 0; font-size: 0.99rem; color: #333; }
+    .receive_chk_box input[type="checkbox"] { margin-right: 8px; transform: scale(1.12);}
+    .form_bt_btn { width: 100%; padding: 13px 0; background: linear-gradient(90deg,#d22626 0%,#e4562b 100%); border: none; border-radius: 9px; color: #fff; font-size: 1.14rem; font-weight: 700; cursor: pointer; transition: background .16s, transform .13s;}
+    .form_bt_btn:hover, .form_bt_btn:focus { background: linear-gradient(90deg, #b82020 0%, #b53d19 100%); transform: translateY(-2px) scale(1.03);}
+    @media (max-width:700px) {
+      .main-image-section, .main-image-section img, .main-image-section::after { height: 60vh !important; min-height: 300px !important; }
+      .inquiryForm {
+        width: 92vw !important; left: 4vw !important; right: 4vw !important; bottom: 0;
+        top: auto !important; max-width: 92vw; height: 61vh !important; max-height: 61vh !important;
+        border-radius: 20px 20px 0 0; box-shadow: 0 -2px 24px #2223;
+        transform: translateY(100%); opacity: 0;
+        position: fixed;
+        transition: transform 0.85s cubic-bezier(.77,0,.18,1), opacity 0.85s cubic-bezier(.77,0,.18,1);
+        overflow-y: auto !important; margin-bottom: 12px; justify-content: flex-start;
+      }
+      .inquiryBg.active .inquiryForm { transform: translateY(0); opacity: 1; }
+      .inquiryForm-inner { max-width: 91vw !important; padding: 14px 4vw 8px 4vw; max-height: 55vh !important; overflow-y: auto; }
+      .inquiry-header { margin-top: 6px !important; margin-bottom: 10px !important; }
+      .inquiry-header .logo-area img { height: 27px; width: 27px;}
+      .inquiry-header .logo-area span { font-size: 1.04rem;}
+    }
+    @media (max-width:400px) { .inquiryForm-inner { padding: 8px 2vw 10px 2vw; } }
     /* ===== 기타 스타일(메인, 카드, 이미지, 패널 등) ===== */
     .main-banner-section {position: fixed;top: 0; left: 0; width: 100vw; height: 100dvh;z-index: 2;transition: opacity 0.38s cubic-bezier(.8,0,.2,1), transform 0.38s cubic-bezier(.8,0,.2,1), z-index 0.2s;will-change: opacity, transform;pointer-events:auto;background: #111;}
     .main-banner-section.hide {opacity: 0;transform: translateY(-50px) scale(0.98);pointer-events: none;z-index: 0;}
@@ -78,10 +153,19 @@
     .circle-slider-arrow { position:absolute; top:50%; transform:translateY(-50%); color:#333; font-size:2.5rem; font-weight:700; z-index:10; cursor:pointer; background:none; border:none; opacity:0.88; padding:0 10px; }
     .circle-slider-arrow.left { left: 1vw; }
     .circle-slider-arrow.right { right: 1vw; }
+    @media (max-width:900px) { .circle-slider-section { padding-top: 28px; padding-bottom: 24px; } .circle-slider-wrapper { min-height: 90vw; } .circle-card, .circle-img-area { width: 85vw !important; } .circle-img-area { height: 85vw !important; } .circle-card-title { font-size: 5vw;} }
+    @media (max-width:600px) {
+      .circle-card { width: 70vw !important; }
+      .circle-img-area { width: 42vw !important; height: 42vw !important; min-width:42vw !important; min-height:42vw !important; max-width:42vw !important; max-height:42vw !important; border-radius:50% !important; margin-bottom:10px; }
+      .circle-card-title { font-size: 4.6vw;}
+    }
     .bookslideWrap { width:100vw; overflow:hidden; margin:0 auto; padding:36px 0 50px 0; background:#fff; }
     .bookslide-track { display:flex; gap:28px; will-change:transform; user-select:none; cursor:grab; transition:none !important;}
     .bookslide { flex:0 0 auto; width:18vw; max-width:112px; min-width:68px; height:24vw; max-height:160px; min-height:92px; border-radius:13px; background:#fff; box-shadow:0 4px 16px #0001; display:flex; align-items:center; justify-content:center; transition: width 0.25s, height 0.25s, margin 0.25s;}
     .bookslide img { width:100%; height:100%; border-radius:13px; object-fit:cover; display:block; box-shadow:0 2px 8px #0002;}
+    @media (max-width:1024px) { .bookslide { width:27vw; height:35vw; max-width:120px; max-height:156px; } .bookslide-track { gap:18px;} }
+    @media (max-width:600px) { .bookslide { width:43vw; height:53vw; max-width:99px; max-height:122px;} .bookslide-track { gap:10px;} }
+    .bookslide-track, .bookslide { transition: width 0.25s, height 0.25s, margin 0.25s;}
     footer { width:100vw; background:#f5f5f7; border-top:1.5px solid #dadada; padding:34px 0 18px 0; text-align:center; }
     .eloom-footer-brand-row { display:flex; align-items:center; justify-content:center; gap:0.44em; margin-bottom:7px;}
     .eloom-footer-brand-row img { height:1.18em; }
@@ -106,10 +190,9 @@
       </div>
     </div>
   </header>
-
-  <!-- ===== 사이드 메뉴(베너) ===== -->
+  <!-- 사이드 메뉴(메뉴 베너) -->
   <div class="sidebar-bg" id="sidebarBg">
-    <nav class="sidebar-container" role="navigation" aria-label="메뉴">
+    <nav class="sidebar-container">
       <div class="sidebar-header">
         <div class="sidebar-logo-link">
           <div class="sidebar-logo-img"></div>
@@ -118,55 +201,73 @@
         <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="닫기">&times;</button>
       </div>
       <div class="sidebar-link-list">
-        <a class="sidebar-link" href="https://place.star-law.com/seoul" target="_blank">
-          CONTACT US
-          <img src="https://main.star-law.com/_next/image?url=%2Fimages%2Fright-arrow.svg&w=48&q=75" alt="arrow">
-        </a>
-        <a class="sidebar-link" href="#" onclick="return false;">
-          성공사례
-          <img src="https://main.star-law.com/_next/image?url=%2Fimages%2Fright-arrow.svg&w=48&q=75" alt="arrow">
-        </a>
-        <a class="sidebar-link" href="https://post.star-law.com" target="_blank">
-          콘텐츠
-          <img src="https://main.star-law.com/_next/image?url=%2Fimages%2Fright-arrow.svg&w=48&q=75" alt="arrow">
-        </a>
+        <a class="sidebar-link" href="https://place.star-law.com/seoul" target="_blank">CONTACT US</a>
+        <a class="sidebar-link" href="#" style="pointer-events:none;">성공사례</a>
+        <a class="sidebar-link" href="https://post.star-law.com" target="_blank">콘텐츠</a>
       </div>
       <div class="sidebar-blank-area"></div>
       <div class="sidebar-bottom-info">
         <div class="sidebar-sns">
-          <a href="https://www.youtube.com/@STARLAWFIRM" target="_blank" aria-label="유튜브">
-            <svg viewBox="0 0 48 48" fill="none">
-              <circle cx="24" cy="24" r="24" fill="#FF0000"/>
-              <polygon points="20,16 36,24 20,32" fill="#fff"/>
-            </svg>
+          <a href="https://www.youtube.com/@STARLAWFIRM" target="_blank" title="YouTube">
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="#FF0000"/><path d="M33.81 19.13a2.76 2.76 0 0 0-1.93-1.95C29.62 17 24 17 24 17s-5.62 0-7.88.18a2.76 2.76 0 0 0-1.93 1.95A28.41 28.41 0 0 0 14 24a28.41 28.41 0 0 0 .19 4.87 2.76 2.76 0 0 0 1.93 1.95C18.38 31 24 31 24 31s5.62 0 7.88-.18a2.76 2.76 0 0 0 1.93-1.95A28.41 28.41 0 0 0 34 24a28.41 28.41 0 0 0-.19-4.87z" fill="#fff"/><path d="M22.32 27.13v-6.26l6.03 3.13-6.03 3.13z" fill="#FF0000"/></svg>
           </a>
-          <a href="https://www.instagram.com/starlawfirm_official" target="_blank" aria-label="인스타그램">
-            <svg viewBox="0 0 48 48" fill="none">
-              <defs>
-                <radialGradient id="ig" cx="50%" cy="50%" r="70%">
-                  <stop offset="0%" stop-color="#feda75"/>
-                  <stop offset="30%" stop-color="#fa7e1e"/>
-                  <stop offset="60%" stop-color="#d62976"/>
-                  <stop offset="100%" stop-color="#962fbf"/>
-                </radialGradient>
-              </defs>
-              <rect width="48" height="48" rx="12" fill="url(#ig)"/>
-              <circle cx="24" cy="24" r="11" fill="#fff"/>
-              <circle cx="24" cy="24" r="7" fill="url(#ig)"/>
-              <circle cx="34" cy="14" r="2" fill="#fff"/>
-            </svg>
+          <a href="https://www.instagram.com/starlawfirm_official" target="_blank" title="Instagram">
+            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="#E4405F"/><path d="M24 17.24A6.76 6.76 0 1 0 24 30.76 6.76 6.76 0 0 0 24 17.24zm0 11.15A4.39 4.39 0 1 1 24 19.61a4.39 4.39 0 0 1 0 8.78zm8.36-11.42a1.58 1.58 0 1 1-3.16 0 1.58 1.58 0 0 1 3.16 0zM34 19.14a8.85 8.85 0 0 0-.61-3.23 5.09 5.09 0 0 0-2.94-2.94A8.85 8.85 0 0 0 27.14 12h-6.28a8.85 8.85 0 0 0-3.23.61 5.09 5.09 0 0 0-2.94 2.94A8.85 8.85 0 0 0 12 20.86v6.28a8.85 8.85 0 0 0 .61 3.23 5.09 5.09 0 0 0 2.94 2.94 8.85 8.85 0 0 0 3.23.61h6.28a8.85 8.85 0 0 0 3.23-.61 5.09 5.09 0 0 0 2.94-2.94 8.85 8.85 0 0 0 .61-3.23v-6.28zm-2.06 9.35a5.61 5.61 0 0 1-3.16 3.16c-1.1.44-3.7.34-4.78.34s-3.69.1-4.78-.34a5.61 5.61 0 0 1-3.16-3.16c-.44-1.1-.34-3.7-.34-4.78s-.1-3.69.34-4.78a5.61 5.61 0 0 1 3.16-3.16c1.1-.44 3.7-.34 4.78-.34s3.69-.1 4.78.34a5.61 5.61 0 0 1 3.16 3.16c.44 1.1.34 3.7.34 4.78s.1 3.69-.34 4.78z" fill="#fff"/></svg>
           </a>
         </div>
         <div class="sidebar-company-info">
           이룸법률사무소<br>
           대표ㅣ장혜승<br>
-          사업자등록번호ㅣ306-12-67673
+          사업자등록번호ㅣ306-12-67673<br>
+          ADDㅣ부산광역시 연제구 법원남로15번길 9, 3층(거제동, 덕원빌딩)<br>
+          TELㅣ1533-0560 / FAXㅣ051-714-0168<br>
+          E-MAILㅣipa@withlp.com<br>
+          Copyright 2022 이룸 All rights reserved<br>
+          대표전화 1533-0560
         </div>
       </div>
     </nav>
   </div>
-
-  <!-- ===== 메인 배너 ===== -->
+  <!-- 상담 패널 -->
+  <div class="inquiryBg" id="inquiryBg">
+    <div class="inquiryForm">
+      <div class="inquiry-header">
+        <div class="logo-area">
+          <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/logo.png?raw=true" alt="ELOOM 로고" />
+          <span>ELOOM LAW FIRM</span>
+        </div>
+        <button class="inquiryCloseBtn" id="inquiryCloseBtn" aria-label="닫기">&times;</button>
+      </div>
+      <div class="inquiryForm-inner inquiryForm-content-center">
+        <div class="inquiry_step1 show" id="inquiryStep1">
+          <div class="top_title">
+            <p>연락처를 남겨주시면, <br><b>실시간 상담</b>을 도와드리겠습니다.</p>
+          </div>
+          <div class="form_box form_box_cate">
+            <input id="inquiryCategory" readonly type="text" name="wr_subject" value="" placeholder="카테고리"/>
+          </div>
+          <div class="form_box form_box_phone" style="position:relative;">
+            <input placeholder="연락처를 입력해주세요." id="inquiryPhone" type="tel" name="telTemp" maxlength="20" autocomplete="tel" />
+            <button type="button" class="form_clear_btn" id="clearPhoneBtn" tabindex="-1" style="display:none;">✕</button>
+          </div>
+          <div class="receive_chk_box">
+            <input id="inquiry_receive_chk" type="checkbox" value="y" checked name="agree_check2" />
+            <label for="inquiry_receive_chk">상담을 위한 전화 및 문자메시지 수신에 동의합니다.</label>
+          </div>
+          <button type="button" class="form_bt_btn inquriySubmtBtn" id="inquirySubmitBtn">신청하기</button>
+        </div>
+        <div class="inquiry_step2" id="inquiryStep2" style="display:none;">
+          <div style="text-align:center;padding-top:30px;padding-bottom:20px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="완료" width="72" style="margin-bottom:14px;opacity:0.7;">
+            <div style="font-size:1.2rem; font-weight:600; color:#222;">상담 신청이 접수되었습니다!</div>
+            <div style="font-size:1rem; color:#666; margin-top:8px;">담당자가 곧 연락드릴 예정입니다.</div>
+          </div>
+          <button type="button" class="form_bt_btn inquriyEndBtn" id="inquiryEndBtn" style="margin:0 auto 26px auto;display:block;width:80%;">확인</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 메인 배너 -->
   <section class="main-banner-section" id="mainBanner">
     <div class="main-banner-img-area" id="mainBannerImgs"></div>
     <div class="main-banner-content">
@@ -174,12 +275,12 @@
     </div>
     <div class="scroll-arrow">&#8595;</div>
   </section>
+  <!-- 페이지 실제 내용 -->
   <div class="content-wrap">
     <!-- 카드 섹션 위 풀스크린 이미지 -->
     <section class="main-image-section">
       <img src="https://github.com/Lamanujan/Law-Firm/blob/main/images/i%20(3).jpg?raw=true" alt="Law Main Visual">
     </section>
-
     <!-- 카드 섹션 (슬라이더) -->
     <div class="circle-slider-section">
       <button class="circle-slider-arrow left" id="circleSliderPrev" aria-label="이전">〈</button>
@@ -203,7 +304,6 @@
       </div>
       <button class="circle-slider-arrow right" id="circleSliderNext" aria-label="다음">〉</button>
     </div>
-
     <!-- 북슬라이드 섹션 -->
     <section class="bookslideWrap-section">
       <div style="text-align:center; font-size:1.18rem; font-weight:700; margin:0 0 22px 0; letter-spacing:-0.02em;">
@@ -243,7 +343,7 @@
     </footer>
   </div>
   <script>
-    // 사이드 메뉴 오픈/닫기
+    // ===== 사이드 메뉴(메뉴 베너) 동작 =====
     const sidebarBg = document.getElementById('sidebarBg');
     document.getElementById('menu-link').onclick = function() {
       sidebarBg.classList.add('active');
@@ -260,7 +360,36 @@
       }
     };
 
-    // 메인배너 스크롤 인터랙션
+    // ===== 상담 패널 show/hide =====
+    function showInquiryPanel(categoryText) {
+      document.getElementById('inquiryBg').classList.add('active');
+      if(categoryText){
+        document.getElementById('inquiryCategory').value = categoryText;
+      }
+      document.body.style.overflow = "hidden";
+    }
+    function hideInquiryPanel() {
+      document.getElementById('inquiryBg').classList.remove('active');
+      document.body.style.overflow = "";
+    }
+    document.getElementById('inquiryCloseBtn').onclick = hideInquiryPanel;
+    document.getElementById('inquiryBg').onclick = function(e){
+      if(e.target === this) hideInquiryPanel();
+    }
+    document.getElementById('inquiryEndBtn').onclick = hideInquiryPanel;
+
+    // ===== 카드 이미지/버튼 클릭시 상담 패널 오픈 =====
+    document.querySelectorAll('.circle-card').forEach(card=>{
+      card.querySelector('.circle-img-area').onclick = function(){
+        showInquiryPanel(card.querySelector('.circle-card-title').textContent.trim());
+      };
+      card.querySelector('.inquiry-btn').onclick = function(e){
+        e.stopPropagation();
+        showInquiryPanel(card.querySelector('.circle-card-title').textContent.trim());
+      };
+    });
+
+    // ===== 메인배너 스크롤 인터랙션 =====
     window.addEventListener('scroll', function(){
       const banner = document.getElementById('mainBanner');
       const revealPx = 0.47;
@@ -277,7 +406,7 @@
       if(scrolled>0.98) banner.classList.add('hide');
       else banner.classList.remove('hide');
     });
-    // 메인배너 이미지 슬라이드
+    // ===== 메인배너 이미지 슬라이드 =====
     const bannerImgs = [
       "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80",
@@ -299,17 +428,20 @@
       bannerImgNodes[currentBannerIdx].classList.add('show');
     }, 3300);
 
-    // 카드 슬라이드
+    // ===== 카드 슬라이드 =====
     const cards = Array.from(document.querySelectorAll('.circle-card'));
     let pos = 0, total = cards.length;
     function setSlide(newPos) {
-      cards.forEach((c,i)=>{c.classList.remove('active');if(i===newPos)c.classList.add('active');});
+      cards.forEach((c,i)=>{
+        c.classList.remove('active');
+        if(i===newPos) c.classList.add('active');
+      });
     }
     document.getElementById('circleSliderPrev').onclick = ()=> {pos = (pos-1+total)%total;setSlide(pos);}
     document.getElementById('circleSliderNext').onclick = ()=> {pos = (pos+1)%total;setSlide(pos);}
     setSlide(pos);
 
-    // 북슬라이드 무한루프/드래그/스와이프
+    // ===== 북슬라이드 무한루프/드래그/스와이프 =====
     window.addEventListener('DOMContentLoaded', function(){
       const track = document.getElementById('bookslideTrack');
       let slides = Array.from(track.children);

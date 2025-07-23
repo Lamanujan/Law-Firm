@@ -16,7 +16,40 @@
     .nav-brand-text {font-size:1.03rem;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:0.02em;}
     .nav-right {display:flex;align-items:center;}
     .menu-link {background:none;border:none;color:#fff;font-size:1.01rem;font-weight:500;cursor:pointer;}
-    /* 메인 배너 */
+
+    /* ===== 사이드 메뉴 ===== */
+    .sidebar-bg { position:fixed; z-index:3000; left:0; top:0; width:100vw; height:100dvh; background:rgba(0,0,0,0.31); opacity:0; pointer-events:none; transition:opacity 0.45s; }
+    .sidebar-bg.active { opacity:1; pointer-events:auto;}
+    .sidebar-container { position:fixed; right:0; top:0; height:100dvh; width:355px; max-width:95vw; background:#fff; box-shadow:-6px 0 32px #0002; display:flex; flex-direction:column; z-index:3010; transform:translateX(100%); transition:transform 0.55s cubic-bezier(.77,0,.18,1);}
+    .sidebar-bg.active .sidebar-container { transform:translateX(0);}
+    .sidebar-header { display:flex; align-items:center; justify-content:space-between; padding:20px 24px 0 24px;}
+    .sidebar-logo-link { display:flex; align-items:center; gap:12px; pointer-events:none;}
+    .sidebar-logo-img { width:33px; height:33px; border-radius:50%; background:url('https://github.com/Lamanujan/Law-Firm/raw/main/images/logo.png?raw=true') center/cover no-repeat;}
+    .sidebar-brand { font-weight:700; font-size:1.12rem; color:#242424; letter-spacing:0.03em;}
+    .sidebar-close-btn { background:none; border:none; font-size:2.2rem; color:#555; cursor:pointer; font-weight:700; padding:0 8px; line-height:1;}
+    .sidebar-link-list { display:flex; flex-direction:column; gap:7px; margin:38px 0 0 0; }
+    .sidebar-link { display:flex; align-items:center; gap:7px; font-size:1.04rem; color:#242424; text-decoration:none; font-weight:600; padding:10px 24px 10px 24px; transition:background 0.15s; border-radius:9px;}
+    .sidebar-link:hover { background:#f5f6fa;}
+    .sidebar-link img { height:16px; width:16px; }
+    .sidebar-blank-area { flex:1; }
+    .sidebar-bottom-info { padding: 0 24px 16px 24px; }
+    .sidebar-bottom-info .sidebar-company-info { color:#333; font-size:0.93rem; line-height:1.55; margin-bottom:15px; font-weight:500; letter-spacing:0.01em; text-align:left;}
+    .sidebar-sns { display:flex; gap:10px; margin-bottom:8px; }
+    .sidebar-sns a { display:inline-flex; }
+    .sidebar-sns svg { width:22px; height:22px; }
+
+    @media (max-width:500px) {
+      .sidebar-container { width:90vw; min-width:0; }
+      .sidebar-header { padding:16px 13px 0 13px;}
+      .sidebar-link { font-size:0.97rem; padding:8px 13px 8px 13px;}
+      .sidebar-bottom-info { padding:0 13px 13px 13px;}
+      .sidebar-sns svg { width:18px; height:18px;}
+      .sidebar-logo-img { width:26px; height:26px;}
+      .sidebar-brand { font-size:1.04rem;}
+      .sidebar-company-info { font-size:0.80rem;}
+    }
+
+    /* ===== 기타 스타일(메인, 카드, 이미지, 패널 등) ===== */
     .main-banner-section {position: fixed;top: 0; left: 0; width: 100vw; height: 100dvh;z-index: 2;transition: opacity 0.38s cubic-bezier(.8,0,.2,1), transform 0.38s cubic-bezier(.8,0,.2,1), z-index 0.2s;will-change: opacity, transform;pointer-events:auto;background: #111;}
     .main-banner-section.hide {opacity: 0;transform: translateY(-50px) scale(0.98);pointer-events: none;z-index: 0;}
     .main-banner-img-area { position:absolute; top:0; left:0; width:100vw; height:100dvh; z-index:1; }
@@ -26,111 +59,13 @@
     .main-title-eloom { font-family: 'Noto Serif KR', serif; font-size:6vw; font-weight:700; color:rgba(255,255,255,0.98); text-shadow: 0 2px 16px rgba(20,20,20,0.17), 0 1.5px 14px rgba(60,40,60,0.10); letter-spacing:0.14em; text-align:center; text-transform:uppercase; line-height:1.08; margin:0;}
     .scroll-arrow { position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%); z-index: 5; font-size: 2.1rem; color: #fff; opacity: 0.92; user-select: none; filter: drop-shadow(0 0 9px rgba(0,0,0,0.22)); pointer-events: none; animation: arrow-down-bounce 1.4s infinite; }
     @keyframes arrow-down-bounce { 0%, 100% { transform: translateX(-50%) translateY(0);} 50% { transform: translateX(-50%) translateY(13px);} }
-
-    /* 카드섹션 위 풀스크린 이미지 (content-wrap 내부) */
-    .main-image-section {
-      width: 100vw;
-      height: 100vh;
-      min-height: 500px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .main-image-section img {
-      width: 100vw; height: 100vh;
-      object-fit: cover; object-position: center;
-      position: absolute; top:0; left:0; z-index: 1;
-      transition: transform 1.2s cubic-bezier(.8,0,.2,1), filter 1.2s;
-    }
-    .main-image-section .main-image-caption {
-      position: relative; z-index: 3;
-      color: #fff; font-size: 2.3rem; font-weight: 700;
-      text-shadow: 0 2px 16px rgba(0,0,0,0.23);
-      text-align: center;
-      letter-spacing: 0.07em;
-    }
-    @media (max-width:700px) {
-      .main-image-section, .main-image-section img, .main-image-section::after { height: 60vh !important; min-height: 300px !important; }
-    }
-
-    /* 상담 패널 - 로고 우측정렬 & 간격조정 */
-    .inquiryBg {
-      position: fixed; left: 0; top:0; width: 100vw; height: 100dvh;
-      background: rgba(0,0,0,0.39); z-index: 3000;
-      display: block;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.6s;
-    }
-    .inquiryBg.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .inquiryForm {
-      position: fixed; right: 0; top: 0; width: 370px; max-width: 97vw; height: 100dvh;
-      background: #fff; box-shadow: -8px 0 40px rgba(60,50,50,0.13), -2px 0 10px rgba(60,50,50,0.07);
-      border-radius: 0 0 0 24px; padding: 0; z-index: 3010;
-      display: flex; flex-direction: column; justify-content: center; align-items: stretch;
-      transform: translateX(100%); opacity: 0;
-      transition: transform 0.85s cubic-bezier(.77,0,.18,1), opacity 0.85s cubic-bezier(.77,0,.18,1);
-    }
-    .inquiryBg.active .inquiryForm {
-      transform: translateX(0); opacity: 1;
-    }
-    .inquiry-header {
-      width: 100%; display: flex; align-items: center; justify-content: flex-end;
-      position: relative; padding: 14px 22px 6px 0; box-sizing: border-box; min-height: 44px; background: #fff;
-    }
-    .inquiry-header .logo-area {
-      display: flex; align-items: center; gap: 24px; /* 간격을 24px로 넓힘 */
-      justify-content: flex-end;
-      margin-right: 12px; /* 오른쪽에 더 붙게 */
-    }
-    .inquiry-header .logo-area img { height: 32px; width: 32px; border-radius: 50%; object-fit: cover;}
-    .inquiry-header .logo-area span { font-weight: 700; font-size: 1.14rem; letter-spacing: 0.03em; color: #232323;}
-    .inquiryCloseBtn { position: absolute; top: 10px; right: 16px; font-size: 2.2rem; color: #686868; background: none; border: none; cursor: pointer; opacity: 0.88; font-weight: 900; line-height: 1; transition: color .18s, opacity .13s; z-index: 2; padding: 0 8px;}
-    .inquiryCloseBtn:hover { color: #d22626; opacity: 1; }
-
-    /* 이하 기존 상담패널, 카드, etc */
-    .inquiryForm-inner { margin: 0 auto; max-width: 320px; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; min-height: 0; }
-    .inquiryForm-content-center { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; width: 100%; min-height: 0; height: 100%; }
-    .inquiry_step1 .top_title p { font-size: 1.13rem; text-align: center; color: #232323; margin: 0 0 15px 0;}
-    .form_box { margin-bottom: 13px; width: 100%; }
-    .form_box input[type="text"], .form_box input[type="tel"] { width: 100%; font-size: 1.09rem; padding: 12px 10px; border: 1px solid #e1e1e1; border-radius: 7px; box-sizing: border-box; background: #fafbfc; outline: none; transition: border .15s;}
-    .form_box input[type="text"]:focus, .form_box input[type="tel"]:focus { border-color: #d22626; background: #fff;}
-    .form_clear_btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 1.07rem; color: #b3b3b3; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.75; padding: 0; height: 2.2em; width: 2.2em;}
-    .form_clear_btn:hover { color: #d22626; }
-    .receive_chk_box { margin: 0 0 12px 0; font-size: 0.99rem; color: #333; }
-    .receive_chk_box input[type="checkbox"] { margin-right: 8px; transform: scale(1.12);}
-    .form_bt_btn { width: 100%; padding: 13px 0; background: linear-gradient(90deg,#d22626 0%,#e4562b 100%); border: none; border-radius: 9px; color: #fff; font-size: 1.14rem; font-weight: 700; cursor: pointer; transition: background .16s, transform .13s;}
-    .form_bt_btn:hover, .form_bt_btn:focus { background: linear-gradient(90deg, #b82020 0%, #b53d19 100%); transform: translateY(-2px) scale(1.03);}
-    @media (max-width:700px) {
-      .main-image-section, .main-image-section img, .main-image-section::after { height: 60vh !important; min-height: 300px !important; }
-      .inquiryForm {
-        width: 92vw !important; left: 4vw !important; right: 4vw !important; bottom: 0;
-        top: auto !important; max-width: 92vw; height: 61vh !important; max-height: 61vh !important;
-        border-radius: 20px 20px 0 0; box-shadow: 0 -2px 24px #2223;
-        transform: translateY(100%); opacity: 0;
-        position: fixed;
-        transition: transform 0.85s cubic-bezier(.77,0,.18,1), opacity 0.85s cubic-bezier(.77,0,.18,1);
-        overflow-y: auto !important; margin-bottom: 12px; justify-content: flex-start;
-      }
-      .inquiryBg.active .inquiryForm { transform: translateY(0); opacity: 1; }
-      .inquiryForm-inner { max-width: 91vw !important; padding: 14px 4vw 8px 4vw; max-height: 55vh !important; overflow-y: auto; }
-      .inquiry-header { margin-top: 6px !important; margin-bottom: 10px !important; }
-      .inquiry-header .logo-area img { height: 27px; width: 27px;}
-      .inquiry-header .logo-area span { font-size: 1.04rem;}
-    }
-    @media (max-width:400px) { .inquiryForm-inner { padding: 8px 2vw 10px 2vw; } }
+    .main-image-section { width: 100vw; height: 100vh; min-height: 500px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;}
+    .main-image-section img { width: 100vw; height: 100vh; object-fit: cover; object-position: center; position: absolute; top:0; left:0; z-index: 1; transition: transform 1.2s cubic-bezier(.8,0,.2,1), filter 1.2s;}
+    @media (max-width:700px) {.main-image-section, .main-image-section img, .main-image-section::after { height: 60vh !important; min-height: 300px !important; } }
     .content-wrap { position: relative; z-index: 3; margin-top: 100dvh; background: #fff; width:100vw; overflow-x:hidden; }
     .circle-slider-section { width:100vw; display:flex; align-items:center; justify-content:center; position:relative; background:#fff; padding-top:40px; padding-bottom:40px;}
     .circle-slider-wrapper { position:relative; width:100vw; min-height:480px; display:flex; align-items:center; justify-content:center; overflow:visible;}
-    .circle-card {
-      position:relative; width:340px; max-width:96vw; margin:0 auto; display:none;
-      flex-direction:column; align-items:center; background:none !important; border:none !important; box-shadow:none !important; opacity:1; pointer-events:none; z-index:1;
-    }
+    .circle-card { position:relative; width:340px; max-width:96vw; margin:0 auto; display:none; flex-direction:column; align-items:center; background:none !important; border:none !important; box-shadow:none !important; opacity:1; pointer-events:none; z-index:1;}
     .circle-card.active { display:flex; pointer-events:auto; z-index:3;}
     .circle-img-area { width:250px; height:250px; border-radius:50%; overflow:hidden; background:#eee; display:flex; align-items:center; justify-content:center; margin-bottom:32px;}
     .circle-img-area img { width:100%; height:100%; object-fit:cover; border-radius:50%;}
@@ -143,28 +78,10 @@
     .circle-slider-arrow { position:absolute; top:50%; transform:translateY(-50%); color:#333; font-size:2.5rem; font-weight:700; z-index:10; cursor:pointer; background:none; border:none; opacity:0.88; padding:0 10px; }
     .circle-slider-arrow.left { left: 1vw; }
     .circle-slider-arrow.right { right: 1vw; }
-    @media (max-width:900px) { .circle-slider-section { padding-top: 28px; padding-bottom: 24px; } .circle-slider-wrapper { min-height: 90vw; } .circle-card, .circle-img-area { width: 85vw !important; } .circle-img-area { height: 85vw !important; } .circle-card-title { font-size: 5vw;} }
-    @media (max-width:600px) {
-      .circle-card { width: 70vw !important; }
-      .circle-img-area {
-        width: 42vw !important;
-        height: 42vw !important;
-        min-width:42vw !important;
-        min-height:42vw !important;
-        max-width:42vw !important;
-        max-height:42vw !important;
-        border-radius:50% !important;
-        margin-bottom:10px;
-      }
-      .circle-card-title { font-size: 4.6vw;}
-    }
     .bookslideWrap { width:100vw; overflow:hidden; margin:0 auto; padding:36px 0 50px 0; background:#fff; }
     .bookslide-track { display:flex; gap:28px; will-change:transform; user-select:none; cursor:grab; transition:none !important;}
     .bookslide { flex:0 0 auto; width:18vw; max-width:112px; min-width:68px; height:24vw; max-height:160px; min-height:92px; border-radius:13px; background:#fff; box-shadow:0 4px 16px #0001; display:flex; align-items:center; justify-content:center; transition: width 0.25s, height 0.25s, margin 0.25s;}
     .bookslide img { width:100%; height:100%; border-radius:13px; object-fit:cover; display:block; box-shadow:0 2px 8px #0002;}
-    @media (max-width:1024px) { .bookslide { width:27vw; height:35vw; max-width:120px; max-height:156px; } .bookslide-track { gap:18px;} }
-    @media (max-width:600px) { .bookslide { width:43vw; height:53vw; max-width:99px; max-height:122px;} .bookslide-track { gap:10px;} }
-    .bookslide-track, .bookslide { transition: width 0.25s, height 0.25s, margin 0.25s;}
     footer { width:100vw; background:#f5f5f7; border-top:1.5px solid #dadada; padding:34px 0 18px 0; text-align:center; }
     .eloom-footer-brand-row { display:flex; align-items:center; justify-content:center; gap:0.44em; margin-bottom:7px;}
     .eloom-footer-brand-row img { height:1.18em; }
@@ -189,7 +106,67 @@
       </div>
     </div>
   </header>
-  <!-- 메인 배너 -->
+
+  <!-- ===== 사이드 메뉴(베너) ===== -->
+  <div class="sidebar-bg" id="sidebarBg">
+    <nav class="sidebar-container" role="navigation" aria-label="메뉴">
+      <div class="sidebar-header">
+        <div class="sidebar-logo-link">
+          <div class="sidebar-logo-img"></div>
+          <span class="sidebar-brand">ELOOM LAW FIRM</span>
+        </div>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="닫기">&times;</button>
+      </div>
+      <div class="sidebar-link-list">
+        <a class="sidebar-link" href="https://place.star-law.com/seoul" target="_blank">
+          CONTACT US
+          <img src="https://main.star-law.com/_next/image?url=%2Fimages%2Fright-arrow.svg&w=48&q=75" alt="arrow">
+        </a>
+        <a class="sidebar-link" href="#" onclick="return false;">
+          성공사례
+          <img src="https://main.star-law.com/_next/image?url=%2Fimages%2Fright-arrow.svg&w=48&q=75" alt="arrow">
+        </a>
+        <a class="sidebar-link" href="https://post.star-law.com" target="_blank">
+          콘텐츠
+          <img src="https://main.star-law.com/_next/image?url=%2Fimages%2Fright-arrow.svg&w=48&q=75" alt="arrow">
+        </a>
+      </div>
+      <div class="sidebar-blank-area"></div>
+      <div class="sidebar-bottom-info">
+        <div class="sidebar-sns">
+          <a href="https://www.youtube.com/@STARLAWFIRM" target="_blank" aria-label="유튜브">
+            <svg viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="24" fill="#FF0000"/>
+              <polygon points="20,16 36,24 20,32" fill="#fff"/>
+            </svg>
+          </a>
+          <a href="https://www.instagram.com/starlawfirm_official" target="_blank" aria-label="인스타그램">
+            <svg viewBox="0 0 48 48" fill="none">
+              <defs>
+                <radialGradient id="ig" cx="50%" cy="50%" r="70%">
+                  <stop offset="0%" stop-color="#feda75"/>
+                  <stop offset="30%" stop-color="#fa7e1e"/>
+                  <stop offset="60%" stop-color="#d62976"/>
+                  <stop offset="100%" stop-color="#962fbf"/>
+                </radialGradient>
+              </defs>
+              <rect width="48" height="48" rx="12" fill="url(#ig)"/>
+              <circle cx="24" cy="24" r="11" fill="#fff"/>
+              <circle cx="24" cy="24" r="7" fill="url(#ig)"/>
+              <circle cx="34" cy="14" r="2" fill="#fff"/>
+            </svg>
+          </a>
+        </div>
+        <div class="sidebar-company-info">
+          이룸법률사무소<br>
+          대표ㅣ장혜승<br>
+          사업자등록번호ㅣ306-12-67673
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- ===== 메인 배너 ===== -->
   <section class="main-banner-section" id="mainBanner">
     <div class="main-banner-img-area" id="mainBannerImgs"></div>
     <div class="main-banner-content">
@@ -197,53 +174,13 @@
     </div>
     <div class="scroll-arrow">&#8595;</div>
   </section>
-  <!-- 메인 배너 아래부터 실제 페이지 내용 -->
   <div class="content-wrap">
-    <!-- 카드 섹션 위에 나오는 풀스크린 이미지 섹션 -->
+    <!-- 카드 섹션 위 풀스크린 이미지 -->
     <section class="main-image-section">
       <img src="https://github.com/Lamanujan/Law-Firm/blob/main/images/i%20(3).jpg?raw=true" alt="Law Main Visual">
     </section>
 
-    <!-- 상담 패널 -->
-    <div class="inquiryBg" id="inquiryBg">
-      <div class="inquiryForm">
-        <div class="inquiry-header">
-          <div class="logo-area">
-            <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/logo.png?raw=true" alt="ELOOM 로고" />
-            <span>ELOOM LAW FIRM</span>
-          </div>
-          <button class="inquiryCloseBtn" id="inquiryCloseBtn" aria-label="닫기">&times;</button>
-        </div>
-        <div class="inquiryForm-inner inquiryForm-content-center">
-          <div class="inquiry_step1 show" id="inquiryStep1">
-            <div class="top_title">
-              <p>연락처를 남겨주시면, <br><b>실시간 상담</b>을 도와드리겠습니다.</p>
-            </div>
-            <div class="form_box form_box_cate">
-              <input id="inquiryCategory" readonly type="text" name="wr_subject" value="" placeholder="카테고리"/>
-            </div>
-            <div class="form_box form_box_phone" style="position:relative;">
-              <input placeholder="연락처를 입력해주세요." id="inquiryPhone" type="tel" name="telTemp" maxlength="20" autocomplete="tel" />
-              <button type="button" class="form_clear_btn" id="clearPhoneBtn" tabindex="-1" style="display:none;">✕</button>
-            </div>
-            <div class="receive_chk_box">
-              <input id="inquiry_receive_chk" type="checkbox" value="y" checked name="agree_check2" />
-              <label for="inquiry_receive_chk">상담을 위한 전화 및 문자메시지 수신에 동의합니다.</label>
-            </div>
-            <button type="button" class="form_bt_btn inquriySubmtBtn" id="inquirySubmitBtn">신청하기</button>
-          </div>
-          <div class="inquiry_step2" id="inquiryStep2" style="display:none;">
-            <div style="text-align:center;padding-top:30px;padding-bottom:20px;">
-              <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="완료" width="72" style="margin-bottom:14px;opacity:0.7;">
-              <div style="font-size:1.2rem; font-weight:600; color:#222;">상담 신청이 접수되었습니다!</div>
-              <div style="font-size:1rem; color:#666; margin-top:8px;">담당자가 곧 연락드릴 예정입니다.</div>
-            </div>
-            <button type="button" class="form_bt_btn inquriyEndBtn" id="inquiryEndBtn" style="margin:0 auto 26px auto;display:block;width:80%;">확인</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <!-- 카드 섹션 (슬라이더) -->
     <div class="circle-slider-section">
       <button class="circle-slider-arrow left" id="circleSliderPrev" aria-label="이전">〈</button>
       <div class="circle-slider-wrapper" id="circleSliderWrapper">
@@ -266,9 +203,11 @@
       </div>
       <button class="circle-slider-arrow right" id="circleSliderNext" aria-label="다음">〉</button>
     </div>
+
+    <!-- 북슬라이드 섹션 -->
     <section class="bookslideWrap-section">
       <div style="text-align:center; font-size:1.18rem; font-weight:700; margin:0 0 22px 0; letter-spacing:-0.02em;">
-        ⭐ 실제 판결문 <span style="color:#2569f3;">소장/채권압류</span> 사례 모음
+        실제 판결문 <span style="color:#2569f3;">소장/채권압류</span> 사례 모음
       </div>
       <div class="bookslideWrap">
         <div class="bookslide-track" id="bookslideTrack">
@@ -304,6 +243,23 @@
     </footer>
   </div>
   <script>
+    // 사이드 메뉴 오픈/닫기
+    const sidebarBg = document.getElementById('sidebarBg');
+    document.getElementById('menu-link').onclick = function() {
+      sidebarBg.classList.add('active');
+      document.body.style.overflow = "hidden";
+    };
+    document.getElementById('sidebarCloseBtn').onclick = function() {
+      sidebarBg.classList.remove('active');
+      document.body.style.overflow = "";
+    };
+    sidebarBg.onclick = function(e){
+      if(e.target === this) {
+        sidebarBg.classList.remove('active');
+        document.body.style.overflow = "";
+      }
+    };
+
     // 메인배너 스크롤 인터랙션
     window.addEventListener('scroll', function(){
       const banner = document.getElementById('mainBanner');
@@ -342,47 +298,17 @@
       currentBannerIdx = (currentBannerIdx+1) % bannerImgNodes.length;
       bannerImgNodes[currentBannerIdx].classList.add('show');
     }, 3300);
-    // 상담 패널 show/hide
-    function showInquiryPanel(categoryText) {
-      document.getElementById('inquiryBg').classList.add('active');
-      if(categoryText){
-        document.getElementById('inquiryCategory').value = categoryText;
-      }
-      document.body.style.overflow = "hidden";
-    }
-    function hideInquiryPanel() {
-      document.getElementById('inquiryBg').classList.remove('active');
-      document.body.style.overflow = "";
-    }
-    document.getElementById('menu-link').onclick = function() {
-      showInquiryPanel();
-    };
-    document.querySelectorAll('.circle-card').forEach(card=>{
-      card.querySelector('.circle-img-area').onclick = function(){
-        showInquiryPanel(card.querySelector('.circle-card-title').textContent.trim());
-      };
-      card.querySelector('.inquiry-btn').onclick = function(e){
-        e.stopPropagation();
-        showInquiryPanel(card.querySelector('.circle-card-title').textContent.trim());
-      };
-    });
-    document.getElementById('inquiryCloseBtn').onclick = hideInquiryPanel;
-    document.getElementById('inquiryBg').onclick = function(e){
-      if(e.target === this) hideInquiryPanel();
-    }
-    document.getElementById('inquiryEndBtn').onclick = hideInquiryPanel;
+
     // 카드 슬라이드
     const cards = Array.from(document.querySelectorAll('.circle-card'));
     let pos = 0, total = cards.length;
     function setSlide(newPos) {
-      cards.forEach((c,i)=>{
-        c.classList.remove('active');
-        if(i===newPos) c.classList.add('active');
-      });
+      cards.forEach((c,i)=>{c.classList.remove('active');if(i===newPos)c.classList.add('active');});
     }
     document.getElementById('circleSliderPrev').onclick = ()=> {pos = (pos-1+total)%total;setSlide(pos);}
     document.getElementById('circleSliderNext').onclick = ()=> {pos = (pos+1)%total;setSlide(pos);}
     setSlide(pos);
+
     // 북슬라이드 무한루프/드래그/스와이프
     window.addEventListener('DOMContentLoaded', function(){
       const track = document.getElementById('bookslideTrack');

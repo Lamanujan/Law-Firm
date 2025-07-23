@@ -17,21 +17,8 @@
     .nav-right {display:flex;align-items:center;}
     .menu-link {background:none;border:none;color:#fff;font-size:1.01rem;font-weight:500;cursor:pointer;}
     /* 메인 배너 */
-    .main-banner-section {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100dvh;
-      z-index: 2;
-      transition: opacity 0.38s cubic-bezier(.8,0,.2,1), transform 0.38s cubic-bezier(.8,0,.2,1), z-index 0.2s;
-      will-change: opacity, transform;
-      pointer-events:auto;
-      background: #111;
-    }
-    .main-banner-section.hide {
-      opacity: 0;
-      transform: translateY(-50px) scale(0.98);
-      pointer-events: none;
-      z-index: 0;
-    }
+    .main-banner-section {position: fixed;top: 0; left: 0; width: 100vw; height: 100dvh;z-index: 2;transition: opacity 0.38s cubic-bezier(.8,0,.2,1), transform 0.38s cubic-bezier(.8,0,.2,1), z-index 0.2s;will-change: opacity, transform;pointer-events:auto;background: #111;}
+    .main-banner-section.hide {opacity: 0;transform: translateY(-50px) scale(0.98);pointer-events: none;z-index: 0;}
     .main-banner-img-area { position:absolute; top:0; left:0; width:100vw; height:100dvh; z-index:1; }
     .main-banner-img-area img { width:100vw; height:100dvh; object-fit:cover; object-position:center; position:absolute; top:0; left:0; opacity:0; transition:opacity 1.2s;}
     .main-banner-img-area img.show { opacity:1; }
@@ -40,29 +27,45 @@
     .scroll-arrow { position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%); z-index: 5; font-size: 2.1rem; color: #fff; opacity: 0.92; user-select: none; filter: drop-shadow(0 0 9px rgba(0,0,0,0.22)); pointer-events: none; animation: arrow-down-bounce 1.4s infinite; }
     @keyframes arrow-down-bounce { 0%, 100% { transform: translateX(-50%) translateY(0);} 50% { transform: translateX(-50%) translateY(13px);} }
     /* 상담 패널 */
-    .inquiryBg { position: fixed; left: 0; top:0; width: 100vw; height: 100dvh; background: rgba(30,30,32,0.21); z-index: 3000; display: none; transition: opacity 0.25s;}
+    .inquiryBg { position: fixed; left: 0; top:0; width: 100vw; height: 100dvh; background: rgba(0,0,0,0.39); z-index: 3000; display: none; transition: opacity 0.25s;}
     .inquiryBg.active { display: block; }
-    .inquiryForm { position: fixed; right: 0; top: 0; width: 370px; max-width: 97vw; height: 100dvh; background: #fff; box-shadow: -8px 0 40px rgba(60,50,50,0.13), -2px 0 10px rgba(60,50,50,0.07); border-radius: 0 0 0 24px; padding: 0; z-index: 3010; display: flex; flex-direction: column; justify-content: center; align-items: stretch; transform: translateX(102%); transition: transform 0.39s cubic-bezier(.77,0,.18,1);}
+    .inquiryForm {
+      position: fixed; right: 0; top: 0; width: 370px; max-width: 97vw; height: 100dvh; background: #fff;
+      box-shadow: -8px 0 40px rgba(60,50,50,0.13), -2px 0 10px rgba(60,50,50,0.07); border-radius: 0 0 0 24px; padding: 0; z-index: 3010;
+      display: flex; flex-direction: column; justify-content: center; align-items: stretch;
+      transform: translateX(102%); transition: transform 0.39s cubic-bezier(.77,0,.18,1);
+    }
     .inquiryBg.active .inquiryForm { transform: translateX(0%);}
     @media (max-width:700px) {
-      .inquiryForm { width: 100vw !important; left: 0 !important; right: auto !important; bottom: 0; top: auto !important; max-width: 100vw; height: auto !important; max-height: 42vh; border-radius: 16px 16px 0 0; transform: translateY(94%);}
-      .inquiryBg.active .inquiryForm { transform: translateY(0%);}
+      .inquiryForm {
+        width: 100vw !important; left: 0 !important; right: 0 !important; bottom: 0; top: auto !important;
+        max-width: 100vw; height: auto !important; max-height: none;
+        border-radius: 18px 18px 0 0; box-shadow: 0 -2px 24px #2223;
+        transform: translateY(100%);
+        position: fixed; /* 필수 */
+      }
+      .inquiryBg.active .inquiryForm { transform: translateY(0); }
+      .inquiryForm-inner { max-width: 96vw !important; padding: 22px 5vw 12px 5vw; }
     }
     .inquiryForm-inner { margin: 0 auto; max-width: 320px; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: stretch;}
-    .inquiryCloseBtn { position: absolute; top: 21px; right: 18px; font-size: 2.25rem; color: #696969; background: none; border: none; cursor: pointer; opacity: 0.72; font-weight: 900; line-height: 1; transition: color .18s, opacity .13s; z-index: 2;}
+    .inquiryCloseBtn { position: absolute; top: 16px; right: 18px; font-size: 2.5rem; color: #686868; background: none; border: none; cursor: pointer; opacity: 0.88; font-weight: 900; line-height: 1; transition: color .18s, opacity .13s; z-index: 2;}
     .inquiryCloseBtn:hover { color: #d22626; opacity: 1; }
-    .inquiry_step1 .top_title p { font-size: 1.09rem; text-align: center; color: #232323; margin: 0 0 16px 0;}
+    .inquiry_step1 .top_title p { font-size: 1.19rem; text-align: center; color: #232323; margin: 0 0 19px 0;}
     .form_box { margin-bottom: 18px; }
-    .form_box input[type="text"], .form_box input[type="tel"] { width: 100%; font-size: 1.07rem; padding: 13px 12px; border: 1px solid #e1e1e1; border-radius: 7px; box-sizing: border-box; background: #fafbfc; outline: none; transition: border .15s;}
+    .form_box input[type="text"], .form_box input[type="tel"] { width: 100%; font-size: 1.14rem; padding: 15px 14px; border: 1px solid #e1e1e1; border-radius: 7px; box-sizing: border-box; background: #fafbfc; outline: none; transition: border .15s;}
     .form_box input[type="text"]:focus, .form_box input[type="tel"]:focus { border-color: #d22626; background: #fff;}
     .form_clear_btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 1.07rem; color: #b3b3b3; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.75; padding: 0; height: 2.2em; width: 2.2em;}
     .form_clear_btn:hover { color: #d22626; }
-    .receive_chk_box { margin: 0 0 15px 0; font-size: 0.99rem; color: #333; }
-    .receive_chk_box input[type="checkbox"] { margin-right: 6px; }
-    .form_bt_btn { width: 100%; padding: 14px 0; background: linear-gradient(90deg,#d22626 0%,#e4562b 100%); border: none; border-radius: 9px; color: #fff; font-size: 1.12rem; font-weight: 700; cursor: pointer; transition: background .16s, transform .13s;}
+    .receive_chk_box { margin: 0 0 15px 0; font-size: 1.02rem; color: #333; }
+    .receive_chk_box input[type="checkbox"] { margin-right: 8px; transform: scale(1.2);}
+    .form_bt_btn { width: 100%; padding: 16px 0; background: linear-gradient(90deg,#d22626 0%,#e4562b 100%); border: none; border-radius: 9px; color: #fff; font-size: 1.22rem; font-weight: 700; cursor: pointer; transition: background .16s, transform .13s;}
     .form_bt_btn:hover, .form_bt_btn:focus { background: linear-gradient(90deg, #b82020 0%, #b53d19 100%); transform: translateY(-2px) scale(1.03);}
-    @media (max-width:700px) { .inquiryForm-inner { max-width: 97vw; }}
-    @media (max-width:400px) { .inquiryForm-inner { padding: 13px 3vw 13px 3vw; } }
+    @media (max-width:700px) {
+      .inquiry_step1 .top_title p { font-size: 1.25rem;}
+      .form_box input[type="text"], .form_box input[type="tel"] {font-size:1.17rem;padding: 17px 14px;}
+      .form_bt_btn { font-size: 1.27rem;}
+    }
+    @media (max-width:400px) { .inquiryForm-inner { padding: 11px 2vw 13px 2vw; } }
     /* 카드/북슬라이드/푸터 ... */
     .content-wrap { position: relative; z-index: 3; margin-top: 100dvh; background: #fff; width:100vw; overflow-x:hidden; }
     .circle-slider-section { width:100vw; display:flex; align-items:center; justify-content:center; position:relative; background:#fff; padding-top:40px; padding-bottom:40px;}
@@ -141,7 +144,7 @@
       <div class="inquiryForm-inner">
         <div class="inquiry_step1 show" id="inquiryStep1">
           <div class="top_title">
-            <p><br><b>실시간 상담</b>을 도와드리겠습니다.</p>
+            <p>연락처를 남겨주시면, <br><b>실시간 상담</b>을 도와드리겠습니다.</p>
           </div>
           <div class="form_box form_box_cate">
             <input id="inquiryCategory" readonly type="text" name="wr_subject" value="" placeholder="카테고리"/>

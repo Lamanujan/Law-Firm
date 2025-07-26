@@ -45,7 +45,83 @@
       .sidebar-brand { font-size:0.98rem;}
       .sidebar-company-info { font-size:9px !important;}
     }
-    /* ===== 메인 배너 ===== */
+    /* ===== 상담 패널 ===== */
+    .inquiryBg {
+      position: fixed; left: 0; top:0; width: 100vw; height: 100dvh;
+      background: rgba(0,0,0,0.39); z-index: 2000;
+      display: block;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s;
+    }
+    .inquiryBg.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .inquiryForm {
+      position: fixed; right: 0; top: 0; width: 370px; max-width: 97vw; height: 100dvh;
+      background: #fff; box-shadow: -8px 0 40px rgba(60,50,50,0.13), -2px 0 10px rgba(60,50,50,0.07);
+      border-radius: 0 0 0 24px; padding: 0; z-index: 2010;
+      display: flex; flex-direction: column; justify-content: center; align-items: stretch;
+      transform: translateX(100%); opacity: 0;
+      transition: transform 0.85s cubic-bezier(.77,0,.18,1), opacity 0.85s cubic-bezier(.77,0,.18,1);
+    }
+    .inquiryBg.active .inquiryForm {
+      transform: translateX(0); opacity: 1;
+    }
+    .inquiry-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+      padding: 14px 22px 6px 24px;
+      box-sizing: border-box;
+      min-height: 44px;
+      background: #fff;
+    }
+    .inquiry-header .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      justify-content: flex-start;
+      margin-right: 0;
+    }
+    .inquiry-header .logo-area img { height: 32px; width: 32px; border-radius: 50%; object-fit: cover;}
+    .inquiry-header .logo-area span { font-weight: 700; font-size: 1.14rem; letter-spacing: 0.03em; color: #232323;}
+    .inquiryCloseBtn { position: absolute; top: 10px; right: 16px; font-size: 2.2rem; color: #686868; background: none; border: none; cursor: pointer; opacity: 0.88; font-weight: 900; line-height: 1; transition: color .18s, opacity .13s; z-index: 2; padding: 0 8px;}
+    .inquiryCloseBtn:hover { color: #d22626; opacity: 1; }
+    .inquiryForm-inner { margin: 0 auto; max-width: 320px; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; min-height: 0; }
+    .inquiryForm-content-center { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; width: 100%; min-height: 0; height: 100%; }
+    .inquiry_step1 .top_title p { font-size: 1.13rem; text-align: center; color: #232323; margin: 0 0 15px 0;}
+    .form_box { margin-bottom: 13px; width: 100%; }
+    .form_box input[type="text"], .form_box input[type="tel"] { width: 100%; font-size: 1.09rem; padding: 12px 10px; border: 1px solid #e1e1e1; border-radius: 7px; box-sizing: border-box; background: #fafbfc; outline: none; transition: border .15s;}
+    .form_box input[type="text"]:focus, .form_box input[type="tel"]:focus { border-color: #d22626; background: #fff;}
+    .form_clear_btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 1.07rem; color: #b3b3b3; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.75; padding: 0; height: 2.2em; width: 2.2em;}
+    .form_clear_btn:hover { color: #d22626; }
+    .receive_chk_box { margin: 0 0 12px 0; font-size: 0.99rem; color: #333; }
+    .receive_chk_box input[type="checkbox"] { margin-right: 8px; transform: scale(1.12);}
+    .form_bt_btn { width: 100%; padding: 13px 0; background: linear-gradient(90deg,#d22626 0%,#e4562b 100%); border: none; border-radius: 9px; color: #fff; font-size: 1.14rem; font-weight: 700; cursor: pointer; transition: background .16s, transform .13s;}
+    .form_bt_btn:hover, .form_bt_btn:focus { background: linear-gradient(90deg, #b82020 0%, #b53d19 100%); transform: translateY(-2px) scale(1.03);}
+    @media (max-width:700px) {
+      .main-image-section, .main-image-section img, .main-image-section::after { height: 60vh !important; min-height: 300px !important; }
+      .inquiryForm {
+        width: 92vw !important; left: 4vw !important; right: 4vw !important; bottom: 0;
+        top: auto !important; max-width: 92vw; height: 61vh !important; max-height: 61vh !important;
+        border-radius: 20px 20px 0 0; box-shadow: 0 -2px 24px #2223;
+        transform: translateY(100%); opacity: 0;
+        position: fixed;
+        transition: transform 0.85s cubic-bezier(.77,0,.18,1), opacity 0.85s cubic-bezier(.77,0,.18,1);
+        overflow-y: auto !important; margin-bottom: 12px; justify-content: flex-start;
+      }
+      .inquiryBg.active .inquiryForm { transform: translateY(0); opacity: 1; }
+      .inquiryForm-inner { max-width: 91vw !important; padding: 14px 4vw 8px 4vw; max-height: 55vh !important; overflow-y: auto; }
+      .inquiry-header { margin-top: 6px !important; margin-bottom: 10px !important; }
+      .inquiry-header .logo-area img { height: 27px; width: 27px;}
+      .inquiry-header .logo-area span { font-size: 1.04rem;}
+    }
+    @media (max-width:400px) { .inquiryForm-inner { padding: 8px 2vw 10px 2vw; } }
+    /* ===== 기타 스타일(메인, 카드, 이미지, 패널 등) ===== */
     .main-banner-section {position: fixed;top: 0; left: 0; width: 100vw; height: 100dvh;z-index: 2;transition: opacity 0.38s cubic-bezier(.8,0,.2,1), transform 0.38s cubic-bezier(.8,0,.2,1), z-index 0.2s;will-change: opacity, transform;pointer-events:auto;background: #111;}
     .main-banner-section.hide {opacity: 0;transform: translateY(-50px) scale(0.98);pointer-events: none;z-index: 0;}
     .main-banner-img-area { position:absolute; top:0; left:0; width:100vw; height:100dvh; z-index:1; }
@@ -111,7 +187,7 @@
       </div>
     </div>
   </header>
-  <!-- 사이드 메뉴(메뉴 베너) -->
+  <!-- 사이드 메뉴(변제금액 계산기만 노출) -->
   <div class="sidebar-bg" id="sidebarBg">
     <nav class="sidebar-container">
       <div class="sidebar-header">
@@ -127,9 +203,13 @@
       <div class="sidebar-blank-area"></div>
       <div class="sidebar-bottom-info" style="padding-top:12px;">
         <div class="sidebar-sns">
-          <a href="https://www.youtube.com/@STARLAWFIRM" target="_blank" title="YouTube" style="margin-right:8px;">
-            <img alt="YouTube" loading="lazy" width="24" height="24" decoding="async" src="https://main.star-law.com/_next/image?url=%2Fimages%2FLayout%2Ffooter%2Fyoutube.svg&w=48&q=75" style="display:inline-block;">
-          </a>
+          <!-- 유튜브 공식 빨간색 아이콘 (SVG) -->
+<a href="https://www.youtube.com/@STARLAWFIRM" target="_blank" title="YouTube" style="margin-right:8px;">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="#FF0000" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;">
+    <path d="M23.498 6.186c-.273-1.023-1.076-1.825-2.099-2.099C19.18 3.5 12 3.5 12 3.5s-7.18 0-9.399.587c-1.023.273-1.826 1.076-2.099 2.099C.5 8.406.5 12 .5 12s0 3.594.587 5.814c.273 1.023 1.076 1.826 2.099 2.099C4.82 20.5 12 20.5 12 20.5s7.18 0 9.399-.587c1.023-.273 1.826-1.076 2.099-2.099.587-2.22.587-5.814.587-5.814s0-3.594-.587-5.814zM9.75 15.568V8.432L15.818 12 9.75 15.568z"/>
+  </svg>
+</a>
+
           <a href="https://www.instagram.com/starlawfirm_official" target="_blank" title="Instagram">
             <img alt="Instagram" loading="lazy" width="24" height="24" decoding="async" src="https://main.star-law.com/_next/image?url=%2Fimages%2FLayout%2Flow-bar%2Fsns_insta_m.png&w=48&q=75" style="display:inline-block;">
           </a>
@@ -141,6 +221,45 @@
         </div>
       </div>
     </nav>
+  </div>
+  <!-- 상담 패널 -->
+  <div class="inquiryBg" id="inquiryBg">
+    <div class="inquiryForm">
+      <div class="inquiry-header">
+        <div class="logo-area">
+          <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/logo.png?raw=true" alt="ELOOM 로고" />
+          <span>ELOOM LAW FIRM</span>
+        </div>
+        <button class="inquiryCloseBtn" id="inquiryCloseBtn" aria-label="닫기">&times;</button>
+      </div>
+      <div class="inquiryForm-inner inquiryForm-content-center">
+        <div class="inquiry_step1 show" id="inquiryStep1">
+          <div class="top_title">
+            <p>연락처를 남겨주시면, <br><b>실시간 상담</b>을 도와드리겠습니다.</p>
+          </div>
+          <div class="form_box form_box_cate">
+            <input id="inquiryCategory" readonly type="text" name="wr_subject" value="" placeholder="카테고리"/>
+          </div>
+          <div class="form_box form_box_phone" style="position:relative;">
+            <input placeholder="연락처를 입력해주세요." id="inquiryPhone" type="tel" name="telTemp" maxlength="20" autocomplete="tel" />
+            <button type="button" class="form_clear_btn" id="clearPhoneBtn" tabindex="-1" style="display:none;">✕</button>
+          </div>
+          <div class="receive_chk_box">
+            <input id="inquiry_receive_chk" type="checkbox" value="y" checked name="agree_check2" />
+            <label for="inquiry_receive_chk">상담을 위한 전화 및 문자메시지 수신에 동의합니다.</label>
+          </div>
+          <button type="button" class="form_bt_btn inquriySubmtBtn" id="inquirySubmitBtn">신청하기</button>
+        </div>
+        <div class="inquiry_step2" id="inquiryStep2" style="display:none;">
+          <div style="text-align:center;padding-top:30px;padding-bottom:20px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="완료" width="72" style="margin-bottom:14px;opacity:0.7;">
+            <div style="font-size:1.2rem; font-weight:600; color:#222;">상담 신청이 접수되었습니다!</div>
+            <div style="font-size:1rem; color:#666; margin-top:8px;">담당자가 곧 연락드릴 예정입니다.</div>
+          </div>
+          <button type="button" class="form_bt_btn inquriyEndBtn" id="inquiryEndBtn" style="margin:0 auto 26px auto;display:block;width:80%;">확인</button>
+        </div>
+      </div>
+    </div>
   </div>
   <!-- 메인 배너 -->
   <section class="main-banner-section" id="mainBanner">
@@ -234,6 +353,33 @@
         document.body.style.overflow = "";
       }
     };
+    // ===== 상담 패널 show/hide =====
+    function showInquiryPanel(categoryText) {
+      document.getElementById('inquiryBg').classList.add('active');
+      if(categoryText){
+        document.getElementById('inquiryCategory').value = categoryText;
+      }
+      document.body.style.overflow = "hidden";
+    }
+    function hideInquiryPanel() {
+      document.getElementById('inquiryBg').classList.remove('active');
+      document.body.style.overflow = "";
+    }
+    document.getElementById('inquiryCloseBtn').onclick = hideInquiryPanel;
+    document.getElementById('inquiryBg').onclick = function(e){
+      if(e.target === this) hideInquiryPanel();
+    }
+    document.getElementById('inquiryEndBtn').onclick = hideInquiryPanel;
+    // ===== 카드 이미지/버튼 클릭시 상담 패널 오픈 =====
+    document.querySelectorAll('.circle-card').forEach(card=>{
+      card.querySelector('.circle-img-area').onclick = function(){
+        showInquiryPanel(card.querySelector('.circle-card-title').textContent.trim());
+      };
+      card.querySelector('.inquiry-btn').onclick = function(e){
+        e.stopPropagation();
+        showInquiryPanel(card.querySelector('.circle-card-title').textContent.trim());
+      };
+    });
     // ===== 메인배너 스크롤 인터랙션 =====
     window.addEventListener('scroll', function(){
       const banner = document.getElementById('mainBanner');
@@ -272,17 +418,18 @@
       currentBannerIdx = (currentBannerIdx+1) % bannerImgNodes.length;
       bannerImgNodes[currentBannerIdx].classList.add('show');
     }, 3300);
-
     // ===== 카드 슬라이드 =====
     const cards = Array.from(document.querySelectorAll('.circle-card'));
     let pos = 0, total = cards.length;
     function setSlide(newPos) {
-      cards.forEach((c,i)=>{ c.classList.remove('active'); if(i===newPos) c.classList.add('active'); });
+      cards.forEach((c,i)=>{
+        c.classList.remove('active');
+        if(i===newPos) c.classList.add('active');
+      });
     }
     document.getElementById('circleSliderPrev').onclick = ()=> {pos = (pos-1+total)%total;setSlide(pos);}
     document.getElementById('circleSliderNext').onclick = ()=> {pos = (pos+1)%total;setSlide(pos);}
     setSlide(pos);
-
     // ===== 북슬라이드 무한루프/드래그/스와이프 =====
     window.addEventListener('DOMContentLoaded', function(){
       const track = document.getElementById('bookslideTrack');

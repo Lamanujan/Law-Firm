@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>변제금액 계산기 | ELOOM LAW FIRM</title>
+  <link href="https://fonts.googleapis.com/css2?family=SUIT:wght@600;800&family=Noto+Serif+KR:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main: #1db4a6;
+      --main-dark: #159488;
+      --accent: #235c57;
+      --graybg: #f5faf8;
+      --white: #fff;
+      --shadow: 0 8px 40px rgba(30,80,70,0.13), 0 1.5px 8px rgba(20,90,90,0.06);
+      --input-shadow: 0 2px 8px rgba(20,140,120,0.07);
+    }
+    html, body { height: 100%; margin: 0; padding: 0; background: var(--graybg);}
+    body { font-family: 'SUIT', 'Noto Serif KR', serif; }
+    .law-logo {
+      display:flex; flex-direction:column; align-items:center; gap:2px;
+      margin-top:38px; margin-bottom:9px; user-select:none;
+    }
+    .law-logo .logo-svg {
+      width:54px; height:54px; margin-bottom:7px;
+      display:flex; align-items:center; justify-content:center;
+      background: linear-gradient(135deg, #1db4a6 65%, #25dac5 100%);
+      border-radius:50%; box-shadow: 0 2px 16px rgba(16,170,150,0.09);
+    }
+    .law-logo .logo-svg svg {display:block;}
+    .law-logo .logo-text {
+      font-size:1.42rem; font-family:'Noto Serif KR',serif;
+      font-weight:900; letter-spacing:0.15em; color:var(--main-dark);
+      margin-bottom:0;
+    }
+    .law-logo .logo-desc {
+      font-family:'SUIT',sans-serif; color:#1b5550; font-size:.98rem;
+      font-weight:600; letter-spacing:.07em;
+    }
+    .calculator-container {
+      max-width: 440px;
+      margin: 28px auto 0 auto;
+      background: var(--white);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 48px 38px 32px 38px;
+      animation: slideIn 0.7s;
+      position: relative;
+      z-index: 2;
+    }
+    .calc-title {
+      font-size: 1.32rem;
+      font-family: 'SUIT', 'Noto Serif KR', serif;
+      text-align: center;
+      font-weight: 800;
+      color: var(--main-dark);
+      margin-bottom: 8px;
+      letter-spacing: 0.7px;
+      line-height: 1.2;
+    }
+    .calc-desc {
+      text-align: center;
+      color: #399c92;
+      font-size: 1.01rem;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+    .calc-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 1.09rem;
+      margin-top: 16px;
+      letter-spacing: -.18px;
+    }
+    .calc-form input {
+      width: 100%;
+      padding: 15px 17px;
+      font-size: 1.11rem;
+      border: 1.6px solid #b0ded8;
+      border-radius: 13px;
+      background: #f7fbfa;
+      margin-bottom: 3px;
+      margin-top: 2px;
+      box-shadow: var(--input-shadow);
+      transition: border 0.15s, box-shadow 0.19s;
+      box-sizing: border-box;
+      font-family: 'SUIT', 'Noto Serif KR', serif;
+    }
+    .calc-form input:focus {
+      outline: none;
+      border: 2px solid var(--main);
+      box-shadow: 0 0 0 3px #c8f5f0;
+      background: #fff;
+    }
+    .calc-btn {
+      width: 100%;
+      padding: 16px 0;
+      background: linear-gradient(90deg, var(--main-dark) 0%, var(--main) 100%);
+      color: #fff;
+      font-size: 1.19rem;
+      font-weight: 800;
+      border: none;
+      border-radius: 13px;
+      cursor: pointer;
+      margin: 20px 0 6px 0;
+      letter-spacing: 1.3px;
+      box-shadow: 0 2px 12px rgba(18,90,90,0.10);
+      transition: background 0.16s, box-shadow 0.16s;
+      font-family: 'SUIT', 'Noto Serif KR', serif;
+    }
+    .calc-btn:active, .calc-btn:hover {
+      background: linear-gradient(90deg, #0e7c72 0%, var(--main) 100%);
+      color: #fff;
+    }
+    .calc-btn-light {
+      background: #e5f8f5;
+      color: var(--main-dark);
+      font-weight: 700;
+      margin-bottom: 0;
+      margin-top: 0;
+      box-shadow: none;
+      border: 1.1px solid #b2dedb;
+    }
+    .calc-result {
+      background: linear-gradient(117deg,#f8fcfb 75%, #dbfaf5 100%);
+      border-radius: 16px;
+      padding: 27px 16px 18px 16px;
+      text-align: center;
+      margin-top: 24px;
+      font-size: 1.11rem;
+      color: #1d3b37;
+      border: 1.7px solid #b7e7e2;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(40,200,180,0.07);
+      display: none;
+      animation: fadein 0.44s;
+    }
+    .calc-result strong {
+      color: var(--main-dark);
+      font-size: 2.1rem;
+      display: block;
+      margin: 2px 0 6px 0;
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 800;
+      letter-spacing: 1.3px;
+    }
+    .calc-result .result-row {
+      display: flex; justify-content: space-between; margin: 10px 0 0 0;
+      font-size: 1.07rem; font-weight: 600;
+      color: #20938c;
+    }
+    .calc-result .result-row span:first-child {
+      color: #148d7b; letter-spacing:0.3px;
+      font-weight: 700; min-width: 120px;
+      font-family: 'SUIT', 'Noto Serif KR', serif;
+    }
+    .desc-small {
+      color: #56ada4;
+      font-size: 1.01rem;
+      margin-top: 19px;
+      text-align: center;
+      margin-bottom: 2px;
+      font-family: 'SUIT', 'Noto Serif KR', serif;
+    }
+    .law-footer {
+      margin: 33px 0 14px 0;
+      text-align: center;
+      color: #168e81;
+      font-family: 'SUIT', 'Noto Serif KR', serif;
+      font-size: 1.04rem;
+      line-height: 1.62;
+      letter-spacing: 0.02em;
+      word-break: keep-all;
+    }
+    .law-footer-title {
+      font-size: 1.19rem;
+      font-weight: 900;
+      color: #128274;
+      margin-bottom: 2px;
+      letter-spacing: 0.02em;
+      font-family: 'SUIT', 'Noto Serif KR', serif;
+    }
+    .tealline {
+      height:2.1px; background: linear-gradient(90deg,#daf6f2,#1db4a6 62%,#99ece2); border:0; margin:22px 0 15px 0;
+      border-radius:2px;
+    }
+    /* 플로팅 버튼들 */
+    .floating-btns {
+      position: fixed; right: 3vw; bottom: 32px; z-index: 9999;
+      display: flex; flex-direction: column; gap: 13px;
+    }
+    .floating-btn {
+      display: flex; align-items: center;
+      background: linear-gradient(90deg,#1db4a6 60%,#18a59c 100%);
+      color: #fff; font-family: 'SUIT', 'Noto Serif KR', sans-serif;
+      font-weight: 800; font-size: 1.08rem;
+      padding: 11px 20px 11px 14px; border-radius: 32px 18px 32px 32px;
+      box-shadow: 0 4px 18px rgba(30,160,140,0.12), 0 1.5px 4px rgba(0,0,0,0.07);
+      border:none; outline: none; cursor:pointer;
+      transition: background 0.15s, box-shadow 0.17s, transform 0.16s;
+      text-decoration:none;
+    }
+    .floating-btn:hover, .floating-btn:active {
+      background: linear-gradient(90deg,#168e81 40%,#1db4a6 100%);
+      box-shadow: 0 8px 22px rgba(30,160,140,0.16);
+      transform: translateY(-2px) scale(1.03);
+    }
+    .floating-btn .btn-icon {margin-right: 8px;}
+    .floating-btn .btn-text {font-size:1.06rem; font-weight:800;}
+    @media (max-width:600px){
+      .floating-btns {right: 5vw; bottom: 13px; gap:9px;}
+      .floating-btn {font-size:1rem; padding: 9px 14px 9px 9px;}
+      .floating-btn .btn-text{font-size:.97rem;}
+    }
+    /* 모달 공통 */
+    .modal-bg {
+      display:none; position:fixed; left:0;top:0;width:100vw;height:100vh;z-index:20000;
+      background:rgba(20,40,55,0.18); justify-content:center; align-items:center;
+      animation: fadein .3s;
+    }
+    .modal-bg.active {display:flex;}
+    .modal-box {
+      background:#fff; border-radius:20px; padding:0; box-shadow:0 8px 48px rgba(20,180,166,0.16);
+      max-width: 320px; width:94vw; position:relative; animation:slideIn .23s;
+      display:flex; flex-direction:column; max-height:92vh;
+    }
+    .modal-inner-scroll {
+      padding:18px 19px 7px 19px;
+      overflow-y:auto; flex:1 1 auto;
+      max-height:46vh;
+    }
+    .modal-title {
+      font-family:'SUIT','Noto Serif KR',serif;
+      font-size:1.11rem;font-weight:900;color:#1db4a6;
+      padding:15px 10px 10px 18px;margin-bottom:6px;text-align:left;
+      letter-spacing:.01em; border-radius:18px 18px 0 0;
+      background:linear-gradient(93deg,#f5faf8 75%,#e8fcf6 100%);
+    }
+    .modal-box form label {display:block;margin-bottom:3px;color:#168e81;font-weight:700;font-size:0.96rem;margin-top:7px;}
+    .modal-box form label span {color:#1db4a6; margin-left:3px;}
+    .modal-box input, .modal-box textarea {
+      width:100%;padding:7px 10px;font-size:0.93rem;border:1.1px solid #b0ded8;
+      border-radius:6px;margin-bottom:5px;box-sizing:border-box;background:#f8fbfa;
+      font-family:'SUIT','Noto Serif KR',serif;
+    }
+    .modal-box textarea {resize:vertical;min-height:29px;max-height:60px;}
+    .modal-btn-row {
+      display:flex;gap:10px;margin-top:7px;padding:0 18px 16px 18px;justify-content:center;
+    }
+    .modal-btn {
+      background:#e5f8f5;color:#168e81;font-size:0.97rem;font-weight:800;
+      border:none;border-radius:7px;padding:9px 0;cursor:pointer;
+      font-family:'SUIT','Noto Serif KR',serif;transition:.17s;flex:1;
+    }
+    .modal-btn.main {background:linear-gradient(90deg,#1db4a6 55%,#18a59c 100%);color:#fff;}
+    .modal-btn:active,.modal-btn:hover {background:#bff3ed;color:#11887a;}
+    .privacy-check {display:flex;align-items:center;margin:13px 0 0 0;}
+    .privacy-check input[type="checkbox"] {
+      appearance:none;width:18px;height:18px;border:2px solid #1db4a6;border-radius:5px;
+      margin-right:8px;display:inline-block;vertical-align:middle;position:relative;cursor:pointer;outline:none;
+      background:#f7fdfc;transition:.12s;
+    }
+    .privacy-check input[type="checkbox"]:checked {
+      background: #1db4a6;
+      border-color: #1db4a6;
+    }
+    .privacy-check input[type="checkbox"]:checked::after {
+      content: '✔'; color: #fff; font-size:1rem; position:absolute;top:0;left:2px;
+    }
+    .privacy-check label {
+      font-size: 0.95rem;
+      color: #145c59;
+      cursor:pointer; user-select:none;
+      padding-top:1px;
+    }
+    /* 상담전화 모달 전용 */
+    .modal-box.call {padding:0;width:260px;}
+    .modal-title.call {text-align:center;padding-left:0;}
+    .call-num {font-size:1.31rem;font-weight:900;color:#159488;margin:18px 0 12px 0;text-align:center;letter-spacing:.04em;}
+    .call-btn-row {display:flex;justify-content:center;gap:7px;margin-bottom:10px;}
+    .copy-msg {display:none;font-size:.97rem;color:#168e81;text-align:center;margin-top:1px;}
+    .copy-msg.active{display:block;animation:fadein .4s;}
+    @media (max-width:480px){
+      .modal-box{width:97vw;}
+      .modal-title{font-size:0.97rem;}
+      .modal-btn-row {padding:0 5vw 13px 5vw;}
+    }
+    @media (max-width:800px) {
+      .calculator-container {max-width: 97vw; padding: 7vw 3vw 6vw 3vw;}
+    }
+    @media (max-width:540px) {
+      .calculator-container {padding: 8vw 2vw 7vw 2vw; margin: 5vw 0;}
+      .law-logo .logo-text {font-size: 1.07rem;}
+      .calc-title {font-size: 1.03rem;}
+      .calc-form label {font-size:0.96rem;}
+      .calc-result strong {font-size:1.18rem;}
+      .law-footer {font-size:.98rem;}
+      .law-footer-title {font-size: 1.06rem;}
+    }
+    @media (max-width:370px) {
+      .calculator-container {padding: 4vw 0.2vw 7vw 0.2vw;}
+    }
+    @keyframes fadein { from {opacity: 0;} to {opacity: 1;} }
+    @keyframes slideIn { from{transform:translateY(50px); opacity:0;} to{transform:translateY(0); opacity:1;} }
+  </style>
+</head>
+<body>
+  <div class="law-logo">
+    <div class="logo-svg">
+      <!-- ELOOM 심볼(예시) -->
+      <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+        <circle cx="17" cy="17" r="15.5" stroke="#fff" stroke-width="2"/>
+        <text x="50%" y="54%" text-anchor="middle" fill="#fff" font-family="SUIT, Noto Serif KR, sans-serif" font-size="15" font-weight="bold" dy=".3em">E</text>
+      </svg>
+    </div>
+    <div class="logo-text">ELOOM LAW FIRM</div>
+    <div class="logo-desc">이룸 법률사무소</div>
+  </div>
+  <div class="calculator-container">
+    <div class="calc-title">변제금액 계산기</div>
+    <div class="calc-desc">
+      채무·이자·기간 입력만으로<br>
+      <b>월 변제금, 총 이자, 변제율</b> 한 번에 확인<br>
+      <span style="font-size:.93rem;color:#74beb6;">* 실제 금액은 상담 후 안내됩니다.</span>
+    </div>
+    <form class="calc-form" id="calcForm" autocomplete="off">
+      <label for="principal">채무 총액 (원) <span style="color:#1db4a6;font-weight:400;">*</span></label>
+      <input type="number" id="principal" required min="100000" step="10000" placeholder="예: 20,000,000">
+
+      <label for="interest">연이자율 (%) <span style="color:#1db4a6;font-weight:400;">*</span></label>
+      <input type="number" id="interest" required min="0" max="50" step="0.1" placeholder="예: 10">
+
+      <label for="months">변제기간 (개월) <span style="color:#1db4a6;font-weight:400;">*</span></label>
+      <input type="number" id="months" required min="1" max="120" step="1" placeholder="예: 60">
+
+      <label for="income">월평균수입 (원)</label>
+      <input type="number" id="income" min="0" step="1000" placeholder="예: 2,300,000">
+
+      <label for="cost">월평균생계비 (원)</label>
+      <input type="number" id="cost" min="0" step="1000" placeholder="예: 1,400,000">
+
+      <button type="submit" class="calc-btn">계산하기</button>
+      <button type="button" class="calc-btn calc-btn-light" onclick="resetCalc()">다시 계산</button>
+    </form>
+    <div class="calc-result" id="calcResult"></div>
+    <div class="desc-small">※ 계산결과는 참고용입니다. 실제 상담 및 기관 기준과 다를 수 있습니다.</div>
+
+    <!-- 업체 정보 푸터 -->
+    <div class="law-footer">
+      <div class="law-footer-title">ELOOM LAW FIRM</div>
+      <div>사업자등록번호 306-12-67673</div>
+      <div>부산광역시 연제구 법원남로15번길 9, 3층(거제동, 덕원빌딩)</div>
+      <div>TEL 1533-0560</div>
+    </div>
+  </div>
+
+  <!-- 오른쪽 하단 플로팅 버튼들 -->
+  <div class="floating-btns">
+    <button type="button" class="floating-btn consult-btn" onclick="openConsultModal()">
+      <span class="btn-icon">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <circle cx="11" cy="11" r="11" fill="#fff" opacity="0.19"/>
+          <path d="M5.2 15.5l1.1-2.7c.2-.5.7-.8 1.2-.7l2.2.5c.3.1.6 0 .8-.2l2.2-2.2c.2-.2.3-.5.2-.8l-.5-2.2c-.1-.5.2-1 .7-1.2l2.7-1.1c.7-.3 1.5.1 1.6.8.6 3.7-2.8 8.8-8.2 9.6-.7.1-1.2-.8-.8-1.6z" fill="#1db4a6"/>
+        </svg>
+      </span>
+      <span class="btn-text">간편상담</span>
+    </button>
+    <button type="button" class="floating-btn call-btn" onclick="openCallModal()">
+      <span class="btn-icon">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <circle cx="11" cy="11" r="11" fill="#fff" opacity="0.18"/>
+          <path d="M6.6 4.3c.1-.7.9-1.1 1.6-.8l2.6 1.1c.5.2.7.7.6 1.2l-.5 2.1c-.1.3 0 .6.2.8l2.2 2.2c.2.2.5.3.8.2l2.1-.5c.5-.1 1 .1 1.2.6l1.1 2.6c.3.7-.1 1.5-.8 1.6-2.1.4-6.2.5-9.6-3.3C6.1 10.5 6 7 6.6 4.3Z" fill="#1db4a6"/>
+        </svg>
+      </span>
+      <span class="btn-text">간편상담전화</span>
+    </button>
+  </div>
+
+  <!-- 간편상담 신청 폼 모달 -->
+  <div class="modal-bg" id="consultModal" onclick="closeModal(event, 'consultModal')">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-title">간편상담 신청</div>
+      <div class="modal-inner-scroll">
+        <form id="consultForm" autocomplete="off">
+          <label>이름<span>*</span></label>
+          <input type="text" name="name" required maxlength="20" placeholder="이름 입력">
+          <label>연락처<span>*</span></label>
+          <input type="tel" name="tel" required maxlength="20" placeholder="숫자만 입력">
+          <label>총 채무액(원)<span>*</span></label>
+          <input type="number" name="debt" required min="0" step="10000" placeholder="예: 20,000,000">
+          <label>월소득(실수령액)</label>
+          <input type="number" name="income" min="0" step="1000" placeholder="예: 2,300,000">
+          <label>총 재산액(원)</label>
+          <input type="number" name="asset" min="0" step="10000" placeholder="예: 5,000,000">
+          <label>미성년 자녀 수</label>
+          <input type="number" name="child" min="0" max="10" step="1" placeholder="예: 2">
+          <label>상담받고 싶은 내용</label>
+          <textarea name="content" rows="3" maxlength="300" placeholder="상세한 상담 희망 내용 작성(선택)"></textarea>
+          <label>상담희망시간(선택)</label>
+          <input type="text" name="wish" maxlength="30" placeholder="예: 평일 오후 3~6시">
+          <div class="privacy-check">
+            <input type="checkbox" id="privacyChk" required>
+            <label for="privacyChk">개인정보 수집·이용에 동의합니다 (상담신청에 필요)</label>
+          </div>
+          <div class="modal-btn-row">
+            <button type="submit" class="modal-btn main">신청하기</button>
+            <button type="button" class="modal-btn" onclick="closeModal(null, 'consultModal')">닫기</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 간편상담전화 모달(전화걸기 버튼 없음) -->
+  <div class="modal-bg" id="callModal" onclick="closeModal(event, 'callModal')">
+    <div class="modal-box call" onclick="event.stopPropagation()">
+      <div class="modal-title call">간편상담 전화번호</div>
+      <div class="call-num">1533-0560</div>
+      <div class="call-btn-row">
+        <button type="button" class="modal-btn main" onclick="copyNumber()">번호복사</button>
+        <button type="button" class="modal-btn" onclick="closeModal(null, 'callModal')">닫기</button>
+      </div>
+      <div id="copyMsg" class="copy-msg">복사되었습니다.</div>
+    </div>
+  </div>
+  <script>
+    // 계산기 기능
+    document.getElementById('calcForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      let principal = Number(document.getElementById('principal').value);
+      let rate = Number(document.getElementById('interest').value) / 100 / 12;
+      let months = Number(document.getElementById('months').value);
+      let income = Number(document.getElementById('income').value) || 0;
+      let cost = Number(document.getElementById('cost').value) || 0;
+
+      let monthly = 0;
+      if(rate === 0){
+        monthly = principal / months;
+      } else {
+        monthly = principal * rate * Math.pow(1+rate, months) / (Math.pow(1+rate, months)-1);
+      }
+      monthly = Math.round(monthly);
+      let total = monthly * months;
+      let yearly = monthly * 12;
+      let repayRate = (total / principal * 100).toFixed(1);
+      let interestAll = total - principal;
+      let possible = 0;
+      let possible_txt = '';
+      if(income > 0 && cost > 0) {
+        possible = income - cost;
+        if(possible > 0){
+          possible_txt = `<div class="result-row"><span>생계비 제외 월 변제 가능액</span> <span><b>${possible.toLocaleString()}원</b></span></div>`;
+        } else {
+          possible_txt = `<div class="result-row"><span>변제여력</span> <span style="color:#e15353;font-weight:700;">부족</span></div>`;
+        }
+      }
+
+      document.getElementById('calcResult').innerHTML = `
+        <strong>${monthly.toLocaleString()}원</strong>
+        <div style="font-size:.97rem; color:#16a291; margin-bottom:4px;">예상 월 변제금액</div>
+        <hr class="tealline">
+        <div class="result-row"><span>연간 변제금</span><span><b>${yearly.toLocaleString()}원</b></span></div>
+        <div class="result-row"><span>총 변제금</span><span><b>${total.toLocaleString()}원</b></span></div>
+        <div class="result-row"><span>총 이자 부담</span><span><b>${interestAll.toLocaleString()}원</b></span></div>
+        <div class="result-row"><span>변제율(총 변제금/채무)</span><span><b>${repayRate}%</b></span></div>
+        ${possible_txt}
+      `;
+      document.getElementById('calcResult').style.display = 'block';
+    });
+    function resetCalc(){
+      document.getElementById('calcForm').reset();
+      document.getElementById('calcResult').style.display = 'none';
+    }
+    // 모달 열고 닫기
+    function openConsultModal() {
+      document.getElementById('consultModal').classList.add('active');
+    }
+    function openCallModal() {
+      document.getElementById('callModal').classList.add('active');
+    }
+    function closeModal(e, id) {
+      if (e && e.target !== e.currentTarget) return;
+      document.getElementById(id).classList.remove('active');
+    }
+    // 간편상담 폼 제출(데모: 실제 서버전송 필요)
+    document.getElementById('consultForm').onsubmit = function(e){
+      e.preventDefault();
+      if (!document.getElementById('privacyChk').checked) {
+        alert("개인정보 수집·이용에 동의해 주세요.");
+        return false;
+      }
+      alert("상담 신청이 접수되었습니다.\n담당자가 빠르게 연락드릴 예정입니다.");
+      closeModal(null, 'consultModal');
+      this.reset();
+    };
+    // 번호 복사
+    function copyNumber(){
+      const tel = '1533-0560';
+      navigator.clipboard.writeText(tel);
+      const msg = document.getElementById('copyMsg');
+      msg.classList.add('active');
+      setTimeout(()=>msg.classList.remove('active'),1200);
+    }
+  </script>
+</body>
+</html>

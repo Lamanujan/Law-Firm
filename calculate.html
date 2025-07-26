@@ -17,25 +17,25 @@
     }
     html, body { height: 100%; margin: 0; padding: 0; background: var(--graybg);}
     body { font-family: 'SUIT', 'Noto Serif KR', serif; }
+    /* 로고 영역 */
     .law-logo {
-      display:flex; flex-direction:column; align-items:center; gap:2px;
-      margin-top:38px; margin-bottom:9px; user-select:none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 38px;
+      margin-bottom: 18px;
     }
-    .law-logo .logo-svg {
-      width:54px; height:54px; margin-bottom:7px;
-      display:flex; align-items:center; justify-content:center;
-      background: linear-gradient(135deg, #1db4a6 65%, #25dac5 100%);
-      border-radius:50%; box-shadow: 0 2px 16px rgba(16,170,150,0.09);
-    }
-    .law-logo .logo-svg svg {display:block;}
-    .law-logo .logo-text {
-      font-size:1.42rem; font-family:'Noto Serif KR',serif;
-      font-weight:900; letter-spacing:0.15em; color:var(--main-dark);
-      margin-bottom:0;
-    }
-    .law-logo .logo-desc {
-      font-family:'SUIT',sans-serif; color:#1b5550; font-size:.98rem;
-      font-weight:600; letter-spacing:.07em;
+   .law-logo .logo-svg {
+  width:54px; height:54px; margin-bottom:7px;
+  display:flex; align-items:center; justify-content:center;
+  /* background: linear-gradient(135deg, #1db4a6 65%, #25dac5 100%); 삭제 또는 아래처럼 변경 */
+  background: none;
+  border-radius:50%; box-shadow: 0 2px 16px rgba(16,170,150,0.09);
+}
+    .law-logo .logo-svg .logo-img {
+      width: 90%; height: 90%;
+      object-fit: contain;
+      display: block;
     }
     .calculator-container {
       max-width: 440px;
@@ -292,7 +292,7 @@
     }
     @media (max-width:540px) {
       .calculator-container {padding: 8vw 2vw 7vw 2vw; margin: 5vw 0;}
-      .law-logo .logo-text {font-size: 1.07rem;}
+      .law-logo .logo-svg {width: 54px; height: 54px;}
       .calc-title {font-size: 1.03rem;}
       .calc-form label {font-size:0.96rem;}
       .calc-result strong {font-size:1.18rem;}
@@ -307,12 +307,11 @@
   </style>
 </head>
 <body>
+  <!-- 로고 영역 (원형+로고이미지) -->
   <div class="law-logo">
     <div class="logo-svg">
-  <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/logo.png?raw=true" alt="계산기 로고" width="34" height="34" style="display:block;">
-</div>
-    <div class="logo-text">ELOOM LAW FIRM</div>
-    <div class="logo-desc">이룸 법률사무소</div>
+      <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/logo.png?raw=true" alt="계산기 로고" class="logo-img">
+    </div>
   </div>
   <div class="calculator-container">
     <div class="calc-title">변제금액 계산기</div>

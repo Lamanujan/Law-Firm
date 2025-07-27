@@ -156,13 +156,142 @@
       .circle-img-area { width: 42vw !important; height: 42vw !important; min-width:42vw !important; min-height:42vw !important; max-width:42vw !important; max-height:42vw !important; border-radius:50% !important; margin-bottom:10px; }
       .circle-card-title { font-size: 4.6vw;}
     }
+    /* ===== 북슬라이드 리뉴얼 카드 스타일 ===== */
+    .bookslideWrap-section { width:100vw; background:#fff; }
     .bookslideWrap { width:100vw; overflow:hidden; margin:0 auto; padding:36px 0 50px 0; background:#fff; }
-    .bookslide-track { display:flex; gap:28px; will-change:transform; user-select:none; cursor:grab; transition:none !important;}
-    .bookslide { flex:0 0 auto; width:18vw; max-width:112px; min-width:68px; height:24vw; max-height:160px; min-height:92px; border-radius:13px; background:#fff; box-shadow:0 4px 16px #0001; display:flex; align-items:center; justify-content:center; transition: width 0.25s, height 0.25s, margin 0.25s;}
-    .bookslide img { width:100%; height:100%; border-radius:13px; object-fit:cover; display:block; box-shadow:0 2px 8px #0002;}
-    @media (max-width:1024px) { .bookslide { width:27vw; height:35vw; max-width:120px; max-height:156px; } .bookslide-track { gap:18px;} }
-    @media (max-width:600px) { .bookslide { width:43vw; height:53vw; max-width:99px; max-height:122px;} .bookslide-track { gap:10px;} }
-    .bookslide-track, .bookslide { transition: width 0.25s, height 0.25s, margin 0.25s;}
+    .bookslide-track {
+      display: flex;
+      gap: 36px;
+      will-change: transform;
+      user-select: none;
+      cursor: grab;
+      transition: none !important;
+      padding-bottom: 8px;
+    }
+    .bookslide-case {
+      flex: 0 0 auto;
+      width: 320px;
+      max-width: 92vw;
+      min-width: 260px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 16px #0002;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 8px;
+      padding-bottom: 17px;
+      transition: box-shadow 0.2s;
+    }
+    .bookslide-case img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 20px 20px 0 0;
+      margin-bottom: 10px;
+      background:#eee;
+      display: block;
+    }
+    .case-text {
+      width: 93%;
+      padding: 0 0 0 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .case-cat {
+      background: #2569f3;
+      color: #fff;
+      font-size: 0.98rem;
+      font-weight: 700;
+      display: inline-block;
+      padding: 2px 12px;
+      border-radius: 14px;
+      margin-bottom: 8px;
+      margin-top: 4px;
+    }
+    .case-title {
+      font-size: 1.07rem;
+      font-weight: 600;
+      color: #20204b;
+      margin-bottom: 5px;
+      line-height: 1.4;
+    }
+    .case-title a { color: #20204b; text-decoration: none; }
+    .case-title a:hover { text-decoration: underline; color: #164eb8; }
+    .case-desc {
+      font-size: 0.99rem;
+      color: #444;
+      line-height: 1.6;
+    }
+    .case-desc a { color: #444; text-decoration: none; }
+    .case-desc a:hover { text-decoration: underline; }
+    @media (max-width:600px) {
+      .bookslide-case {
+        width: 90vw;
+        min-width: 0;
+        padding-bottom: 10px;
+      }
+      .bookslide-case img { height: 160px; }
+      .case-text { padding: 0 2vw 0 2vw;}
+    }
+    /* ===== 배너 페이드 섹션 (마우스 오버 이미지 전환) ===== */
+    .banner-image-section {
+      width: 100vw;
+      background: transparent;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+    .banner-img-fade-wrap {
+      position: relative;
+      width: 92vw;
+      max-width: 1100px;
+      aspect-ratio: 1200 / 310;
+      background: transparent;
+      overflow: visible;
+      border-radius: 0;
+      box-shadow: none;
+      margin: 36px auto 32px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .banner-img-fade-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      transition: opacity 0.5s cubic-bezier(.8,0,.2,1);
+      user-select: none;
+      pointer-events: none;
+    }
+    .banner-img-fade-wrap .bannerA { opacity: 1; z-index: 1; }
+    .banner-img-fade-wrap .bannerB { opacity: 0; z-index: 2; }
+    .banner-img-fade-wrap:hover .bannerA,
+    .banner-img-fade-wrap:focus .bannerA { opacity: 0; }
+    .banner-img-fade-wrap:hover .bannerB,
+    .banner-img-fade-wrap:focus .bannerB { opacity: 1; }
+    @media (max-width: 1200px) {
+      .banner-img-fade-wrap { width: 96vw; max-width: 96vw; }
+    }
+    @media (max-width: 700px) {
+      .banner-img-fade-wrap { width: 98vw; max-width: 98vw; border-radius: 13px; margin: 24px auto 18px auto; }
+      .banner-img-fade-wrap img { border-radius: 13px; }
+    }
+    @media (max-width: 500px) {
+      .banner-img-fade-wrap { border-radius: 8px; margin: 12px auto 7px auto; }
+      .banner-img-fade-wrap img { border-radius: 8px; }
+    }
+    /* ===== 배너 페이드 섹션 끝 ===== */
     footer { width:100vw; background:#f5f5f7; border-top:1.5px solid #dadada; padding:34px 0 18px 0; text-align:center; }
     .eloom-footer-brand-row { display:flex; align-items:center; justify-content:center; gap:0.44em; margin-bottom:7px;}
     .eloom-footer-brand-row img { height:1.18em; }
@@ -203,13 +332,11 @@
       <div class="sidebar-blank-area"></div>
       <div class="sidebar-bottom-info" style="padding-top:12px;">
         <div class="sidebar-sns">
-          <!-- 유튜브 공식 빨간색 아이콘 (SVG) -->
 <a href="https://www.youtube.com/@STARLAWFIRM" target="_blank" title="YouTube" style="margin-right:8px;">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="#FF0000" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;">
     <path d="M23.498 6.186c-.273-1.023-1.076-1.825-2.099-2.099C19.18 3.5 12 3.5 12 3.5s-7.18 0-9.399.587c-1.023.273-1.826 1.076-2.099 2.099C.5 8.406.5 12 .5 12s0 3.594.587 5.814c.273 1.023 1.076 1.826 2.099 2.099C4.82 20.5 12 20.5 12 20.5s7.18 0 9.399-.587c1.023-.273 1.826-1.076 2.099-2.099.587-2.22.587-5.814.587-5.814s0-3.594-.587-5.814zM9.75 15.568V8.432L15.818 12 9.75 15.568z"/>
   </svg>
 </a>
-
           <a href="https://www.instagram.com/starlawfirm_official" target="_blank" title="Instagram">
             <img alt="Instagram" loading="lazy" width="24" height="24" decoding="async" src="https://main.star-law.com/_next/image?url=%2Fimages%2FLayout%2Flow-bar%2Fsns_insta_m.png&w=48&q=75" style="display:inline-block;">
           </a>
@@ -298,24 +425,75 @@
       </div>
       <button class="circle-slider-arrow right" id="circleSliderNext" aria-label="다음">〉</button>
     </div>
-    <!-- 북슬라이드 섹션 -->
+    <!-- 북슬라이드 카드형 리뉴얼 섹션 -->
     <section class="bookslideWrap-section">
       <div style="text-align:center; font-size:1.18rem; font-weight:700; margin:0 0 22px 0; letter-spacing:-0.02em;">
         실제 판결문 <span style="color:#2569f3;">소장/채권압류</span> 사례 모음
       </div>
       <div class="bookslideWrap">
         <div class="bookslide-track" id="bookslideTrack">
-          <div class="bookslide"><img src="https://covers.openlibrary.org/b/id/10573404-L.jpg" alt="book1"></div>
-          <div class="bookslide"><img src="https://covers.openlibrary.org/b/id/11048525-L.jpg" alt="book2"></div>
-          <div class="bookslide"><img src="https://covers.openlibrary.org/b/id/10594826-L.jpg" alt="book3"></div>
-          <div class="bookslide"><img src="https://covers.openlibrary.org/b/id/10650291-L.jpg" alt="book4"></div>
-          <div class="bookslide"><img src="https://covers.openlibrary.org/b/id/11102323-L.jpg" alt="book5"></div>
-          <div class="bookslide"><img src="https://covers.openlibrary.org/b/id/10573404-L.jpg" alt="book6"></div>
-          <div class="bookslide"><img src="https://covers.openlibrary.org/b/id/11048525-L.jpg" alt="book7"></div>
-          <div class="bookslide"><img src="https://covers.openlibrary.org/b/id/10594826-L.jpg" alt="book8"></div>
-          <div class="bookslide"><img src="https://covers.openlibrary.org/b/id/10650291-L.jpg" alt="book9"></div>
-          <div class="bookslide"><img src="https://covers.openlibrary.org/b/id/11102323-L.jpg" alt="book10"></div>
+          <!-- 카드 예시 -->
+          <div class="bookslide bookslide-case">
+            <img src="https://covers.openlibrary.org/b/id/10573404-L.jpg" alt="book1">
+            <div class="case-text">
+              <div class="case-cat">개인파산</div>
+              <div class="case-title">
+                <a href="https://dosanpro.com/bbs/board.php?bo_table=page0601&amp;wr_id=79" target="_blank">
+                  부산 / 50대 여성 / 무직 / 임**님 / 2020년 08월 24일 개인파산 면책결정 / 약 1억4천만원 면책
+                </a>
+              </div>
+              <div class="case-desc">
+                <a href="https://dosanpro.com/bbs/board.php?bo_table=page0601&amp;wr_id=79" target="_blank">
+                  부산거주 / 50대 / 여성 / 무직 / 임**님<br>
+                  약 1억 4,126만원 이상 면책(탕감)<br>
+                  면책률 100%
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="bookslide bookslide-case">
+            <img src="https://covers.openlibrary.org/b/id/11048525-L.jpg" alt="book2">
+            <div class="case-text">
+              <div class="case-cat">채권압류</div>
+              <div class="case-title">
+                <a href="https://dosanpro.com/bbs/board.php?bo_table=page0601&amp;wr_id=80" target="_blank">
+                  서울 / 40대 남성 / 자영업 / 김**님 / 2023년 07월 15일 채권압류 해제 / 3,000만원 해결
+                </a>
+              </div>
+              <div class="case-desc">
+                <a href="https://dosanpro.com/bbs/board.php?bo_table=page0601&amp;wr_id=80" target="_blank">
+                  서울거주 / 40대 / 남성 / 자영업<br>
+                  채권압류 해제 / 100% 성공
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="bookslide bookslide-case">
+            <img src="https://covers.openlibrary.org/b/id/10594826-L.jpg" alt="book3">
+            <div class="case-text">
+              <div class="case-cat">개인회생</div>
+              <div class="case-title">
+                <a href="#" target="_blank">
+                  대구 / 30대 여성 / 직장인 / 박**님 / 2022년 05월 10일 개인회생 인가 / 약 7천만원 탕감
+                </a>
+              </div>
+              <div class="case-desc">
+                <a href="#" target="_blank">
+                  대구거주 / 30대 / 여성 / 직장인<br>
+                  약 7,000만원 채무 면책<br>
+                  개인회생 인가 판결
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
+    <!-- ★ 배너 이미지 페이드(마우스오버 시 이미지 전환) 섹션 -->
+    <section class="banner-image-section">
+      <div class="banner-img-fade-wrap" tabindex="0">
+        <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/sampleB.jpg?raw=true" class="bannerA" alt="배너B">
+        <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/sampleA.jpg?raw=true" class="bannerB" alt="배너A">
       </div>
     </section>
     <footer>
@@ -337,7 +515,7 @@
     </footer>
   </div>
   <script>
-    // ===== 사이드 메뉴(메뉴 베너) 동작 =====
+    // ===== 사이드 메뉴 동작 =====
     const sidebarBg = document.getElementById('sidebarBg');
     document.getElementById('menu-link').onclick = function() {
       sidebarBg.classList.add('active');

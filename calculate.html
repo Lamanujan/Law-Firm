@@ -2,502 +2,679 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <title>ELOOM LAW FIRM</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>변제금액 계산기 | ELOOM LAW FIRM</title>
-  <link href="https://fonts.googleapis.com/css2?family=SUIT:wght@600;800&family=Noto+Serif+KR:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&family=Noto+Serif+KR:wght@700&display=swap">
   <style>
-    :root {
-      --main: #1db4a6;
-      --main-dark: #159488;
-      --accent: #235c57;
-      --graybg: #f5faf8;
-      --white: #fff;
-      --shadow: 0 8px 40px rgba(30,80,70,0.13), 0 1.5px 8px rgba(20,90,90,0.06);
-      --input-shadow: 0 2px 8px rgba(20,140,120,0.07);
+    html, body {margin:0;padding:0;box-sizing:border-box;width:100vw;overflow-x:hidden;background:#fff;}
+    body {font-family:'Noto Sans KR','Pretendard',sans-serif;color:#222;min-height:100dvh;}
+    header {background:rgba(24,24,24,0.35);position:fixed;top:0;left:0;width:100vw;z-index:1100;backdrop-filter:blur(10px);}
+    .nav-bar {width:100%;max-width:1280px;height:48px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;box-sizing:border-box;padding-left:18px;padding-right:18px;}
+    .nav-left {display:flex;align-items:center;}
+    .nav-logo-img {width:28px;height:28px;margin-right:9px;}
+    .nav-logo-img img {width:100%;height:100%;object-fit:contain;display:block;}
+    .nav-brand-text {font-size:1.03rem;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:0.02em;}
+    .nav-right {display:flex;align-items:center;}
+    .menu-link {background:none;border:none;color:#fff;font-size:1.01rem;font-weight:500;cursor:pointer;}
+    /* ===== 사이드 메뉴 ===== */
+    .sidebar-bg { position:fixed; z-index:3000; left:0; top:0; width:100vw; height:100dvh; background:rgba(0,0,0,0.31); opacity:0; pointer-events:none; transition:opacity 0.45s; }
+    .sidebar-bg.active { opacity:1; pointer-events:auto;}
+    .sidebar-container { position:fixed; right:0; top:0; height:100dvh; width:290px; max-width:95vw; background:#fff; box-shadow:-6px 0 32px #0002; display:flex; flex-direction:column; z-index:3010; transform:translateX(100%); transition:transform 0.55s cubic-bezier(.77,0,.18,1);}
+    .sidebar-bg.active .sidebar-container { transform:translateX(0);}
+    .sidebar-header { display:flex; align-items:center; justify-content:space-between; padding:20px 24px 0 24px;}
+    .sidebar-logo-link { display:flex; align-items:center; gap:12px; pointer-events:none;}
+    .sidebar-logo-img { width:33px; height:33px; border-radius:50%; background:url('https://github.com/Lamanujan/Law-Firm/raw/main/images/logo.png?raw=true') center/cover no-repeat;}
+    .sidebar-brand { font-weight:700; font-size:1.12rem; color:#242424; letter-spacing:0.03em;}
+    .sidebar-close-btn { background:none; border:none; font-size:2.2rem; color:#555; cursor:pointer; font-weight:700; padding:0 8px; line-height:1;}
+    .sidebar-link-list { display:flex; flex-direction:column; gap:7px; margin:38px 0 0 0; }
+    .sidebar-link { display:flex; align-items:center; gap:7px; font-size:1.04rem; color:#242424; text-decoration:none; font-weight:600; padding:10px 24px 10px 24px; transition:background 0.15s; border-radius:9px;}
+    .sidebar-link:hover { background:#f5f6fa;}
+    .sidebar-link img { height:16px; width:16px; }
+    .sidebar-blank-area { flex:1; }
+    .sidebar-bottom-info { padding: 0 24px 16px 24px; }
+    .sidebar-company-info { font-size:10px !important; color:#222; text-align:left; line-height:1.7; font-weight:400; letter-spacing:0.01em; margin-bottom:0 !important;}
+    .sidebar-sns { display:flex; gap:10px; margin-bottom:8px;}
+    .sidebar-sns a { display:inline-flex; }
+    @media (max-width:500px) {
+      .sidebar-container { width:90vw; min-width:0; }
+      .sidebar-header { padding:16px 13px 0 13px;}
+      .sidebar-link { font-size:0.95rem; padding:8px 13px 8px 13px;}
+      .sidebar-bottom-info { padding:0 13px 13px 13px;}
+      .sidebar-sns { gap:8px;}
+      .sidebar-logo-img { width:26px; height:26px;}
+      .sidebar-brand { font-size:0.98rem;}
+      .sidebar-company-info { font-size:9px !important;}
     }
-    html, body { height: 100%; margin: 0; padding: 0; background: var(--graybg);}
-    body { font-family: 'SUIT', 'Noto Serif KR', serif; }
-    /* 로고 영역 */
-    .law-logo {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 38px;
-      margin-bottom: 18px;
-    }
-   .law-logo .logo-svg {
-  width:54px; height:54px; margin-bottom:7px;
-  display:flex; align-items:center; justify-content:center;
-  /* background: linear-gradient(135deg, #1db4a6 65%, #25dac5 100%); 삭제 또는 아래처럼 변경 */
-  background: none;
-  border-radius:50%; box-shadow: 0 2px 16px rgba(16,170,150,0.09);
-}
-    .law-logo .logo-svg .logo-img {
-      width: 90%; height: 90%;
-      object-fit: contain;
+    /* ===== 상담 패널 ===== */
+    .inquiryBg {
+      position: fixed; left: 0; top:0; width: 100vw; height: 100dvh;
+      background: rgba(0,0,0,0.39); z-index: 2000;
       display: block;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s;
     }
-    .calculator-container {
-      max-width: 440px;
-      margin: 28px auto 0 auto;
-      background: var(--white);
-      border-radius: 30px;
-      box-shadow: var(--shadow);
-      padding: 48px 38px 32px 38px;
-      animation: slideIn 0.7s;
-      position: relative;
-      z-index: 2;
+    .inquiryBg.active {
+      opacity: 1;
+      pointer-events: auto;
     }
-    .calc-title {
-      font-size: 1.32rem;
-      font-family: 'SUIT', 'Noto Serif KR', serif;
-      text-align: center;
-      font-weight: 800;
-      color: var(--main-dark);
-      margin-bottom: 8px;
-      letter-spacing: 0.7px;
-      line-height: 1.2;
+    .inquiryForm {
+      position: fixed; right: 0; top: 0; width: 370px; max-width: 97vw; height: 100dvh;
+      background: #fff; box-shadow: -8px 0 40px rgba(60,50,50,0.13), -2px 0 10px rgba(60,50,50,0.07);
+      border-radius: 0 0 0 24px; padding: 0; z-index: 2010;
+      display: flex; flex-direction: column; justify-content: center; align-items: stretch;
+      transform: translateX(100%); opacity: 0;
+      transition: transform 0.85s cubic-bezier(.77,0,.18,1), opacity 0.85s cubic-bezier(.77,0,.18,1);
     }
-    .calc-desc {
-      text-align: center;
-      color: #399c92;
-      font-size: 1.01rem;
-      margin-bottom: 32px;
-      line-height: 1.7;
+    .inquiryBg.active .inquiryForm {
+      transform: translateX(0); opacity: 1;
     }
-    .calc-form label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 700;
-      color: var(--accent);
-      font-size: 1.09rem;
-      margin-top: 16px;
-      letter-spacing: -.18px;
-    }
-    .calc-form input {
+    .inquiry-header {
       width: 100%;
-      padding: 15px 17px;
-      font-size: 1.11rem;
-      border: 1.6px solid #b0ded8;
-      border-radius: 13px;
-      background: #f7fbfa;
-      margin-bottom: 3px;
-      margin-top: 2px;
-      box-shadow: var(--input-shadow);
-      transition: border 0.15s, box-shadow 0.19s;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+      padding: 14px 22px 6px 24px;
       box-sizing: border-box;
-      font-family: 'SUIT', 'Noto Serif KR', serif;
-    }
-    .calc-form input:focus {
-      outline: none;
-      border: 2px solid var(--main);
-      box-shadow: 0 0 0 3px #c8f5f0;
+      min-height: 44px;
       background: #fff;
     }
-    .calc-btn {
+    .inquiry-header .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      justify-content: flex-start;
+      margin-right: 0;
+    }
+    .inquiry-header .logo-area img { height: 32px; width: 32px; border-radius: 50%; object-fit: cover;}
+    .inquiry-header .logo-area span { font-weight: 700; font-size: 1.14rem; letter-spacing: 0.03em; color: #232323;}
+    .inquiryCloseBtn { position: absolute; top: 10px; right: 16px; font-size: 2.2rem; color: #686868; background: none; border: none; cursor: pointer; opacity: 0.88; font-weight: 900; line-height: 1; transition: color .18s, opacity .13s; z-index: 2; padding: 0 8px;}
+    .inquiryCloseBtn:hover { color: #d22626; opacity: 1; }
+    .inquiryForm-inner { margin: 0 auto; max-width: 320px; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; min-height: 0; }
+    .inquiryForm-content-center { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; width: 100%; min-height: 0; height: 100%; }
+    .inquiry_step1 .top_title p { font-size: 1.13rem; text-align: center; color: #232323; margin: 0 0 15px 0;}
+    .form_box { margin-bottom: 13px; width: 100%; }
+    .form_box input[type="text"], .form_box input[type="tel"] { width: 100%; font-size: 1.09rem; padding: 12px 10px; border: 1px solid #e1e1e1; border-radius: 7px; box-sizing: border-box; background: #fafbfc; outline: none; transition: border .15s;}
+    .form_box input[type="text"]:focus, .form_box input[type="tel"]:focus { border-color: #d22626; background: #fff;}
+    .form_clear_btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 1.07rem; color: #b3b3b3; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.75; padding: 0; height: 2.2em; width: 2.2em;}
+    .form_clear_btn:hover { color: #d22626; }
+    .receive_chk_box { margin: 0 0 12px 0; font-size: 0.99rem; color: #333; }
+    .receive_chk_box input[type="checkbox"] { margin-right: 8px; transform: scale(1.12);}
+    .form_bt_btn { width: 100%; padding: 13px 0; background: linear-gradient(90deg,#d22626 0%,#e4562b 100%); border: none; border-radius: 9px; color: #fff; font-size: 1.14rem; font-weight: 700; cursor: pointer; transition: background .16s, transform .13s;}
+    .form_bt_btn:hover, .form_bt_btn:focus { background: linear-gradient(90deg, #b82020 0%, #b53d19 100%); transform: translateY(-2px) scale(1.03);}
+    @media (max-width:700px) {
+      .main-image-section, .main-image-section img, .main-image-section::after { height: 60vh !important; min-height: 300px !important; }
+      .inquiryForm {
+        width: 92vw !important; left: 4vw !important; right: 4vw !important; bottom: 0;
+        top: auto !important; max-width: 92vw; height: 61vh !important; max-height: 61vh !important;
+        border-radius: 20px 20px 0 0; box-shadow: 0 -2px 24px #2223;
+        transform: translateY(100%); opacity: 0;
+        position: fixed;
+        transition: transform 0.85s cubic-bezier(.77,0,.18,1), opacity 0.85s cubic-bezier(.77,0,.18,1);
+        overflow-y: auto !important; margin-bottom: 12px; justify-content: flex-start;
+      }
+      .inquiryBg.active .inquiryForm { transform: translateY(0); opacity: 1; }
+      .inquiryForm-inner { max-width: 91vw !important; padding: 14px 4vw 8px 4vw; max-height: 55vh !important; overflow-y: auto; }
+      .inquiry-header { margin-top: 6px !important; margin-bottom: 10px !important; }
+      .inquiry-header .logo-area img { height: 27px; width: 27px;}
+      .inquiry-header .logo-area span { font-size: 1.04rem;}
+    }
+    @media (max-width:400px) { .inquiryForm-inner { padding: 8px 2vw 10px 2vw; } }
+    /* ===== 기타 스타일(메인, 카드, 이미지, 패널 등) ===== */
+    .main-banner-section {position: fixed;top: 0; left: 0; width: 100vw; height: 100dvh;z-index: 2;transition: opacity 0.38s cubic-bezier(.8,0,.2,1), transform 0.38s cubic-bezier(.8,0,.2,1), z-index 0.2s;will-change: opacity, transform;pointer-events:auto;background: #111;}
+    .main-banner-section.hide {opacity: 0;transform: translateY(-50px) scale(0.98);pointer-events: none;z-index: 0;}
+    .main-banner-img-area { position:absolute; top:0; left:0; width:100vw; height:100dvh; z-index:1; }
+    .main-banner-img-area img { width:100vw; height:100dvh; object-fit:cover; object-position:center; position:absolute; top:0; left:0; opacity:0; transition:opacity 1.2s;}
+    .main-banner-img-area img.show { opacity:1; }
+    .main-banner-content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2; width:100vw; display:flex; flex-direction:column; align-items:center;}
+    .main-title-eloom { font-family: 'Noto Serif KR', serif; font-size:6vw; font-weight:700; color:rgba(255,255,255,0.98); text-shadow: 0 2px 16px rgba(20,20,20,0.17), 0 1.5px 14px rgba(60,40,60,0.10); letter-spacing:0.14em; text-align:center; text-transform:uppercase; line-height:1.08; margin:0;}
+    .scroll-arrow { position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%); z-index: 5; font-size: 2.1rem; color: #fff; opacity: 0.92; user-select: none; filter: drop-shadow(0 0 9px rgba(0,0,0,0.22)); pointer-events: none; animation: arrow-down-bounce 1.4s infinite; }
+    @keyframes arrow-down-bounce { 0%, 100% { transform: translateX(-50%) translateY(0);} 50% { transform: translateX(-50%) translateY(13px);} }
+    .main-image-section { width: 100vw; height: 100vh; min-height: 500px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;}
+    .main-image-section img { width: 100vw; height: 100vh; object-fit: cover; object-position: center; position: absolute; top:0; left:0; z-index: 1; transition: transform 1.2s cubic-bezier(.8,0,.2,1), filter 1.2s;}
+    @media (max-width:700px) {.main-image-section, .main-image-section img, .main-image-section::after { height: 60vh !important; min-height: 300px !important; } }
+    .content-wrap { position: relative; z-index: 3; margin-top: 100dvh; background: #fff; width:100vw; overflow-x:hidden; }
+    .circle-slider-section { width:100vw; display:flex; align-items:center; justify-content:center; position:relative; background:#fff; padding-top:40px; padding-bottom:40px;}
+    .circle-slider-wrapper { position:relative; width:100vw; min-height:480px; display:flex; align-items:center; justify-content:center; overflow:visible;}
+    .circle-card { position:relative; width:340px; max-width:96vw; margin:0 auto; display:none; flex-direction:column; align-items:center; background:none !important; border:none !important; box-shadow:none !important; opacity:1; pointer-events:none; z-index:1;}
+    .circle-card.active { display:flex; pointer-events:auto; z-index:3;}
+    .circle-img-area { width:250px; height:250px; border-radius:50%; overflow:hidden; background:#eee; display:flex; align-items:center; justify-content:center; margin-bottom:32px;}
+    .circle-img-area img { width:100%; height:100%; object-fit:cover; border-radius:50%;}
+    .circle-card-title { font-size:1.2rem; font-weight:700; color:#1a1a1a; text-align:center; margin-bottom:11px;}
+    .circle-card-desc { color:#333; font-size:1.07rem; text-align:center; font-weight:400; line-height:1.7;}
+    .gra_btn.md.fff { display:flex; align-items:center; justify-content:center; margin:18px auto 0 auto; font-size:1rem; font-weight:700; border:none; border-radius:999px; padding:12px 28px; cursor:pointer; box-shadow:none; gap:8px; transition:background 0.17s, color 0.13s, transform 0.14s;}
+    .gra_btn.md.red { background:linear-gradient(90deg, #d22626 0%, #e4562b 100%); color:#fff;}
+    .gra_btn.md.blue { background:linear-gradient(90deg, #244069 0%, #3175ce 100%); color:#fff;}
+    .arrow-text { font-size:1.2em; margin-left:7px; font-weight:700; line-height:1;}
+    .circle-slider-arrow { position:absolute; top:50%; transform:translateY(-50%); color:#333; font-size:2.5rem; font-weight:700; z-index:10; cursor:pointer; background:none; border:none; opacity:0.88; padding:0 10px; }
+    .circle-slider-arrow.left { left: 1vw; }
+    .circle-slider-arrow.right { right: 1vw; }
+    @media (max-width:900px) { .circle-slider-section { padding-top: 28px; padding-bottom: 24px; } .circle-slider-wrapper { min-height: 90vw; } .circle-card, .circle-img-area { width: 85vw !important; } .circle-img-area { height: 85vw !important; } .circle-card-title { font-size: 5vw;} }
+    @media (max-width:600px) {
+      .circle-card { width: 70vw !important; }
+      .circle-img-area { width: 42vw !important; height: 42vw !important; min-width:42vw !important; min-height:42vw !important; max-width:42vw !important; max-height:42vw !important; border-radius:50% !important; margin-bottom:10px; }
+      .circle-card-title { font-size: 4.6vw;}
+    }
+    /* ===== 북슬라이드 리뉴얼 카드 스타일 ===== */
+    .bookslideWrap-section { width:100vw; background:#fff; }
+    .bookslideWrap { width:100vw; overflow:hidden; margin:0 auto; padding:36px 0 50px 0; background:#fff; }
+    .bookslide-track {
+      display: flex;
+      gap: 36px;
+      will-change: transform;
+      user-select: none;
+      cursor: grab;
+      transition: none !important;
+      padding-bottom: 8px;
+    }
+    .bookslide-case {
+      flex: 0 0 auto;
+      width: 320px;
+      max-width: 92vw;
+      min-width: 260px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 16px #0002;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 8px;
+      padding-bottom: 17px;
+      transition: box-shadow 0.2s;
+    }
+    .bookslide-case img {
       width: 100%;
-      padding: 16px 0;
-      background: linear-gradient(90deg, var(--main-dark) 0%, var(--main) 100%);
-      color: #fff;
-      font-size: 1.19rem;
-      font-weight: 800;
-      border: none;
-      border-radius: 13px;
-      cursor: pointer;
-      margin: 20px 0 6px 0;
-      letter-spacing: 1.3px;
-      box-shadow: 0 2px 12px rgba(18,90,90,0.10);
-      transition: background 0.16s, box-shadow 0.16s;
-      font-family: 'SUIT', 'Noto Serif KR', serif;
-    }
-    .calc-btn:active, .calc-btn:hover {
-      background: linear-gradient(90deg, #0e7c72 0%, var(--main) 100%);
-      color: #fff;
-    }
-    .calc-btn-light {
-      background: #e5f8f5;
-      color: var(--main-dark);
-      font-weight: 700;
-      margin-bottom: 0;
-      margin-top: 0;
-      box-shadow: none;
-      border: 1.1px solid #b2dedb;
-    }
-    .calc-result {
-      background: linear-gradient(117deg,#f8fcfb 75%, #dbfaf5 100%);
-      border-radius: 16px;
-      padding: 27px 16px 18px 16px;
-      text-align: center;
-      margin-top: 24px;
-      font-size: 1.11rem;
-      color: #1d3b37;
-      border: 1.7px solid #b7e7e2;
-      font-weight: 500;
-      box-shadow: 0 2px 8px rgba(40,200,180,0.07);
-      display: none;
-      animation: fadein 0.44s;
-    }
-    .calc-result strong {
-      color: var(--main-dark);
-      font-size: 2.1rem;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 20px 20px 0 0;
+      margin-bottom: 10px;
+      background:#eee;
       display: block;
-      margin: 2px 0 6px 0;
-      font-family: 'Noto Serif KR', serif;
-      font-weight: 800;
-      letter-spacing: 1.3px;
     }
-    .calc-result .result-row {
-      display: flex; justify-content: space-between; margin: 10px 0 0 0;
-      font-size: 1.07rem; font-weight: 600;
-      color: #20938c;
+    .case-text {
+      width: 93%;
+      padding: 0 0 0 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
-    .calc-result .result-row span:first-child {
-      color: #148d7b; letter-spacing:0.3px;
-      font-weight: 700; min-width: 120px;
-      font-family: 'SUIT', 'Noto Serif KR', serif;
+    .case-cat {
+      background: #2569f3;
+      color: #fff;
+      font-size: 0.98rem;
+      font-weight: 700;
+      display: inline-block;
+      padding: 2px 12px;
+      border-radius: 14px;
+      margin-bottom: 8px;
+      margin-top: 4px;
     }
-    .desc-small {
-      color: #56ada4;
-      font-size: 1.01rem;
-      margin-top: 19px;
-      text-align: center;
-      margin-bottom: 2px;
-      font-family: 'SUIT', 'Noto Serif KR', serif;
+    .case-title {
+      font-size: 1.07rem;
+      font-weight: 600;
+      color: #20204b;
+      margin-bottom: 5px;
+      line-height: 1.4;
     }
-    .law-footer {
-      margin: 33px 0 14px 0;
-      text-align: center;
-      color: #168e81;
-      font-family: 'SUIT', 'Noto Serif KR', serif;
-      font-size: 1.04rem;
-      line-height: 1.62;
-      letter-spacing: 0.02em;
-      word-break: keep-all;
+    .case-title a { color: #20204b; text-decoration: none; }
+    .case-title a:hover { text-decoration: underline; color: #164eb8; }
+    .case-desc {
+      font-size: 0.99rem;
+      color: #444;
+      line-height: 1.6;
     }
-    .law-footer-title {
-      font-size: 1.19rem;
-      font-weight: 900;
-      color: #128274;
-      margin-bottom: 2px;
-      letter-spacing: 0.02em;
-      font-family: 'SUIT', 'Noto Serif KR', serif;
+    .case-desc a { color: #444; text-decoration: none; }
+    .case-desc a:hover { text-decoration: underline; }
+    @media (max-width:600px) {
+      .bookslide-case {
+        width: 90vw;
+        min-width: 0;
+        padding-bottom: 10px;
+      }
+      .bookslide-case img { height: 160px; }
+      .case-text { padding: 0 2vw 0 2vw;}
     }
-    .tealline {
-      height:2.1px; background: linear-gradient(90deg,#daf6f2,#1db4a6 62%,#99ece2); border:0; margin:22px 0 15px 0;
-      border-radius:2px;
+    /* ===== 배너 페이드 섹션 (마우스 오버 이미지 전환) ===== */
+    .banner-image-section {
+      width: 100vw;
+      background: transparent;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
     }
-    /* 플로팅 버튼들 */
-    .floating-btns {
-      position: fixed; right: 3vw; bottom: 32px; z-index: 9999;
-      display: flex; flex-direction: column; gap: 13px;
+    .banner-img-fade-wrap {
+      position: relative;
+      width: 92vw;
+      max-width: 1100px;
+      aspect-ratio: 1200 / 310;
+      background: transparent;
+      overflow: visible;
+      border-radius: 0;
+      box-shadow: none;
+      margin: 36px auto 32px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
     }
-    .floating-btn {
-      display: flex; align-items: center;
-      background: linear-gradient(90deg,#1db4a6 60%,#18a59c 100%);
-      color: #fff; font-family: 'SUIT', 'Noto Serif KR', sans-serif;
-      font-weight: 800; font-size: 1.08rem;
-      padding: 11px 20px 11px 14px; border-radius: 32px 18px 32px 32px;
-      box-shadow: 0 4px 18px rgba(30,160,140,0.12), 0 1.5px 4px rgba(0,0,0,0.07);
-      border:none; outline: none; cursor:pointer;
-      transition: background 0.15s, box-shadow 0.17s, transform 0.16s;
-      text-decoration:none;
+    .banner-img-fade-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      transition: opacity 0.5s cubic-bezier(.8,0,.2,1);
+      user-select: none;
+      pointer-events: none;
     }
-    .floating-btn:hover, .floating-btn:active {
-      background: linear-gradient(90deg,#168e81 40%,#1db4a6 100%);
-      box-shadow: 0 8px 22px rgba(30,160,140,0.16);
-      transform: translateY(-2px) scale(1.03);
+    .banner-img-fade-wrap .bannerA { opacity: 1; z-index: 1; }
+    .banner-img-fade-wrap .bannerB { opacity: 0; z-index: 2; }
+    .banner-img-fade-wrap:hover .bannerA,
+    .banner-img-fade-wrap:focus .bannerA { opacity: 0; }
+    .banner-img-fade-wrap:hover .bannerB,
+    .banner-img-fade-wrap:focus .bannerB { opacity: 1; }
+    @media (max-width: 1200px) {
+      .banner-img-fade-wrap { width: 96vw; max-width: 96vw; }
     }
-    .floating-btn .btn-icon {margin-right: 8px;}
-    .floating-btn .btn-text {font-size:1.06rem; font-weight:800;}
-    @media (max-width:600px){
-      .floating-btns {right: 5vw; bottom: 13px; gap:9px;}
-      .floating-btn {font-size:1rem; padding: 9px 14px 9px 9px;}
-      .floating-btn .btn-text{font-size:.97rem;}
+    @media (max-width: 700px) {
+      .banner-img-fade-wrap { width: 98vw; max-width: 98vw; border-radius: 13px; margin: 24px auto 18px auto; }
+      .banner-img-fade-wrap img { border-radius: 13px; }
     }
-    /* 모달 공통 */
-    .modal-bg {
-      display:none; position:fixed; left:0;top:0;width:100vw;height:100vh;z-index:20000;
-      background:rgba(20,40,55,0.18); justify-content:center; align-items:center;
-      animation: fadein .3s;
+    @media (max-width: 500px) {
+      .banner-img-fade-wrap { border-radius: 8px; margin: 12px auto 7px auto; }
+      .banner-img-fade-wrap img { border-radius: 8px; }
     }
-    .modal-bg.active {display:flex;}
-    .modal-box {
-      background:#fff; border-radius:20px; padding:0; box-shadow:0 8px 48px rgba(20,180,166,0.16);
-      max-width: 320px; width:94vw; position:relative; animation:slideIn .23s;
-      display:flex; flex-direction:column; max-height:92vh;
-    }
-    .modal-inner-scroll {
-      padding:18px 19px 7px 19px;
-      overflow-y:auto; flex:1 1 auto;
-      max-height:46vh;
-    }
-    .modal-title {
-      font-family:'SUIT','Noto Serif KR',serif;
-      font-size:1.11rem;font-weight:900;color:#1db4a6;
-      padding:15px 10px 10px 18px;margin-bottom:6px;text-align:left;
-      letter-spacing:.01em; border-radius:18px 18px 0 0;
-      background:linear-gradient(93deg,#f5faf8 75%,#e8fcf6 100%);
-    }
-    .modal-box form label {display:block;margin-bottom:3px;color:#168e81;font-weight:700;font-size:0.96rem;margin-top:7px;}
-    .modal-box form label span {color:#1db4a6; margin-left:3px;}
-    .modal-box input, .modal-box textarea {
-      width:100%;padding:7px 10px;font-size:0.93rem;border:1.1px solid #b0ded8;
-      border-radius:6px;margin-bottom:5px;box-sizing:border-box;background:#f8fbfa;
-      font-family:'SUIT','Noto Serif KR',serif;
-    }
-    .modal-box textarea {resize:vertical;min-height:29px;max-height:60px;}
-    .modal-btn-row {
-      display:flex;gap:10px;margin-top:7px;padding:0 18px 16px 18px;justify-content:center;
-    }
-    .modal-btn {
-      background:#e5f8f5;color:#168e81;font-size:0.97rem;font-weight:800;
-      border:none;border-radius:7px;padding:9px 0;cursor:pointer;
-      font-family:'SUIT','Noto Serif KR',serif;transition:.17s;flex:1;
-    }
-    .modal-btn.main {background:linear-gradient(90deg,#1db4a6 55%,#18a59c 100%);color:#fff;}
-    .modal-btn:active,.modal-btn:hover {background:#bff3ed;color:#11887a;}
-    .privacy-check {display:flex;align-items:center;margin:13px 0 0 0;}
-    .privacy-check input[type="checkbox"] {
-      appearance:none;width:18px;height:18px;border:2px solid #1db4a6;border-radius:5px;
-      margin-right:8px;display:inline-block;vertical-align:middle;position:relative;cursor:pointer;outline:none;
-      background:#f7fdfc;transition:.12s;
-    }
-    .privacy-check input[type="checkbox"]:checked {
-      background: #1db4a6;
-      border-color: #1db4a6;
-    }
-    .privacy-check input[type="checkbox"]:checked::after {
-      content: '✔'; color: #fff; font-size:1rem; position:absolute;top:0;left:2px;
-    }
-    .privacy-check label {
-      font-size: 0.95rem;
-      color: #145c59;
-      cursor:pointer; user-select:none;
-      padding-top:1px;
-    }
-    /* 상담전화 모달 전용 */
-    .modal-box.call {padding:0;width:260px;}
-    .modal-title.call {text-align:center;padding-left:0;}
-    .call-num {font-size:1.31rem;font-weight:900;color:#159488;margin:18px 0 12px 0;text-align:center;letter-spacing:.04em;}
-    .call-btn-row {display:flex;justify-content:center;gap:7px;margin-bottom:10px;}
-    .copy-msg {display:none;font-size:.97rem;color:#168e81;text-align:center;margin-top:1px;}
-    .copy-msg.active{display:block;animation:fadein .4s;}
-    @media (max-width:480px){
-      .modal-box{width:97vw;}
-      .modal-title{font-size:0.97rem;}
-      .modal-btn-row {padding:0 5vw 13px 5vw;}
-    }
-    @media (max-width:800px) {
-      .calculator-container {max-width: 97vw; padding: 7vw 3vw 6vw 3vw;}
-    }
-    @media (max-width:540px) {
-      .calculator-container {padding: 8vw 2vw 7vw 2vw; margin: 5vw 0;}
-      .law-logo .logo-svg {width: 54px; height: 54px;}
-      .calc-title {font-size: 1.03rem;}
-      .calc-form label {font-size:0.96rem;}
-      .calc-result strong {font-size:1.18rem;}
-      .law-footer {font-size:.98rem;}
-      .law-footer-title {font-size: 1.06rem;}
-    }
-    @media (max-width:370px) {
-      .calculator-container {padding: 4vw 0.2vw 7vw 0.2vw;}
-    }
-    @keyframes fadein { from {opacity: 0;} to {opacity: 1;} }
-    @keyframes slideIn { from{transform:translateY(50px); opacity:0;} to{transform:translateY(0); opacity:1;} }
+    /* ===== 배너 페이드 섹션 끝 ===== */
+    footer { width:100vw; background:#f5f5f7; border-top:1.5px solid #dadada; padding:34px 0 18px 0; text-align:center; }
+    .eloom-footer-brand-row { display:flex; align-items:center; justify-content:center; gap:0.44em; margin-bottom:7px;}
+    .eloom-footer-brand-row img { height:1.18em; }
+    .eloom-footer-brand-row span { font-size:1.17em; font-weight:600; color:#222; letter-spacing:0.01em; text-transform:uppercase;}
+    .eloom-footer-info { color:#3b3b3b; font-size:14px; margin-bottom:2px; font-weight:400;}
+    .eloom-footer-info span { color:#b0b0b0; margin:0 0.45em; font-weight:300;}
+    .eloom-footer-sub { color:#666; font-size:13px; line-height:1.6; margin-bottom:1px; font-weight:400; word-break:keep-all;}
+    .eloom-footer-copy { color:#bcbcbc; font-size:12px; font-weight:400; margin-top:12px;}
   </style>
 </head>
 <body>
-  <!-- 로고 영역 (원형+로고이미지) -->
-  <div class="law-logo">
-    <div class="logo-svg">
-      <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/logo.png?raw=true" alt="계산기 로고" class="logo-img">
+  <header>
+    <div class="nav-bar">
+      <div class="nav-left">
+        <div class="nav-logo-img">
+          <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/logo.png?raw=true" alt="ELOOM 로고" />
+        </div>
+        <div class="nav-brand-text">ELOOM LAW FIRM</div>
+      </div>
+      <div class="nav-right">
+        <button class="menu-link" id="menu-link" tabindex="0">MENU</button>
+      </div>
     </div>
+  </header>
+  <!-- 사이드 메뉴(변제금액 계산기만 노출) -->
+  <div class="sidebar-bg" id="sidebarBg">
+    <nav class="sidebar-container">
+      <div class="sidebar-header">
+        <div class="sidebar-logo-link">
+          <div class="sidebar-logo-img"></div>
+          <span class="sidebar-brand">ELOOM LAW FIRM</span>
+        </div>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="닫기">&times;</button>
+      </div>
+      <div class="sidebar-link-list">
+        <a class="sidebar-link" href="https://lamanujan.github.io/Law-Firm/calculate.html" target="_blank" rel="noopener">변제금액 계산기</a>
+      </div>
+      <div class="sidebar-blank-area"></div>
+      <div class="sidebar-bottom-info" style="padding-top:12px;">
+        <div class="sidebar-sns">
+<a href="https://www.youtube.com/@STARLAWFIRM" target="_blank" title="YouTube" style="margin-right:8px;">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="#FF0000" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;">
+    <path d="M23.498 6.186c-.273-1.023-1.076-1.825-2.099-2.099C19.18 3.5 12 3.5 12 3.5s-7.18 0-9.399.587c-1.023.273-1.826 1.076-2.099 2.099C.5 8.406.5 12 .5 12s0 3.594.587 5.814c.273 1.023 1.076 1.826 2.099 2.099C4.82 20.5 12 20.5 12 20.5s7.18 0 9.399-.587c1.023-.273 1.826-1.076 2.099-2.099.587-2.22.587-5.814.587-5.814s0-3.594-.587-5.814zM9.75 15.568V8.432L15.818 12 9.75 15.568z"/>
+  </svg>
+</a>
+          <a href="https://www.instagram.com/starlawfirm_official" target="_blank" title="Instagram">
+            <img alt="Instagram" loading="lazy" width="24" height="24" decoding="async" src="https://main.star-law.com/_next/image?url=%2Fimages%2FLayout%2Flow-bar%2Fsns_insta_m.png&w=48&q=75" style="display:inline-block;">
+          </a>
+        </div>
+        <div class="sidebar-company-info">
+          24시간 실시간 상담 1533-0560<br>
+          사업자번호: 306-12-67673<br>
+          Copyright 2022 이룸 All rights reserved
+        </div>
+      </div>
+    </nav>
   </div>
-  <div class="calculator-container">
-    <div class="calc-title">변제금액 계산기</div>
-    <div class="calc-desc">
-      채무·이자·기간 입력만으로<br>
-      <b>월 변제금, 총 이자, 변제율</b> 한 번에 확인<br>
-      <span style="font-size:.93rem;color:#74beb6;">* 실제 금액은 상담 후 안내됩니다.</span>
-    </div>
-    <form class="calc-form" id="calcForm" autocomplete="off">
-      <label for="principal">채무 총액 (원) <span style="color:#1db4a6;font-weight:400;">*</span></label>
-      <input type="number" id="principal" required min="100000" step="10000" placeholder="예: 20,000,000">
-
-      <label for="interest">연이자율 (%) <span style="color:#1db4a6;font-weight:400;">*</span></label>
-      <input type="number" id="interest" required min="0" max="50" step="0.1" placeholder="예: 10">
-
-      <label for="months">변제기간 (개월) <span style="color:#1db4a6;font-weight:400;">*</span></label>
-      <input type="number" id="months" required min="1" max="120" step="1" placeholder="예: 60">
-
-      <label for="income">월평균수입 (원)</label>
-      <input type="number" id="income" min="0" step="1000" placeholder="예: 2,300,000">
-
-      <label for="cost">월평균생계비 (원)</label>
-      <input type="number" id="cost" min="0" step="1000" placeholder="예: 1,400,000">
-
-      <button type="submit" class="calc-btn">계산하기</button>
-      <button type="button" class="calc-btn calc-btn-light" onclick="resetCalc()">다시 계산</button>
-    </form>
-    <div class="calc-result" id="calcResult"></div>
-    <div class="desc-small">※ 계산결과는 참고용입니다. 실제 상담 및 기관 기준과 다를 수 있습니다.</div>
-
-    <!-- 업체 정보 푸터 -->
-    <div class="law-footer">
-      <div class="law-footer-title">ELOOM LAW FIRM</div>
-      <div>사업자등록번호 306-12-67673</div>
-      <div>부산광역시 연제구 법원남로15번길 9, 3층(거제동, 덕원빌딩)</div>
-      <div>TEL 1533-0560</div>
-    </div>
-  </div>
-
-  <!-- 오른쪽 하단 플로팅 버튼들 -->
-  <div class="floating-btns">
-    <button type="button" class="floating-btn consult-btn" onclick="openConsultModal()">
-      <span class="btn-icon">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-          <circle cx="11" cy="11" r="11" fill="#fff" opacity="0.19"/>
-          <path d="M5.2 15.5l1.1-2.7c.2-.5.7-.8 1.2-.7l2.2.5c.3.1.6 0 .8-.2l2.2-2.2c.2-.2.3-.5.2-.8l-.5-2.2c-.1-.5.2-1 .7-1.2l2.7-1.1c.7-.3 1.5.1 1.6.8.6 3.7-2.8 8.8-8.2 9.6-.7.1-1.2-.8-.8-1.6z" fill="#1db4a6"/>
-        </svg>
-      </span>
-      <span class="btn-text">간편상담</span>
-    </button>
-    <button type="button" class="floating-btn call-btn" onclick="openCallModal()">
-      <span class="btn-icon">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-          <circle cx="11" cy="11" r="11" fill="#fff" opacity="0.18"/>
-          <path d="M6.6 4.3c.1-.7.9-1.1 1.6-.8l2.6 1.1c.5.2.7.7.6 1.2l-.5 2.1c-.1.3 0 .6.2.8l2.2 2.2c.2.2.5.3.8.2l2.1-.5c.5-.1 1 .1 1.2.6l1.1 2.6c.3.7-.1 1.5-.8 1.6-2.1.4-6.2.5-9.6-3.3C6.1 10.5 6 7 6.6 4.3Z" fill="#1db4a6"/>
-        </svg>
-      </span>
-      <span class="btn-text">간편상담전화</span>
-    </button>
-  </div>
-
-  <!-- 간편상담 신청 폼 모달 -->
-  <div class="modal-bg" id="consultModal" onclick="closeModal(event, 'consultModal')">
-    <div class="modal-box" onclick="event.stopPropagation()">
-      <div class="modal-title">간편상담 신청</div>
-      <div class="modal-inner-scroll">
-        <form id="consultForm" autocomplete="off">
-          <label>이름<span>*</span></label>
-          <input type="text" name="name" required maxlength="20" placeholder="이름 입력">
-          <label>연락처<span>*</span></label>
-          <input type="tel" name="tel" required maxlength="20" placeholder="숫자만 입력">
-          <label>총 채무액(원)<span>*</span></label>
-          <input type="number" name="debt" required min="0" step="10000" placeholder="예: 20,000,000">
-          <label>월소득(실수령액)</label>
-          <input type="number" name="income" min="0" step="1000" placeholder="예: 2,300,000">
-          <label>총 재산액(원)</label>
-          <input type="number" name="asset" min="0" step="10000" placeholder="예: 5,000,000">
-          <label>미성년 자녀 수</label>
-          <input type="number" name="child" min="0" max="10" step="1" placeholder="예: 2">
-          <label>상담받고 싶은 내용</label>
-          <textarea name="content" rows="3" maxlength="300" placeholder="상세한 상담 희망 내용 작성(선택)"></textarea>
-          <label>상담희망시간(선택)</label>
-          <input type="text" name="wish" maxlength="30" placeholder="예: 평일 오후 3~6시">
-          <div class="privacy-check">
-            <input type="checkbox" id="privacyChk" required>
-            <label for="privacyChk">개인정보 수집·이용에 동의합니다 (상담신청에 필요)</label>
+  <!-- 상담 패널 -->
+  <div class="inquiryBg" id="inquiryBg">
+    <div class="inquiryForm">
+      <div class="inquiry-header">
+        <div class="logo-area">
+          <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/logo.png?raw=true" alt="ELOOM 로고" />
+          <span>ELOOM LAW FIRM</span>
+        </div>
+        <button class="inquiryCloseBtn" id="inquiryCloseBtn" aria-label="닫기">&times;</button>
+      </div>
+      <div class="inquiryForm-inner inquiryForm-content-center">
+        <div class="inquiry_step1 show" id="inquiryStep1">
+          <div class="top_title">
+            <p>연락처를 남겨주시면, <br><b>실시간 상담</b>을 도와드리겠습니다.</p>
           </div>
-          <div class="modal-btn-row">
-            <button type="submit" class="modal-btn main">신청하기</button>
-            <button type="button" class="modal-btn" onclick="closeModal(null, 'consultModal')">닫기</button>
+          <div class="form_box form_box_cate">
+            <input id="inquiryCategory" readonly type="text" name="wr_subject" value="" placeholder="카테고리"/>
           </div>
-        </form>
+          <div class="form_box form_box_phone" style="position:relative;">
+            <input placeholder="연락처를 입력해주세요." id="inquiryPhone" type="tel" name="telTemp" maxlength="20" autocomplete="tel" />
+            <button type="button" class="form_clear_btn" id="clearPhoneBtn" tabindex="-1" style="display:none;">✕</button>
+          </div>
+          <div class="receive_chk_box">
+            <input id="inquiry_receive_chk" type="checkbox" value="y" checked name="agree_check2" />
+            <label for="inquiry_receive_chk">상담을 위한 전화 및 문자메시지 수신에 동의합니다.</label>
+          </div>
+          <button type="button" class="form_bt_btn inquriySubmtBtn" id="inquirySubmitBtn">신청하기</button>
+        </div>
+        <div class="inquiry_step2" id="inquiryStep2" style="display:none;">
+          <div style="text-align:center;padding-top:30px;padding-bottom:20px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="완료" width="72" style="margin-bottom:14px;opacity:0.7;">
+            <div style="font-size:1.2rem; font-weight:600; color:#222;">상담 신청이 접수되었습니다!</div>
+            <div style="font-size:1rem; color:#666; margin-top:8px;">담당자가 곧 연락드릴 예정입니다.</div>
+          </div>
+          <button type="button" class="form_bt_btn inquriyEndBtn" id="inquiryEndBtn" style="margin:0 auto 26px auto;display:block;width:80%;">확인</button>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- 간편상담전화 모달(전화걸기 버튼 없음) -->
-  <div class="modal-bg" id="callModal" onclick="closeModal(event, 'callModal')">
-    <div class="modal-box call" onclick="event.stopPropagation()">
-      <div class="modal-title call">간편상담 전화번호</div>
-      <div class="call-num">1533-0560</div>
-      <div class="call-btn-row">
-        <button type="button" class="modal-btn main" onclick="copyNumber()">번호복사</button>
-        <button type="button" class="modal-btn" onclick="closeModal(null, 'callModal')">닫기</button>
-      </div>
-      <div id="copyMsg" class="copy-msg">복사되었습니다.</div>
+  <!-- 메인 배너 -->
+  <section class="main-banner-section" id="mainBanner">
+    <div class="main-banner-img-area" id="mainBannerImgs"></div>
+    <div class="main-banner-content">
+      <h1 class="main-title-eloom">ELOOM</h1>
     </div>
+    <div class="scroll-arrow">&#8595;</div>
+  </section>
+  <!-- 페이지 실제 내용 -->
+  <div class="content-wrap">
+    <!-- 카드 섹션 위 풀스크린 이미지 -->
+    <section class="main-image-section">
+      <img src="https://github.com/Lamanujan/Law-Firm/blob/main/images/i%20(3).jpg?raw=true" alt="Law Main Visual">
+    </section>
+    <!-- 카드 섹션 (슬라이더) -->
+    <div class="circle-slider-section">
+      <button class="circle-slider-arrow left" id="circleSliderPrev" aria-label="이전">〈</button>
+      <div class="circle-slider-wrapper" id="circleSliderWrapper">
+        <div class="circle-card" tabindex="0">
+          <div class="circle-img-area">
+            <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/12.png?raw=true" alt="개인회생">
+          </div>
+          <div class="circle-card-title">개인회생</div>
+          <div class="circle-card-desc">급여 압류 중단, 3년 내 신속 면책.<br>채무·이자 최대 90% 탕감 가능</div>
+          <button class="gra_btn md fff red inquiry-btn">개인회생 상담 신청하기<span class="arrow-text">〉</span></button>
+        </div>
+        <div class="circle-card" tabindex="0">
+          <div class="circle-img-area">
+            <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/13.png?raw=true" alt="파산 면책">
+          </div>
+          <div class="circle-card-title">파산 면책</div>
+          <div class="circle-card-desc">법원의 판결로 모든 빚 100% 탕감.<br>회생이 불가능한 경우, 완전 새출발 지원</div>
+          <button class="gra_btn md fff blue inquiry-btn">파산면책 상담 신청하기<span class="arrow-text">〉</span></button>
+        </div>
+      </div>
+      <button class="circle-slider-arrow right" id="circleSliderNext" aria-label="다음">〉</button>
+    </div>
+    <!-- 북슬라이드 카드형 리뉴얼 섹션 -->
+    <section class="bookslideWrap-section">
+      <div style="text-align:center; font-size:1.18rem; font-weight:700; margin:0 0 22px 0; letter-spacing:-0.02em;">
+        실제 판결문 <span style="color:#2569f3;">소장/채권압류</span> 사례 모음
+      </div>
+      <div class="bookslideWrap">
+        <div class="bookslide-track" id="bookslideTrack">
+          <!-- 카드 예시 -->
+          <div class="bookslide bookslide-case">
+            <img src="https://covers.openlibrary.org/b/id/10573404-L.jpg" alt="book1">
+            <div class="case-text">
+              <div class="case-cat">개인파산</div>
+              <div class="case-title">
+                <a href="https://dosanpro.com/bbs/board.php?bo_table=page0601&amp;wr_id=79" target="_blank">
+                  부산 / 50대 여성 / 무직 / 임**님 / 2020년 08월 24일 개인파산 면책결정 / 약 1억4천만원 면책
+                </a>
+              </div>
+              <div class="case-desc">
+                <a href="https://dosanpro.com/bbs/board.php?bo_table=page0601&amp;wr_id=79" target="_blank">
+                  부산거주 / 50대 / 여성 / 무직 / 임**님<br>
+                  약 1억 4,126만원 이상 면책(탕감)<br>
+                  면책률 100%
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="bookslide bookslide-case">
+            <img src="https://covers.openlibrary.org/b/id/11048525-L.jpg" alt="book2">
+            <div class="case-text">
+              <div class="case-cat">채권압류</div>
+              <div class="case-title">
+                <a href="https://dosanpro.com/bbs/board.php?bo_table=page0601&amp;wr_id=80" target="_blank">
+                  서울 / 40대 남성 / 자영업 / 김**님 / 2023년 07월 15일 채권압류 해제 / 3,000만원 해결
+                </a>
+              </div>
+              <div class="case-desc">
+                <a href="https://dosanpro.com/bbs/board.php?bo_table=page0601&amp;wr_id=80" target="_blank">
+                  서울거주 / 40대 / 남성 / 자영업<br>
+                  채권압류 해제 / 100% 성공
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="bookslide bookslide-case">
+            <img src="https://covers.openlibrary.org/b/id/10594826-L.jpg" alt="book3">
+            <div class="case-text">
+              <div class="case-cat">개인회생</div>
+              <div class="case-title">
+                <a href="#" target="_blank">
+                  대구 / 30대 여성 / 직장인 / 박**님 / 2022년 05월 10일 개인회생 인가 / 약 7천만원 탕감
+                </a>
+              </div>
+              <div class="case-desc">
+                <a href="#" target="_blank">
+                  대구거주 / 30대 / 여성 / 직장인<br>
+                  약 7,000만원 채무 면책<br>
+                  개인회생 인가 판결
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ★ 배너 이미지 페이드(마우스오버 시 이미지 전환) 섹션 -->
+    <section class="banner-image-section">
+      <div class="banner-img-fade-wrap" tabindex="0"
+        onclick="window.open('https://lamanujan.github.io/Law-Firm/qadvice.html', '_blank')">
+        <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/sampleB.jpg?raw=true" class="bannerA" alt="배너B">
+        <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/sampleA.jpg?raw=true" class="bannerB" alt="배너A">
+      </div>
+    </section>
+    <footer>
+      <div class="eloom-footer-brand-row">
+        <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/logo.png?raw=true" alt="ELOOM LAW FIRM" loading="lazy" decoding="async">
+        <span>ELOOM LAW FIRM</span>
+      </div>
+      <div class="eloom-footer-info">
+        대표 장혜승
+        <span>ㅣ</span> 사업자등록번호 306-12-67673
+      </div>
+      <div class="eloom-footer-sub">
+        <b>ADD</b> 부산광역시 연제구 법원남로15번길 9, 3층(거제동, 덕원빌딩)<br>
+        <b>TEL</b> 1533-0560 <span>ㅣ</span> <b>FAX</b> 051-714-0168 <span>ㅣ</span> <b>E-MAIL</b> ipa@withlp.com
+      </div>
+      <div class="eloom-footer-copy">
+        Copyright 2022 이룸 All rights reserved
+      </div>
+    </footer>
   </div>
   <script>
-    // 계산기 기능
-    document.getElementById('calcForm').addEventListener('submit', function(e){
-      e.preventDefault();
-      let principal = Number(document.getElementById('principal').value);
-      let rate = Number(document.getElementById('interest').value) / 100 / 12;
-      let months = Number(document.getElementById('months').value);
-      let income = Number(document.getElementById('income').value) || 0;
-      let cost = Number(document.getElementById('cost').value) || 0;
-
-      let monthly = 0;
-      if(rate === 0){
-        monthly = principal / months;
-      } else {
-        monthly = principal * rate * Math.pow(1+rate, months) / (Math.pow(1+rate, months)-1);
-      }
-      monthly = Math.round(monthly);
-      let total = monthly * months;
-      let yearly = monthly * 12;
-      let repayRate = (total / principal * 100).toFixed(1);
-      let interestAll = total - principal;
-      let possible = 0;
-      let possible_txt = '';
-      if(income > 0 && cost > 0) {
-        possible = income - cost;
-        if(possible > 0){
-          possible_txt = `<div class="result-row"><span>생계비 제외 월 변제 가능액</span> <span><b>${possible.toLocaleString()}원</b></span></div>`;
-        } else {
-          possible_txt = `<div class="result-row"><span>변제여력</span> <span style="color:#e15353;font-weight:700;">부족</span></div>`;
-        }
-      }
-
-      document.getElementById('calcResult').innerHTML = `
-        <strong>${monthly.toLocaleString()}원</strong>
-        <div style="font-size:.97rem; color:#16a291; margin-bottom:4px;">예상 월 변제금액</div>
-        <hr class="tealline">
-        <div class="result-row"><span>연간 변제금</span><span><b>${yearly.toLocaleString()}원</b></span></div>
-        <div class="result-row"><span>총 변제금</span><span><b>${total.toLocaleString()}원</b></span></div>
-        <div class="result-row"><span>총 이자 부담</span><span><b>${interestAll.toLocaleString()}원</b></span></div>
-        <div class="result-row"><span>변제율(총 변제금/채무)</span><span><b>${repayRate}%</b></span></div>
-        ${possible_txt}
-      `;
-      document.getElementById('calcResult').style.display = 'block';
-    });
-    function resetCalc(){
-      document.getElementById('calcForm').reset();
-      document.getElementById('calcResult').style.display = 'none';
-    }
-    // 모달 열고 닫기
-    function openConsultModal() {
-      document.getElementById('consultModal').classList.add('active');
-    }
-    function openCallModal() {
-      document.getElementById('callModal').classList.add('active');
-    }
-    function closeModal(e, id) {
-      if (e && e.target !== e.currentTarget) return;
-      document.getElementById(id).classList.remove('active');
-    }
-    // 간편상담 폼 제출(데모: 실제 서버전송 필요)
-    document.getElementById('consultForm').onsubmit = function(e){
-      e.preventDefault();
-      if (!document.getElementById('privacyChk').checked) {
-        alert("개인정보 수집·이용에 동의해 주세요.");
-        return false;
-      }
-      alert("상담 신청이 접수되었습니다.\n담당자가 빠르게 연락드릴 예정입니다.");
-      closeModal(null, 'consultModal');
-      this.reset();
+    // ===== 사이드 메뉴 동작 =====
+    const sidebarBg = document.getElementById('sidebarBg');
+    document.getElementById('menu-link').onclick = function() {
+      sidebarBg.classList.add('active');
+      document.body.style.overflow = "hidden";
     };
-    // 번호 복사
-    function copyNumber(){
-      const tel = '1533-0560';
-      navigator.clipboard.writeText(tel);
-      const msg = document.getElementById('copyMsg');
-      msg.classList.add('active');
-      setTimeout(()=>msg.classList.remove('active'),1200);
+    document.getElementById('sidebarCloseBtn').onclick = function() {
+      sidebarBg.classList.remove('active');
+      document.body.style.overflow = "";
+    };
+    sidebarBg.onclick = function(e){
+      if(e.target === this) {
+        sidebarBg.classList.remove('active');
+        document.body.style.overflow = "";
+      }
+    };
+    // ===== 상담 패널 show/hide =====
+    function showInquiryPanel(categoryText) {
+      document.getElementById('inquiryBg').classList.add('active');
+      if(categoryText){
+        document.getElementById('inquiryCategory').value = categoryText;
+      }
+      document.body.style.overflow = "hidden";
     }
+    function hideInquiryPanel() {
+      document.getElementById('inquiryBg').classList.remove('active');
+      document.body.style.overflow = "";
+    }
+    document.getElementById('inquiryCloseBtn').onclick = hideInquiryPanel;
+    document.getElementById('inquiryBg').onclick = function(e){
+      if(e.target === this) hideInquiryPanel();
+    }
+    document.getElementById('inquiryEndBtn').onclick = hideInquiryPanel;
+    // ===== 카드 이미지/버튼 클릭시 상담 패널 오픈 =====
+    document.querySelectorAll('.circle-card').forEach(card=>{
+      card.querySelector('.circle-img-area').onclick = function(){
+        showInquiryPanel(card.querySelector('.circle-card-title').textContent.trim());
+      };
+      card.querySelector('.inquiry-btn').onclick = function(e){
+        e.stopPropagation();
+        showInquiryPanel(card.querySelector('.circle-card-title').textContent.trim());
+      };
+    });
+    // ===== 메인배너 스크롤 인터랙션 =====
+    window.addEventListener('scroll', function(){
+      const banner = document.getElementById('mainBanner');
+      const revealPx = 0.47;
+      const scrolled = Math.min(1, window.scrollY / (window.innerHeight * revealPx));
+      banner.style.opacity = (1-scrolled).toFixed(3);
+      banner.style.transform = `translateY(-${scrolled*40}px) scale(${1-0.03*scrolled})`;
+      if(scrolled > 0.6) {
+        banner.style.pointerEvents = 'none';
+        banner.style.zIndex = 0;
+      } else {
+        banner.style.pointerEvents = 'auto';
+        banner.style.zIndex = 2;
+      }
+      if(scrolled>0.98) banner.classList.add('hide');
+      else banner.classList.remove('hide');
+    });
+    // ===== 메인배너 이미지 슬라이드 =====
+    const bannerImgs = [
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1200&q=80"
+    ];
+    const mainBannerImgsArea = document.getElementById('mainBannerImgs');
+    let currentBannerIdx = 0;
+    bannerImgs.forEach((src, i)=>{
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = '대표 이미지'+(i+1);
+      if(i===0) img.classList.add('show');
+      mainBannerImgsArea.appendChild(img);
+    });
+    const bannerImgNodes = mainBannerImgsArea.querySelectorAll('img');
+    setInterval(()=>{
+      bannerImgNodes[currentBannerIdx].classList.remove('show');
+      currentBannerIdx = (currentBannerIdx+1) % bannerImgNodes.length;
+      bannerImgNodes[currentBannerIdx].classList.add('show');
+    }, 3300);
+    // ===== 카드 슬라이드 =====
+    const cards = Array.from(document.querySelectorAll('.circle-card'));
+    let pos = 0, total = cards.length;
+    function setSlide(newPos) {
+      cards.forEach((c,i)=>{
+        c.classList.remove('active');
+        if(i===newPos) c.classList.add('active');
+      });
+    }
+    document.getElementById('circleSliderPrev').onclick = ()=> {pos = (pos-1+total)%total;setSlide(pos);}
+    document.getElementById('circleSliderNext').onclick = ()=> {pos = (pos+1)%total;setSlide(pos);}
+    setSlide(pos);
+    // ===== 북슬라이드 무한루프/드래그/스와이프 =====
+    window.addEventListener('DOMContentLoaded', function(){
+      const track = document.getElementById('bookslideTrack');
+      let slides = Array.from(track.children);
+      slides.forEach(slide => { track.appendChild(slide.cloneNode(true)); });
+      let slideSetLen = slides.length;
+      let slideWidthSum = 0;
+      function getTrackWidth() {
+        slides = Array.from(track.children).slice(0, slideSetLen);
+        slideWidthSum = slides.reduce((acc, el) => acc + el.offsetWidth + parseInt(getComputedStyle(el).marginRight||0), 0);
+        return slideWidthSum;
+      }
+      getTrackWidth();
+      let pos = 0, speed = 0.5, playing = true, raf;
+      function animate() {
+        if (playing) {
+          pos -= speed;
+          if (-pos >= slideWidthSum) pos = 0;
+          track.style.transform = `translateX(${pos}px)`;
+        }
+        raf = requestAnimationFrame(animate);
+      }
+      animate();
+      // 드래그/스와이프
+      let isDrag = false, startX, dragStartPos;
+      function stopSlide() { playing = false; }
+      function startSlide() { playing = true; }
+      // 마우스
+      track.addEventListener('mousedown', (e) => {
+        isDrag = true; stopSlide();
+        startX = e.pageX; dragStartPos = pos;
+        track.style.cursor = 'grabbing';
+      });
+      document.addEventListener('mousemove', (e) => {
+        if (isDrag) {
+          let dx = e.pageX - startX;
+          pos = dragStartPos + dx;
+          if (-pos >= slideWidthSum) pos = 0;
+          if (pos > 0) pos = -slideWidthSum;
+          track.style.transform = `translateX(${pos}px)`;
+        }
+      });
+      document.addEventListener('mouseup', () => {
+        if (isDrag) { isDrag = false; startSlide(); track.style.cursor = 'grab'; }
+      });
+      // 터치
+      track.addEventListener('touchstart', (e) => {
+        isDrag = true; stopSlide();
+        startX = e.touches[0].clientX; dragStartPos = pos;
+      });
+      track.addEventListener('touchmove', (e) => {
+        if (isDrag) {
+          let dx = e.touches[0].clientX - startX;
+          pos = dragStartPos + dx;
+          if (-pos >= slideWidthSum) pos = 0;
+          if (pos > 0) pos = -slideWidthSum;
+          track.style.transform = `translateX(${pos}px)`;
+        }
+      });
+      track.addEventListener('touchend', () => {
+        if (isDrag) { isDrag = false; startSlide(); }
+      });
+      track.addEventListener('mouseenter', stopSlide);
+      track.addEventListener('mouseleave', startSlide);
+      window.addEventListener('resize', () => { getTrackWidth(); });
+    });
   </script>
 </body>
 </html>

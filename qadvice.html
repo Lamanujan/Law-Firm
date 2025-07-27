@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>빠른 상담 | ELOOM LAW FIRM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=SUIT:wght@700;900&family=Noto+Serif+KR:wght@600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main: #169e90;    /* 회사 시그니처 청록 */
+      --main-dark: #0e6f64;
+      --main-light: #e4f4f1;
+      --border: #d7e9e6;
+      --text-dark: #232323;
+      --graybg: #f8f9fa;
+    }
+    body {
+      background: var(--graybg);
+      font-family: 'SUIT', 'Noto Serif KR', serif, sans-serif;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .law-form-wrap {
+      width: 100%;
+      max-width: 670px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 5px 28px #0d3c3750, 0 1.5px 8px #6ccfc81a;
+      padding: 48px 52px 36px 52px;
+      border: 1.4px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 60px 0;
+      position: relative;
+    }
+    .law-form-title {
+      font-size: 2.2rem;
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 900;
+      color: var(--main);
+      letter-spacing: 0.01em;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+    .law-form-desc {
+      font-size: 1.09rem;
+      color: var(--text-dark);
+      margin-bottom: 26px;
+      line-height: 1.54;
+      font-weight: 600;
+    }
+    .law-form label {
+      font-weight: 700;
+      color: #444;
+      font-size: 1.04rem;
+      margin-bottom: 7px;
+      letter-spacing: 0.01em;
+      display: block;
+    }
+    .law-form input[type="text"],
+    .law-form input[type="tel"],
+    .law-form select,
+    .law-form textarea {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 1.01rem;
+      border-radius: 9px;
+      border: 1.3px solid var(--border);
+      margin-bottom: 14px;
+      font-family: 'SUIT', 'Noto Serif KR', serif, sans-serif;
+      background: var(--graybg);
+      box-sizing: border-box;
+      outline: none;
+      font-weight: 600;
+      color: var(--text-dark);
+      transition: border-color 0.14s, background 0.14s;
+    }
+    .law-form input:focus, .law-form select:focus, .law-form textarea:focus {
+      border-color: var(--main);
+      background: var(--main-light);
+      color: var(--main-dark);
+    }
+    .law-form select {
+      appearance: none;
+      background: url("data:image/svg+xml,%3Csvg fill='gray' viewBox='0 0 20 20'%3E%3Cpath d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'/%3E%3C/svg%3E") no-repeat right 14px center/20px 20px;
+      font-weight: 700;
+      color: var(--main-dark);
+      background-color: var(--graybg);
+    }
+    .law-form textarea {
+      min-height: 110px;
+      max-height: 320px;
+      line-height: 1.54;
+      resize: none;
+    }
+    .law-form .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      margin-bottom: 10px;
+      font-size: 1.01rem;
+    }
+    .law-form .checkbox-row input[type="checkbox"] {
+      accent-color: var(--main);
+      margin-top: 2px;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      border-radius: 4px;
+    }
+    .law-form .checkbox-row label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0;
+      font-size: 1.02rem;
+      cursor: pointer;
+    }
+    .law-form .checkbox-row a {
+      color: var(--main-dark);
+      text-decoration: underline;
+      font-weight: 700;
+    }
+    .law-form .btn-row {
+      display: flex;
+      gap: 14px;
+      justify-content: flex-end;
+      margin-top: 27px;
+    }
+    .law-form button {
+      padding: 12px 38px;
+      font-size: 1.08rem;
+      border: none;
+      border-radius: 9px;
+      font-weight: 800;
+      font-family: 'SUIT', 'Noto Serif KR', serif, sans-serif;
+      cursor: pointer;
+      box-shadow: 0 1.5px 8px #18a19326;
+      letter-spacing: 0.01em;
+      transition: background 0.12s, color 0.12s, transform 0.09s;
+    }
+    .law-form .submit-btn {
+      background: linear-gradient(90deg,#169e90 0%,#1fb3a2 100%);
+      color: #fff;
+    }
+    .law-form .submit-btn:hover {
+      background: #0e6f64;
+      color: #fff;
+    }
+    .law-form .cancel-btn {
+      background: #f9f9f9;
+      color: var(--main-dark);
+      border: 1.2px solid var(--border);
+    }
+    .law-form .cancel-btn:hover {
+      background: #e4f4f1;
+      color: #0e6f64;
+    }
+    @media (max-width: 900px) {
+      .law-form-wrap { max-width: 98vw; padding: 28px 4vw 15px 4vw;}
+      .law-form-title { font-size: 1.45rem;}
+      .btn-row button { font-size: 0.97rem; padding: 9px 1.2em;}
+    }
+    @media (max-width: 600px) {
+      .law-form-wrap { padding: 13px 1.2vw 8px 1.2vw;}
+      .law-form-title { font-size: 1.09rem;}
+    }
+  </style>
+</head>
+<body>
+  <form class="law-form-wrap law-form">
+    <div class="law-form-title">빠른 상담</div>
+    <div class="law-form-desc">
+      상담내용은 모두 <b style="color:var(--main);">비공개 처리</b>됩니다.<br>
+      확인 후 <span style="color:var(--main-dark); font-weight:700;">빠르게 연락드리겠습니다.</span>
+    </div>
+    <label for="q_name">이름</label>
+    <input type="text" id="q_name" name="q_name" required placeholder="이름을 입력하세요">
+
+    <label for="q_phone">연락처</label>
+    <input type="tel" id="q_phone" name="q_phone" required placeholder="예: 010-1234-5678">
+
+    <label for="q_field">상담 분야</label>
+    <select id="q_field" name="q_field" required>
+      <option value="">상담분야를 선택하세요</option>
+      <option value="파산면책">파산면책</option>
+      <option value="개인회생">개인회생</option>
+    </select>
+
+    <label for="q_content">상담 내용</label>
+    <textarea id="q_content" name="q_content" required placeholder="상담하실 내용을 남겨주세요."></textarea>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="q_privacy" name="q_privacy" required>
+      <label for="q_privacy">
+        <a href="#" tabindex="-1">개인정보 수집 및 이용동의</a>
+      </label>
+    </div>
+
+    <div class="btn-row">
+      <button type="submit" class="submit-btn">작성완료 전송</button>
+      <button type="button" class="cancel-btn" onclick="window.history.back();">취소</button>
+    </div>
+  </form>
+</body>
+</html>

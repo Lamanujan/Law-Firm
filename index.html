@@ -16,6 +16,25 @@
     .nav-brand-text {font-size:1.03rem;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:0.02em;}
     .nav-right {display:flex;align-items:center;}
     .menu-link {background:none;border:none;color:#fff;font-size:1.01rem;font-weight:500;cursor:pointer;}
+@media (max-width: 700px) {
+  .contact-map-content {
+    flex-direction: column;
+    border-radius: 11px;
+    max-width: 100vw;
+    padding: 0;
+    box-shadow: 0 2px 13px #0002;
+  }
+  .map-illust {
+    display: none !important;
+  }
+  .map-info {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    padding: 20px 3vw 18px 3vw !important;
+    align-items: center !important;
+  }
+}
     /* ===== 사이드 메뉴 ===== */
     .sidebar-bg { position:fixed; z-index:3000; left:0; top:0; width:100vw; height:100dvh; background:rgba(0,0,0,0.31); opacity:0; pointer-events:none; transition:opacity 0.45s; }
     .sidebar-bg.active { opacity:1; pointer-events:auto;}
@@ -498,76 +517,213 @@
         <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/sampleA.jpg?raw=true" class="bannerB" alt="배너A">
       </div>
     </section>
+
 <!-- ========== [찾아오시는길 섹션] ========== -->
-<section style="width:100vw; min-height:900px; position:relative;">
-  <!-- 어두운 도시 야경 배경 이미지 -->
+<section class="contact-map-section">
   <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
     alt="도시 야경 배경"
-    style="position:absolute; z-index:0; width:100vw; height:100%; left:0; top:0; object-fit:cover; object-position:center; filter:brightness(0.42) contrast(1.12);">
-  <!-- 오버레이 내용 (지도+주소) -->
-  <div style="width:100vw; max-width:1200px; margin:0 auto; position:relative; z-index:2; display:flex; flex-direction:column; justify-content:center; height:900px;">
-    <div style="width:100%; text-align:center; margin-top:0; margin-bottom:22px; color:#fff;">
-      <span style="display:block; font-size:2.4rem; font-weight:800; color:#fff; letter-spacing:0.03em; line-height:1.18;">
-        찾아오시는길
-      </span>
-      <span style="display:block; font-size:1.09rem; color:#e3e3e3; font-weight:400; margin-top:9px; letter-spacing:0.01em; line-height:1.46;">
-        전국 어디서든 가장 가까운 곳에서 함께하세요.
-      </span>
+    class="contact-map-bg">
+  <div class="contact-map-inner">
+    <div class="contact-map-title">
+      <span class="main">찾아오시는길</span>
+      <span class="sub">전국 어디서든 가장 가까운 곳에서 함께하세요.</span>
     </div>
-    <div style="display:flex; justify-content:center; align-items:stretch; max-width:1150px; margin:0 auto 0 auto; background:rgba(26,180,166,0.97); border-radius:16px; box-shadow:0 4px 18px #0003; padding:0; font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;">
+    <div class="contact-map-content">
       <!-- 왼쪽 지도 -->
-      <div style="flex:1 1 42%; min-width:310px; min-height:370px; background:transparent; display:flex; align-items:center; justify-content:center; position:relative;">
-        <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/Map_of_South_Korea-blank.svg.png?raw=true"
-          alt="대한민국 지도" style="width:93%; max-width:340px; min-width:160px; display:block;">
-        <!-- 부산 포인트 -->
-        <span style="
-          position:absolute;
-          left:72%;
-          top:60%;
-          transform:translate(-50%,-50%);
-          width:15px;height:15px;
-          background:#ffe43a;
-          border-radius:50%;
-          box-shadow:0 0 17px 5px #ffe24388, 0 0 8px 3px #fff9;
-          z-index:11;
-          animation:pointerglow 1.1s infinite alternate;
-          pointer-events:none;">
-        </span>
-        <span style="position:absolute; left:72%; top:68%; transform:translate(-50%,-50%); font-size:1.01rem; color:#fff; font-weight:600; background:#1DB4A6cc; padding:2px 10px 2px 10px; border-radius:7px 7px 10px 10px; letter-spacing:0.01em;">
-          부산
-        </span>
+      <div class="contact-map-col map-illust">
+        <img src="https://raw.githubusercontent.com/Lamanujan/Law-Firm/a0f0dbad455e2c74cdcef62489d5f7da9b1e5f4f/images/office_kmap.svg"
+  alt="대한민국 지도" class="map-svg">
+        <span class="map-dot"></span>
+        <span class="map-label">부산</span>
       </div>
       <!-- 오른쪽 주소/연락처 -->
-      <div style="flex:1 1 58%; min-width:470px; background:transparent; display:flex; flex-direction:column; justify-content:flex-start; align-items:center; padding:54px 44px 44px 44px;">
-        <div style="width:100%; max-width:610px; height:320px; margin-bottom:28px; background:#0b8c7c; border-radius:0; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+      <div class="contact-map-col map-info">
+        <div class="map-thumb-box">
           <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/brave_screenshot_map.kakao.com.png?raw=true"
-            alt="부산 지도 캡처" style="width:100%; height:100%; object-fit:cover; object-position:center;">
+            alt="부산 지도 캡처">
         </div>
-        <div style="width:100%; max-width:610px; color:#fff; font-size:1.13rem; line-height:1.56;">
-          <div style="font-size:1.23rem; font-weight:700; color:#fff; margin-bottom:10px; letter-spacing:0.01em;">
-            이룸법률사무소 부산 본점
-          </div>
-          <dl style="margin:0; padding:0;">
-            <dt style="font-weight:600; margin-bottom:2px; font-size:1.05rem; color:#e9ffd8;">주소</dt>
-            <dd style="margin:0 0 12px 0; color:#ffe964; font-weight:500; font-size:1.06rem; letter-spacing:0.01em; word-break:keep-all;">
-              부산광역시 연제구 법원남로15번길 9, 3층(거제동, 덕원빌딩)
-            </dd>
-            <dt style="font-weight:600; margin-bottom:2px; font-size:1.04rem;">대표번호</dt>
-            <dd style="margin:0 0 8px 0; font-weight:500; font-size:1.04rem;">1533-0560</dd>
-            <dt style="font-weight:600; margin-bottom:2px; font-size:1.04rem;">FAX</dt>
-            <dd style="margin:0; font-weight:500; font-size:1.04rem;">051-714-0168</dd>
+        <div class="map-address-box">
+          <div class="map-place">이룸법률사무소 부산 본점</div>
+          <dl>
+            <dt>주소</dt>
+            <dd>부산광역시 연제구 법원남로15번길 9, 3층(거제동, 덕원빌딩)</dd>
+            <dt>대표번호</dt>
+            <dd>1533-0560</dd>
+            <dt>FAX</dt>
+            <dd>051-714-0168</dd>
           </dl>
         </div>
       </div>
     </div>
   </div>
-  <style>
-    @keyframes pointerglow {
-      0% { box-shadow:0 0 19px 6px #ffe243d0, 0 0 12px #fff7;}
-      100% { box-shadow:0 0 6px 2px #ffe24366, 0 0 7px #fff4;}
-    }
-  </style>
 </section>
+<style>
+/* (아래 스타일 전체 반드시 같이 붙여넣기!) */
+.contact-map-section {
+  width: 100vw;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  min-height: 480px;
+  background: #111;
+  overflow: hidden;
+}
+.contact-map-bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100vw; height: 100%;
+  object-fit: cover;
+  filter: brightness(0.42) contrast(1.12);
+  z-index: 0;
+  min-height: 260px;
+}
+.contact-map-inner {
+  width: 100vw; max-width: 1200px;
+  margin: 0 auto;
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 98px 0 70px 0;
+}
+.contact-map-title {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 24px;
+  color: #fff;
+}
+.contact-map-title .main {
+  display: block; font-size: 2.1rem;
+  font-weight: 800; letter-spacing: 0.03em;
+  line-height: 1.16; color: #fff;
+}
+.contact-map-title .sub {
+  display: block; font-size: 1.04rem;
+  color: #e3e3e3; font-weight: 400;
+  margin-top: 8px; letter-spacing: 0.01em;
+  line-height: 1.43;
+}
+.contact-map-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  max-width: 1080px;
+  margin: 0 auto;
+  background: rgba(26,180,166,0.97);
+  border-radius: 16px;
+  box-shadow: 0 4px 18px #0003;
+  font-family: 'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  gap: 0;
+  padding: 0;
+}
+.contact-map-col {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 34px 20px 34px 20px;
+  min-width: 0;
+}
+.map-illust {
+  min-width: 160px;
+  max-width: 370px;
+  position: relative;
+  min-height: 260px;
+  background: transparent;
+}
+.map-svg {
+  width: 93%;
+  max-width: 320px;
+  min-width: 120px;
+  display: block;
+  margin: 0 auto;
+  z-index: 2;
+}
+.map-dot {
+  position: absolute;
+  left: 72%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  width: 15px; height: 15px;
+  background: #ffe43a;
+  border-radius: 50%;
+  box-shadow: 0 0 17px 5px #ffe24388, 0 0 8px 3px #fff9;
+  z-index: 11;
+  animation: pointerglow 1.1s infinite alternate;
+  pointer-events: none;
+}
+.map-label {
+  position: absolute;
+  left: 72%;
+  top: 68%;
+  transform: translate(-50%, -50%);
+  font-size: 1.01rem; color: #fff; font-weight: 600;
+  background: #1DB4A6cc; padding: 2px 10px;
+  border-radius: 7px 7px 10px 10px;
+  letter-spacing: 0.01em;
+  z-index: 12;
+}
+.map-info { align-items: flex-start; padding: 34px 34px 34px 24px; min-width: 200px; }
+.map-thumb-box {
+  width: 100%; max-width: 440px; height: auto;
+  background: #0b8c7c; border-radius: 7px; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+}
+.map-thumb-box img { width: 100%; height: auto; object-fit: cover; object-position: center; }
+.map-address-box {
+  width: 100%; max-width: 440px;
+  color: #fff; font-size: 1.13rem; line-height: 1.54;
+}
+.map-place { font-size: 1.21rem; font-weight: 700; color: #fff; margin-bottom: 8px; letter-spacing: 0.01em; }
+.map-address-box dt { font-weight: 600; margin-bottom: 2px; font-size: 1.02rem; color: #e9ffd8; }
+.map-address-box dd {
+  margin: 0 0 10px 0;
+  color: #ffe964;
+  font-weight: 500;
+  font-size: 1.04rem;
+  letter-spacing: 0.01em;
+  word-break: keep-all;
+}
+@media (max-width: 900px) {
+  .contact-map-inner { padding: 32px 0 30px 0; }
+  .contact-map-content { max-width: 99vw; }
+  .map-illust, .map-info { padding: 28px 10px 28px 10px; }
+}
+@media (max-width: 700px) {
+  .contact-map-section { min-height: 650px; }
+  .contact-map-inner { padding: 70px 0 80px 0; }
+  .contact-map-title .main { font-size: 1.28rem; }
+  .contact-map-content {
+    flex-direction: column;
+    border-radius: 11px;
+    max-width: 100vw;
+    padding: 0;
+    box-shadow: 0 2px 13px #0002;
+  }
+  .map-illust, .map-info {
+    min-width: 0;
+    max-width: 100vw;
+    width: 100%;
+    padding: 20px 3vw 18px 3vw;
+  }
+  .map-thumb-box, .map-address-box {
+    max-width: 98vw;
+    font-size: 0.98rem;
+  }
+  .map-thumb-box img { min-width: 0; max-width: 99vw; }
+}
+@media (max-width: 420px) {
+  .map-thumb-box, .map-address-box { max-width: 99vw; }
+  .map-place { font-size: 0.98rem; }
+}
+@keyframes pointerglow {
+  0% { box-shadow:0 0 19px 6px #ffe243d0, 0 0 12px #fff7;}
+  100% { box-shadow:0 0 6px 2px #ffe24366, 0 0 7px #fff4;}
+}
+</style>
+
 <!-- ========== [찾아오시는길 섹션 끝] ========== -->
 
 

@@ -293,6 +293,7 @@
       user-select: none;
       pointer-events: none;
     }
+
     .banner-img-fade-wrap .bannerA { opacity: 1; z-index: 1; }
     .banner-img-fade-wrap .bannerB { opacity: 0; z-index: 2; }
     .banner-img-fade-wrap:hover .bannerA,
@@ -311,7 +312,10 @@
       .banner-img-fade-wrap img { border-radius: 8px; }
     }
 	
+
+	
     /* ===== 배너 페이드 섹션 끝 ===== */
+
     footer { width:100vw; background:#f5f5f7; border-top:1.5px solid #dadada; padding:34px 0 18px 0; text-align:center; }
     .eloom-footer-brand-row { display:flex; align-items:center; justify-content:center; gap:0.44em; margin-bottom:7px;}
     .eloom-footer-brand-row img { height:1.18em; }
@@ -517,6 +521,166 @@
         <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/sampleA.jpg?raw=true" class="bannerB" alt="배너A">
       </div>
     </section>
+<!-- 변제금액 계산기 (배경이미지 + 센터 배치) -->
+<section class="calculator-bg-section">
+  <div class="calculator-container">
+    <div class="calc-title">변제금액 계산기</div>
+    <div class="calc-desc">
+      채무·이자·기간 입력만으로<br>
+      <b>월 변제금, 총 이자, 변제율</b> 한 번에 확인<br>
+      <span style="font-size:.93rem;color:#74beb6;">* 실제 금액은 상담 후 안내됩니다.</span>
+    </div>
+    <form class="calc-form" id="calcForm" autocomplete="off">
+      <label for="principal">채무 총액 (원) <span style="color:#1db4a6;font-weight:400;">*</span></label>
+      <input type="number" id="principal" required min="100000" step="10000" placeholder="예: 20,000,000">
+
+      <label for="interest">연이자율 (%) <span style="color:#1db4a6;font-weight:400;">*</span></label>
+      <input type="number" id="interest" required min="0" max="50" step="0.1" placeholder="예: 10">
+
+      <label for="months">변제기간 (개월) <span style="color:#1db4a6;font-weight:400;">*</span></label>
+      <input type="number" id="months" required min="1" max="120" step="1" placeholder="예: 60">
+
+      <label for="income">월평균수입 (원)</label>
+      <input type="number" id="income" min="0" step="1000" placeholder="예: 2,300,000">
+
+      <label for="cost">월평균생계비 (원)</label>
+      <input type="number" id="cost" min="0" step="1000" placeholder="예: 1,400,000">
+
+      <button type="submit" class="calc-btn">계산하기</button>
+      <button type="button" class="calc-btn calc-btn-light" onclick="resetCalc()">다시 계산</button>
+    </form>
+    <div class="calc-result" id="calcResult"></div>
+    <div class="desc-small">※ 계산결과는 참고용입니다. 실제 상담 및 기관 기준과 다를 수 있습니다.</div>
+  </div>
+</section>
+
+<style>
+.calculator-bg-section {
+  width: 100vw;
+  min-height: 520px;
+  
+background: url('https://images.unsplash.com/photo-1476966502122-c26b7830def9?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8JUVDJTg4JTk4JUVEJTk1JTk5fGVufDB8fDB8fHww') center center / cover no-repeat;
+') center center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 0 70px 0;
+  position: relative;
+}
+.calculator-bg-section::before {
+  content: "";
+  position: absolute; left:0; top:0; width:100%; height:100%;
+  background: rgba(18,58,55,0.32); /* 어두운 반투명 레이어 */
+  z-index: 1;
+}
+.calculator-container {
+  position: relative;
+  z-index: 2;
+  max-width: 440px;
+  width: 95vw;
+  background: #fff;
+  border-radius: 30px;
+  box-shadow: 0 8px 40px rgba(30,80,70,0.13), 0 1.5px 8px rgba(20,90,90,0.06);
+  padding: 48px 38px 32px 38px;
+  margin: 0 auto;
+}
+.calc-title {
+  font-size: 1.5rem; font-weight: 700; text-align: center; color: #17897f; margin-bottom: 7px; letter-spacing: -0.01em;
+}
+.calc-desc {
+  text-align: center; font-size: 1.08rem; color: #555; margin-bottom: 23px; line-height: 1.7;
+}
+.calc-form label { font-size: 1.03rem; font-weight: 600; color: #1db4a6; margin-bottom: 6px; display: block; }
+.calc-form input[type="number"] {
+  width: 100%; padding: 11px 10px; font-size: 1.09rem; border: 1px solid #d4e2e2;
+  border-radius: 8px; margin-bottom: 14px; box-sizing: border-box; background: #f8fcfb; color: #192424;
+  font-family: inherit; outline: none; transition: border .15s;
+}
+.calc-form input[type="number"]:focus { border-color: #1db4a6; background: #fff; }
+.calc-btn {
+  background: linear-gradient(90deg,#1db4a6 0%,#159488 100%);
+  color: #fff; font-weight: 700; font-size: 1.11rem; border: none;
+  border-radius: 8px; padding: 11px 0; width: 100%; margin-top: 3px; margin-bottom: 10px;
+  cursor: pointer; transition: background .13s, transform .13s;
+}
+.calc-btn-light {
+  background: #e1eeed; color: #19998d; border: none; margin-top: 0;
+}
+.calc-result {
+  margin: 25px 0 10px 0; padding: 15px 7px 5px 7px; border-radius: 13px;
+  background: #f3fbfa; color: #187d75; font-size: 1.15rem; font-weight: 600;
+  box-shadow: 0 2px 8px #1db4a62b; display: none; text-align: center;
+}
+.desc-small { font-size: .97rem; color: #94b3af; margin-top: 4px; text-align: center; }
+.result-row { display: flex; justify-content: space-between; font-size: 1.02rem; color: #19897f; font-weight: 500; margin-bottom: 5px; }
+.tealline { border: none; border-top: 1.3px solid #1db4a6; margin: 13px 0 13px 0; }
+@media (max-width:700px) {
+  .calculator-container {
+    max-width: 97vw;
+    padding: 8vw 3vw 7vw 3vw;
+    margin: 6vw 0;
+  }
+  .calculator-bg-section {
+    padding: 33px 0 40px 0;
+  }
+}
+@media (max-width:420px) {
+  .calculator-container {
+    padding: 4vw 0.6vw 6vw 0.6vw;
+  }
+}
+</style>
+
+<script>
+document.getElementById('calcForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  let principal = Number(document.getElementById('principal').value);
+  let rate = Number(document.getElementById('interest').value) / 100 / 12;
+  let months = Number(document.getElementById('months').value);
+  let income = Number(document.getElementById('income').value) || 0;
+  let cost = Number(document.getElementById('cost').value) || 0;
+
+  let monthly = 0;
+  if(rate === 0){
+    monthly = principal / months;
+  } else {
+    monthly = principal * rate * Math.pow(1+rate, months) / (Math.pow(1+rate, months)-1);
+  }
+  monthly = Math.round(monthly);
+  let total = monthly * months;
+  let yearly = monthly * 12;
+  let repayRate = (total / principal * 100).toFixed(1);
+  let interestAll = total - principal;
+  let possible = 0;
+  let possible_txt = '';
+  if(income > 0 && cost > 0) {
+    possible = income - cost;
+    if(possible > 0){
+      possible_txt = `<div class="result-row"><span>생계비 제외 월 변제 가능액</span> <span><b>${possible.toLocaleString()}원</b></span></div>`;
+    } else {
+      possible_txt = `<div class="result-row"><span>변제여력</span> <span style="color:#e15353;font-weight:700;">부족</span></div>`;
+    }
+  }
+
+  document.getElementById('calcResult').innerHTML = `
+    <strong>${monthly.toLocaleString()}원</strong>
+    <div style="font-size:.97rem; color:#16a291; margin-bottom:4px;">예상 월 변제금액</div>
+    <hr class="tealline">
+    <div class="result-row"><span>연간 변제금</span><span><b>${yearly.toLocaleString()}원</b></span></div>
+    <div class="result-row"><span>총 변제금</span><span><b>${total.toLocaleString()}원</b></span></div>
+    <div class="result-row"><span>총 이자 부담</span><span><b>${interestAll.toLocaleString()}원</b></span></div>
+    <div class="result-row"><span>변제율(총 변제금/채무)</span><span><b>${repayRate}%</b></span></div>
+    ${possible_txt}
+  `;
+  document.getElementById('calcResult').style.display = 'block';
+});
+function resetCalc(){
+  document.getElementById('calcForm').reset();
+  document.getElementById('calcResult').style.display = 'none';
+}
+</script>
+
+ 
 
 <!-- ========== [찾아오시는길 섹션] ========== -->
 <section class="contact-map-section">
@@ -745,6 +909,293 @@
       </div>
 
     </footer>
+<!-- PC 하단 상담바(1032px 센터, 고정) -->
+<div class="form_area">
+  <div class="form_area-inner">
+    <div class="title">
+      <picture class="title-svg">
+        <img alt="24시간 1:1 상담" width="94" height="28"
+          src="https://raw.githubusercontent.com/Lamanujan/Law-Firm/e6bd5fc5a3d773c1cf3758173a9748d069b52aee/images/24image.svg">
+      </picture>
+      <div class="phone_number">1533-0560</div>
+    </div>
+    <div class="input_group">
+      <input placeholder="연락처를 입력해주세요." type="tel" name="telTemp">
+      <label class="agree_input">
+        <input id="agree_check2" type="checkbox" checked name="agree_check2" style="transform:scale(0.92);margin-right:2px;">
+        <span>개인정보 수집에 동의합니다.</span>
+      </label>
+    </div>
+    <button type="button" class="bottom_form_check">상담신청</button>
+  </div>
+</div>
+
+<!-- 모바일 하단 상담바(고정) -->
+<div class="mobile-bar">
+  <img class="mobile-bar-img" alt="모바일24상담"
+    src="https://raw.githubusercontent.com/Lamanujan/Law-Firm/e6bd5fc5a3d773c1cf3758173a9748d069b52aee/images/24public.svg">
+  <div class="mobile-bar-center">
+    <div class="mobile-bar-tel-wrap">
+      <input class="mobile-bar-tel" placeholder="연락처를 입력해주세요." type="tel" name="mobile_telTemp">
+      <div class="mobile-bar-underline"></div>
+    </div>
+    <label class="mobile-bar-agree">
+      <input type="checkbox" checked name="mobile_agree_check2" id="mobile_agree_check2" style="margin-right:4px; transform:scale(1.13);">
+      <span>개인정보 수집에 동의합니다.</span>
+    </label>
+  </div>
+  <button type="button" class="mobile-bar-btn">상담신청</button>
+</div>
+
+<style>
+:root {
+  --area-wide-width: 1032px;
+}
+
+/* PC 하단 상담바 */
+.form_area {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 9999;
+  width: 100vw; min-height: 62px; background: #111;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 -2px 12px #0002;
+  gap: 0; padding: 0;
+}
+.form_area:before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2.5px;
+  background: linear-gradient(90deg, #16e6d1 0%, #5be2c8 100%);
+  z-index: 2;
+}
+.form_area-inner {
+  max-width: var(--area-wide-width);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  height: 54px;
+}
+.title {
+  display: flex; align-items: center; gap: 10px;
+  padding-left: 3px;
+  line-height: 1.5;
+  height: 100%;
+}
+.title-svg img {
+  height: 44px; width: 240px; display: block;
+  line-height: 1.5;
+}
+.phone_number {
+  font-size: 1.09rem; font-weight: 700; color: #fff;
+  margin-left: 6px; padding-right: 10px; border-right: 1px solid #606060;
+  font-family: AkzidenzGroteskBQ-Regular, Pretendard, sans-serif;
+  line-height: 1.5; height: 32px; display: flex; align-items: center;
+}
+.input_group {
+  display: flex; align-items: center; gap: 4px; margin-left: 8px;
+  line-height: 1.5; height: 100%;
+}
+.input_group input[type="tel"] {
+  font-size: 1.07rem;
+  background: none; border: none;
+  border-bottom: 1px solid #444; color: #fff;
+  padding: 4px 12px 2px 0; min-width: 140px; max-width: 180px;
+  outline: none; height: 26px;
+  line-height: 1.5;
+}
+.input_group input[type="tel"]::placeholder { color: #e1e1e1; font-size: 1.02rem; line-height: 1.5; }
+.agree_input, .agree_input span {
+  color: #fff; font-size: 0.84rem; font-weight: 400;
+  line-height: 1.5; margin-left: 7px;
+  display: flex; align-items: center; height: 100%;
+}
+.bottom_form_check {
+  background: linear-gradient(90deg,#d1b461 0%,#ac974e 100%);
+  color: #222; font-weight: 700; font-size: 0.93rem;
+  border: none; border-radius: 16px; padding: 7px 17px; margin-left: 12px;
+  box-shadow: 0 2px 12px #b59b4c19; cursor: pointer; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .13s, transform .13s;
+  line-height: 1.5;
+}
+
+/* 모바일 하단 상담바 */
+.mobile-bar { display: none; }
+@media (max-width: 700px) {
+  .form_area { display: none !important; }
+  .mobile-bar {
+    display: flex !important;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 9999;
+    width: 100vw;
+    min-height: 64px;
+    background: #111;
+    box-shadow: 0 -2px 12px #0002;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 2vw 14px 2vw;
+    gap: 15px;
+    line-height: 1.5;
+  }
+  .mobile-bar-img {
+    width: 76px; height: 45px; object-fit: contain; flex-shrink: 0;
+    margin-right: 13px;
+    line-height: 1.5;
+  }
+  .mobile-bar-center {
+    display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+    min-width: 120px; flex: 1;
+    margin-right: 11px;
+    line-height: 1.5;
+  }
+  .mobile-bar-tel-wrap {
+    width: 100%;
+    display: flex; flex-direction: column;
+    margin-bottom: 4px;
+    line-height: 1.5;
+  }
+  .mobile-bar-tel {
+    width: 100%; min-width: 105px; max-width: 170px;
+    font-size: 1.13rem;
+    border: none; outline: none; background: transparent; color: #fff;
+    padding: 0 0 3px 0; margin-bottom: 0;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+  }
+  .mobile-bar-tel::placeholder {
+    color: #e1e1e1; font-size: 1.03rem;
+    letter-spacing: 0.01em; font-weight: 500;
+    line-height: 1.5;
+  }
+  .mobile-bar-underline {
+    width: 100%; height: 2px; background: #17ded5;
+    border-radius: 3px; margin-bottom: 0px; margin-top: 2px;
+    line-height: 1.5;
+  }
+  .mobile-bar-agree {
+    font-size: 11.2px; color: #fff;
+    display: flex; align-items: center;
+    margin-top: 2px; margin-bottom: 0;
+    font-weight: 400;
+    gap: 2px;
+    letter-spacing: -0.03em;
+    line-height: 1.5;
+  }
+  .mobile-bar-btn {
+    background: linear-gradient(90deg,#d1b461 0%,#ac974e 100%);
+    color: #222; font-weight: 700; font-size: 1.11rem;
+    border: none; border-radius: 21px; padding: 10px 21px;
+    margin-left: 10px; box-shadow: 0 2px 12px #b59b4c19;
+    cursor: pointer; min-width: 63px; max-width: 130px;
+    height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1.5;
+  }
+}
+
+/* 560px 이하 모바일 폰트 조정 (스타 법무법인 스타일 참고) */
+@media (max-width: 560px) {
+  .main .section04 .gold_content .gold_title_wrap .title {
+    font-size: 25px !important;
+    line-height: 30px !important;
+  }
+}
+
+body { transition: padding-bottom .2s; }
+</style>
+<script>
+window.addEventListener('DOMContentLoaded', function(){
+  function adjustPadding() {
+    let pcBar = document.querySelector('.form_area');
+    let mobileBar = document.querySelector('.mobile-bar');
+    if(window.innerWidth <= 700 && mobileBar){
+      document.body.style.paddingBottom = mobileBar.offsetHeight + 'px';
+    } else if(pcBar){
+      document.body.style.paddingBottom = pcBar.offsetHeight + 'px';
+    }
+  }
+  adjustPadding();
+  window.addEventListener('resize', adjustPadding);
+});
+</script>
+
+
+<style>
+.fixed_consulting_bar2 {
+  position: fixed; bottom: 0; left: 0; width: 100vw; z-index: 5000;
+  background: #191919;
+  font-family: 'Noto Sans KR', sans-serif;
+  padding: 0; margin: 0; min-height: 58px;
+  box-shadow: 0 -2px 18px #0002;
+  /* 상단 그라데이션 효과 */
+  overflow: visible;
+}
+.fixed_consulting_bar2::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0; top: 0; width: 100%; height: 7px;
+  background: linear-gradient( to bottom, #1db4a6 70%, rgba(29,180,166,0.00) 100%);
+  border-radius: 0 0 12px 12px;
+  pointer-events: none;
+  z-index: 1;
+}
+.fc2_inner {
+  display: flex; align-items: center; justify-content: center;
+  max-width: 640px; margin: 0 auto; padding: 8px 0 5px 0;
+  gap: 16px; width: 100%;
+  position: relative; z-index: 2;
+}
+.fc2_img {
+  width: 38px; height: 38px; object-fit: contain; border-radius: 50%; margin-right: 10px;
+  background: #fff;
+  box-shadow: 0 2px 8px #0001;
+  flex-shrink: 0;
+}
+.fc2_center {
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  flex: 1; min-width: 120px; max-width: 260px;
+}
+.fc2_input {
+  width: 100%; font-size: 1.08rem; background: none; color: #fff;
+  border: none; outline: none; padding: 2px 1px 3px 1px; font-family: inherit;
+}
+.fc2_underline {
+  width: 100%; height: 1.5px; background: #1db4a6; margin: 0 0 3px 0;
+}
+.fc2_agree {
+  font-size: 0.72rem; color: #e2e2e2; margin-top: 2px; margin-left: 1px;
+  letter-spacing: 0.01em;
+}
+.fc2_agree input[type="checkbox"] {
+  margin-right: 3px; transform: scale(0.92);
+  accent-color: #1db4a6;
+  vertical-align: middle;
+}
+.fc2_btn {
+  background: linear-gradient(90deg,#1db4a6 0%,#159488 100%);
+  color: #fff; font-weight: 700; font-size: 1.03rem; border: none;
+  border-radius: 7px; padding: 8px 25px; cursor: pointer;
+  transition: background .15s, transform .13s;
+  margin-left: 15px; box-shadow: 0 2px 6px #0002;
+}
+.fc2_btn:hover { background: linear-gradient(90deg,#159488 0%,#1db4a6 100%); transform: translateY(-2px) scale(1.03);}
+@media (max-width: 520px) {
+  .fc2_inner { flex-direction: column; align-items: stretch; gap: 4px; padding: 8px 2vw 6px 2vw;}
+  .fc2_center { max-width: none; min-width: 0; width: 100%; }
+  .fc2_btn { width: 100%; margin-left: 0; margin-top: 3px;}
+}
+</style>
+
+<script>
+document.getElementById('consultForm2').onsubmit = function(e){
+  e.preventDefault();
+  alert('상담 신청이 접수되었습니다!');
+  this.reset();
+};
+</script>
+
   </div>
   <script>
     // ===== 사이드 메뉴 동작 =====

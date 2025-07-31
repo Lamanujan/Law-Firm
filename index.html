@@ -5,6 +5,149 @@
   <title>ELOOM LAW FIRM</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&family=Noto+Serif+KR:wght@700&display=swap">
+
+<head>
+<style>
+/* 성공사례 타이틀 & 위쪽 여백 */
+.big-section-title {
+  font-size: 2.4rem;
+  font-weight: 900;
+  text-align: center;
+  color: #17897f;
+  margin-top: 0;
+  margin-bottom: 36px;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+.case-rolling-section {
+  width: 100vw;
+  background: #f6fafb;
+  padding:45px 0 80px 0;
+  margin: 55px auto 0 auto; /* 위 여백 확실히 */
+}
+.case-rolling-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  align-items: flex-start;
+}
+.case-rolling-col {
+  flex: 1 1 0;
+  min-width: 0;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 32px #1db4a617;
+  padding: 32px 16px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.case-rolling-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #17897f;
+  margin-bottom: 17px;
+  text-align: center;
+}
+.case-rolling-list-wrap {
+  width: 100%;
+  max-width: 370px;
+  height: 264px;
+  overflow: hidden;
+  margin: 0 auto;
+  border-radius: 10px;
+  background: #f3fdfb;
+  box-shadow: 0 1px 6px #bbb2;
+  position: relative;
+}
+.case-rolling-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: top 0.5s;
+}
+.case-rolling-list li {
+  display: flex; align-items: center;
+  font-size: 1.02rem; color: #187d75; font-weight: 500;
+  border-bottom: 1px solid #e9f3f2;
+  height: 44px; padding: 0 10px; background: none;
+}
+.case-rolling-list .day,
+.case-rolling-list .name,
+.case-rolling-list .mo,
+.case-rolling-list .mp {
+  flex-shrink: 0;
+  padding: 0 3px;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.case-rolling-list .day { width: 59px; color: #22998d; font-weight: 700; }
+.case-rolling-list .name { width: 63px; color: #14796f; }
+.case-rolling-list .mo { width: 101px; text-align: right; color: #187d75; }
+.case-rolling-list .mp { flex: 1; color: #ea8000; font-weight: 700; }
+.case-rolling-list.rolling2 li {
+  min-height: 57px;
+  height: auto !important;
+  align-items: flex-start;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.case-rolling-list.rolling2 .mp {
+  font-size: 0.97rem;
+  line-height: 1.55;
+}
+.case-rolling-col:nth-child(2) .case-rolling-list-wrap { height: 310px; }
+
+/* ---- 반응형, 모바일에서 더 크게! ---- */
+@media (max-width:900px){
+  .big-section-title { font-size: 2.0rem; margin-bottom: 25px;}
+  .case-rolling-inner { flex-direction: column; gap: 22px; }
+  .case-rolling-col { max-width: 96vw; margin: 0 auto; }
+}
+@media (max-width:700px) {
+  .case-rolling-section { margin-top: 36px !important; padding-top: 24px;}
+  .case-rolling-list-wrap {
+    height: 550px !important;
+    min-height: 330px !important;
+    max-height: 1000px !important;
+    overflow-y: auto !important;
+  }
+  .case-rolling-col:nth-child(2) .case-rolling-list-wrap {
+    height: 700px !important;
+    min-height: 350px !important;
+  }
+  .big-section-title {
+    margin-bottom: 19px !important;
+    font-size: 1.3rem !important;
+  }
+  .case-rolling-title { font-size: 1.05rem;}
+  .case-rolling-list .day,
+  .case-rolling-list .name,
+  .case-rolling-list .mo { font-size: 0.96rem; }
+  .case-rolling-list-wrap { max-width: 99vw; }
+  .case-rolling-col { padding: 17px 2vw 13px 2vw;}
+}
+@media (max-width:600px){
+  .case-rolling-title { font-size: 1.05rem;}
+  .case-rolling-col { padding: 20px 5vw 15px 5vw;}
+}
+@media (max-width: 420px) {
+  .case-rolling-list-wrap { height: 430px !important; }
+  .case-rolling-col:nth-child(2) .case-rolling-list-wrap { height: 510px !important; }
+}
+</style>
+
+</head>
+
+
   <style>
     html, body {margin:0;padding:0;box-sizing:border-box;width:100vw;overflow-x:hidden;background:#fff;}
     body {font-family:'Noto Sans KR','Pretendard',sans-serif;color:#222;min-height:100dvh;}
@@ -680,7 +823,50 @@ function resetCalc(){
 }
 </script>
 
- 
+<!-- ====== 성공사례 롤링 섹션 시작 ====== -->
+<section class="case-rolling-section">
+  <h2 class="big-section-title">성공사례</h2>
+  <div class="case-rolling-inner">
+    <!-- 개인파산 -->
+    <div class="case-rolling-col">
+      <div class="case-rolling-title">개인파산</div>
+      <div class="case-rolling-list-wrap">
+        <ul class="case-rolling-list" id="rolling1">
+          <li><div class="day">07/16</div><div class="name">이xx</div><div class="mo">6,500만원</div><div class="mp">부채 전부 탕감</div></li>
+          <li><div class="day">07/14</div><div class="name">김xx</div><div class="mo">2억2,700만원</div><div class="mp">부채 전부 탕감</div></li>
+          <li><div class="day">07/14</div><div class="name">유xx</div><div class="mo">2억2,000만원</div><div class="mp">부채 전부 탕감</div></li>
+          <li><div class="day">07/28</div><div class="name">김xx</div><div class="mo">7,600만원</div><div class="mp">부채 전부 탕감</div></li>
+          <li><div class="day">07/24</div><div class="name">김xx</div><div class="mo">1억4,500만원</div><div class="mp">부채 전부 탕감</div></li>
+          <li><div class="day">07/22</div><div class="name">이xx</div><div class="mo">1억2,800만원</div><div class="mp">부채 전부 탕감</div></li>
+          <li><div class="day">07/21</div><div class="name">김xx</div><div class="mo">3,000만원</div><div class="mp">부채 전부 탕감</div></li>
+          <li><div class="day">07/18</div><div class="name">이xx</div><div class="mo">1억2,700만원</div><div class="mp">부채 전부 탕감</div></li>
+          <li><div class="day">07/17</div><div class="name">이xx</div><div class="mo">4,800만원</div><div class="mp">부채 전부 탕감</div></li>
+          <li><div class="day">07/16</div><div class="name">김xx</div><div class="mo">1억7,500만원</div><div class="mp">부채 전부 탕감</div></li>
+        </ul>
+      </div>
+    </div>
+    <!-- 개인회생 -->
+    <div class="case-rolling-col">
+      <div class="case-rolling-title">개인회생</div>
+      <div class="case-rolling-list-wrap">
+        <ul class="case-rolling-list rolling2" id="rolling2">
+          <li><div class="day">07/17</div><div class="name">김xx</div><div class="mo">2억500만원</div><div class="mp">월 400만원 36개월 변제<br>6,100만원 및 이자 탕감</div></li>
+          <li><div class="day">07/16</div><div class="name">최xx</div><div class="mo">3,500만원</div><div class="mp">월 28만원 36개월 변제<br>2,500만원 및 이자 탕감</div></li>
+          <li><div class="day">07/16</div><div class="name">지xx</div><div class="mo">7,700만원</div><div class="mp">월 56만원 36개월 변제<br>5,700만원 및 이자 탕감</div></li>
+          <li><div class="day">07/16</div><div class="name">하xx</div><div class="mo">2,500만원</div><div class="mp">월 40만원 36개월 변제<br>1,100만원 및 이자 탕감</div></li>
+          <li><div class="day">07/16</div><div class="name">우xx</div><div class="mo">7,400만원</div><div class="mp">월 34만원 48개월 변제<br>5,800만원 및 이자 탕감</div></li>
+          <li><div class="day">07/16</div><div class="name">최xx</div><div class="mo">5,100만원</div><div class="mp">월 99만원 36개월 변제<br>1,500만원 및 이자 탕감</div></li>
+          <li><div class="day">07/14</div><div class="name">남xx</div><div class="mo">1억1,600만원</div><div class="mp">월 32만원 60개월 변제<br>9,700만원 및 이자 탕감</div></li>
+          <li><div class="day">07/28</div><div class="name">노xx</div><div class="mo">5,700만원</div><div class="mp">월 115만원 36개월 변제<br>1,500만원 및 이자 탕감</div></li>
+          <li><div class="day">07/25</div><div class="name">이xx</div><div class="mo">1억8,000만원</div><div class="mp">월 238만원 36개월 변제<br>9,400만원 및 이자 탕감</div></li>
+          <li><div class="day">07/24</div><div class="name">성xx</div><div class="mo">1억1,200만원</div><div class="mp">월 115만원 36개월 변제<br> 7,100만원 및 이자 탕감</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ====== 성공사례 롤링 섹션 끝 ====== -->
+
 
 <!-- ========== [찾아오시는길 섹션] ========== -->
 <section class="contact-map-section">
@@ -1358,5 +1544,32 @@ document.getElementById('consultForm2').onsubmit = function(e){
       window.addEventListener('resize', () => { getTrackWidth(); });
     });
   </script>
+<script>
+  // 롤링 리스트 함수 (ul id, ms간격, li 한 칸 height)
+  function rollingList(ulId, interval, liHeight) {
+    const ul = document.getElementById(ulId);
+    if (!ul) return;
+    const liArr = Array.from(ul.children);
+    let idx = 0;
+    setInterval(() => {
+      idx++;
+      ul.style.top = -(liHeight * idx) + "px";
+      if (idx >= liArr.length) {
+        setTimeout(() => {
+          ul.style.transition = "none";
+          ul.style.top = "0px";
+          idx = 0;
+          setTimeout(() => ul.style.transition = "top 0.5s", 30);
+        }, interval-100);
+      }
+    }, interval);
+  }
+  // 각각의 롤링 적용
+  window.addEventListener('DOMContentLoaded', function() {
+    rollingList("rolling1", 2500, 44);   // 개인파산 (li 높이 44px)
+    rollingList("rolling2", 3200, 57);   // 개인회생 (li 높이 57px)
+  });
+</script>
+
 </body>
 </html>

@@ -1234,39 +1234,39 @@ function resetCalc(){
     align-items: center;
     justify-content: center;
     padding: 15px 2vw 14px 2vw;
-    gap: 15px;
+    gap: 10px;
     line-height: 1.5;
   }
-  .mobile-bar-img {
-    width: 76px; height: 45px; object-fit: contain; flex-shrink: 0;
-    margin-right: 13px;
-    line-height: 1.5;
+ .mobile-bar-img {
+    width: 72px !important;  /* 더 큼 */
+    height: 40px !important;
+    object-fit: contain; flex-shrink: 0;
+    margin-right: 2px !important;
   }
   .mobile-bar-center {
     display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
-    min-width: 120px; flex: 1;
-    margin-right: 11px;
-    line-height: 1.5;
+    min-width: 100px; flex: 1;
+    margin-right: 8px;
   }
   .mobile-bar-tel-wrap {
     width: 100%;
     display: flex; flex-direction: column;
-    margin-bottom: 4px;
-    line-height: 1.5;
+    margin-bottom: 2px;
   }
   .mobile-bar-tel {
-    width: 100%; min-width: 105px; max-width: 170px;
-    font-size: 1.13rem;
+    width: 100% !important;  /* 무조건 100%로 */
+    min-width: 0 !important;
+    max-width: none !important;
+    font-size: 1.07rem !important;
     border: none; outline: none; background: transparent; color: #fff;
     padding: 0 0 3px 0; margin-bottom: 0;
     font-weight: 600;
-    letter-spacing: 0.01em;
-    line-height: 1.5;
+    letter-spacing: 0.02em;
   }
   .mobile-bar-tel::placeholder {
-    color: #e1e1e1; font-size: 1.03rem;
-    letter-spacing: 0.01em; font-weight: 500;
-    line-height: 1.5;
+    color: #e1e1e1;
+    font-size: 1.03rem;
+    font-weight: 400;
   }
   .mobile-bar-underline {
     width: 100%; height: 2px; background: #17ded5;
@@ -1274,7 +1274,7 @@ function resetCalc(){
     line-height: 1.5;
   }
   .mobile-bar-agree {
-    font-size: 11.2px; color: #fff;
+    font-size: 10.5px; color: #fff;
     display: flex; align-items: center;
     margin-top: 2px; margin-bottom: 0;
     font-weight: 400;
@@ -1284,25 +1284,67 @@ function resetCalc(){
   }
   .mobile-bar-btn {
     background: linear-gradient(90deg,#d1b461 0%,#ac974e 100%);
-    color: #222; font-weight: 700; font-size: 1.11rem;
-    border: none; border-radius: 21px; padding: 10px 21px;
-    margin-left: 10px; box-shadow: 0 2px 12px #b59b4c19;
-    cursor: pointer; min-width: 63px; max-width: 130px;
-    height: 36px;
-    display: flex; align-items: center; justify-content: center;
-    line-height: 1.5;
+    color: #222; font-weight: 700;
+    font-size: 1.09rem !important;
+    border: none; border-radius: 23px;
+    padding: 10px 23px !important;
+    margin-left: 10px !important;
+    box-shadow: 0 2px 12px #b59b4c19;
+    cursor: pointer;
+    min-width: 76px !important;
+    max-width: 140px !important;
+    height: auto !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
-/* 560px 이하 모바일 폰트 조정 (스타 법무법인 스타일 참고) */
+/* 560px 이하 - 중간 스마트폰 대응 */
 @media (max-width: 560px) {
-  .main .section04 .gold_content .gold_title_wrap .title {
-    font-size: 25px !important;
-    line-height: 30px !important;
+  .mobile-bar {
+    min-height: 51px;
+    padding: 6px 1vw 6px 1vw;
+    gap: 6px;
+  }
+  .mobile-bar-img {
+    width: 46px;
+    height: 26px;
+    margin-right: 4px;
+  }
+  .mobile-bar-btn {
+    font-size: 0.95rem !important;
+    min-width: 50px !important;
+    padding: 8px 13px !important;
+  }
+  .mobile-bar-tel {
+    font-size: 0.99rem;
   }
 }
 
-body { transition: padding-bottom .2s; }
+/* 420px 이하 - 더 작은 화면에서 한번 더 조정 */
+@media (max-width: 420px) {
+  .mobile-bar {
+    min-height: 44px;
+    padding: 4px 0.5vw 4px 0.5vw;
+    gap: 4px;
+  }
+  .mobile-bar-img {
+    width: 34px;
+    height: 16px;
+    margin-right: 2px;
+  }
+  .mobile-bar-btn {
+    font-size: 0.89rem !important;
+    min-width: 36px !important;
+    padding: 7px 6px !important;
+  }
+  .mobile-bar-tel {
+    font-size: 0.92rem;
+  }
+}
+
+}
 </style>
 <script>
 window.addEventListener('DOMContentLoaded', function(){

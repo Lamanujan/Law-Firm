@@ -34,7 +34,8 @@
       scroll-behavior:smooth;
       overflow-y:auto;
       -ms-overflow-style:none;
-      scrollbar-width:none
+      scrollbar-width:none;
+      overscroll-behavior-y:none;
     }
     html::-webkit-scrollbar,body::-webkit-scrollbar{width:0!important;height:0!important}
     body::-webkit-scrollbar{display:none}
@@ -115,6 +116,7 @@
     .chip{font-size:12px;padding:6px 10px;border-radius:999px;background:#fff;color:#111;border:1px solid rgba(0,0,0,.1)}
     @media (max-width:980px){.case-card{flex:0 0 calc((100% - var(--gap))/2)}}
     @media (max-width:640px){.case-card{flex:0 0 100%}}
+
     .review-head{text-align:center;margin:28px 0 16px}
     .review-badge{display:inline-block;padding:16px 24px;font-size:24px;font-weight:900;background:#000;color:#fff;border:3px solid #000;border-radius:0;box-shadow:0 6px 14px rgba(0,0,0,.12)}
     .reviews-wrap{position:relative;overflow:hidden;margin-top:14px}
@@ -125,6 +127,7 @@
     .review p{margin:0;font-size:16px;line-height:1.55;color:#334155}
     @media (max-width:980px){.review{flex:0 0 calc((100% - 24px)/2)}}
     @media (max-width:640px){.review{flex:0 0 100%;min-height:200px;padding:24px}.review img{width:88px;height:88px}}
+
     .more-wrap{text-align:center;margin-top:22px}
     .more-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 26px;border:2.5px solid rgba(255,255,255,.95);border-radius:999px;background:transparent;color:rgba(255,255,255,.95);font-weight:900;font-size:16px;letter-spacing:.02em;text-decoration:none;line-height:1;transition:background .18s ease,transform .18s ease,opacity .18s ease}
     .more-btn:hover{background:rgba(255,255,255,.12);transform:translateY(-1px)}
@@ -205,16 +208,26 @@
     .hidden{display:none!important}
     @media (max-width:980px){.s5-wizgrid{grid-template-columns:1fr;min-height:auto}.s5-illust{order:1}.s5-q{order:2}.s5-resgrid{grid-template-columns:1fr}}
 
-    .cta-final{position:relative;min-height:100vh;height:100svh;padding:0;display:grid;place-items:center;color:#fff;background:#0b0f16}
+    .cta-final{
+      position:relative;
+      min-height:calc(100dvh - var(--sticky-h));
+      height:calc(100dvh - var(--sticky-h));
+      padding:0;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:#0b0f16
+    }
     .cta-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.02)}
     .cta-dim{position:absolute;inset:0;background:rgba(0,0,0,.55)}
-    .cta-box{position:relative;z-index:1;text-align:center;width:min(1100px,92%);margin-bottom:calc(var(--sticky-h) + 16px);padding:0 16px}
+    .cta-box{position:relative;z-index:1;text-align:center;width:min(1100px,92%);padding:0 16px;margin-bottom:0}
     .cta-title{font-family:'GmarketSansBold',sans-serif;font-size:min(8.4vw,56px);line-height:1.22;margin:0 0 22px}
     .cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
     .cta-pill{display:inline-flex;align-items:center;gap:10px;border:none;cursor:pointer;border-radius:999px;padding:14px 24px;font-weight:900;font-size:18px}
     .cta-primary{background:linear-gradient(135deg,#2ad7ac,#1aa4ff);color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.25)}
     .cta-kakao{background:#FEE500;color:#111}
     .cta-pill:active{transform:translateY(1px)}
+
     .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:80}
     .modal.show{display:flex}
     .modal .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.55)}
@@ -224,8 +237,6 @@
     .form-row input{flex:1;border:2px solid #9ec8ff;border-radius:12px;padding:12px 14px;font-size:16px}
     .form-agree{display:flex;align-items:center;gap:8px;font-size:14px;margin-top:4px}
     .form-submit{margin-top:10px;width:100%;border:none;border-radius:12px;padding:14px;font-weight:900;background:linear-gradient(90deg,#36DA9C,#209FE9);color:#fff;cursor:pointer}
-
-    .site-foot{background:#d1d1d1;color:#0b0b0b;padding:22px 16px;text-align:center;font-weight:700}
   </style>
 </head>
 <body>
@@ -246,10 +257,10 @@
 
   <section class="hero" id="home" aria-label="메인">
     <div class="slides" aria-hidden="true">
-      <div class="slide active" data-slot="HERO_BG_IMAGE" style="background-image:url('https://images.unsplash.com/photo-1555375771-14b2a63968a6?q=80&w=1920&auto=format&fit=crop')"></div>
-      <div class="slide" data-slot="HERO_BG_IMAGE" style="background-image:url('https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=1920&auto=format&fit=crop')"></div>
-      <div class="slide" data-slot="HERO_BG_IMAGE" style="background-image:url('https://images.unsplash.com/photo-1555374018-13a8994ab246?q=80&w=1920&auto=format&fit=crop')"></div>
-      <div class="slide" data-slot="HERO_BG_IMAGE" style="background-image:url('https://images.unsplash.com/photo-1528747045269-390fe33c19f2?q=80&w=1920&auto=format&fit=crop')"></div>
+      <div class="slide active" style="background-image:url('https://github.com/Lamanujan/Law-Firm/raw/main/images/main1.jpg?raw=true')"></div>
+      <div class="slide" style="background-image:url('https://github.com/Lamanujan/Law-Firm/raw/main/images/main2.jpg?raw=true')"></div>
+      <div class="slide" style="background-image:url('https://github.com/Lamanujan/Law-Firm/raw/main/images/main3.jpg?raw=true')"></div>
+      <div class="slide" style="background-image:url('https://github.com/Lamanujan/Law-Firm/raw/main/images/main4.jpg?raw=true')"></div>
       <div class="overlay"></div>
     </div>
     <div class="hero__content">
@@ -269,27 +280,27 @@
 
       <div class="cards">
         <article class="card reveal" style="--delay:0ms">
-          <img class="card__img" data-slot="SEC2_CARD_IMAGE" src="https://picsum.photos/seed/map/104" alt="">
+          <img class="card__img" src="https://github.com/Lamanujan/Law-Firm/raw/main/images/section2_card6.jpg?raw=true" alt="">
           <div><h4>부산경남 무료상담 진행</h4><p>부산·경남 지역 누구나 부담 없는 무료 상담 서비스</p></div>
         </article>
         <article class="card reveal" style="--delay:80ms">
-          <img class="card__img" data-slot="SEC2_CARD_IMAGE" src="https://picsum.photos/seed/gavel/104" alt="">
+          <img class="card__img" src="https://github.com/Lamanujan/Law-Firm/raw/main/images/section2_card1.jpg?raw=true" alt="">
           <div><h4>도산전문법무사가 사건직접관리</h4><p>사건부터 해결까지 전문 법무사가 직접 책임집니다</p></div>
         </article>
         <article class="card reveal" style="--delay:160ms">
-          <img class="card__img" data-slot="SEC2_CARD_IMAGE" src="https://picsum.photos/seed/calendar/104" alt="">
+          <img class="card__img" src="https://github.com/Lamanujan/Law-Firm/raw/main/images/section2_card2.png?raw=true" alt="">
           <div><h4>무방문 사건 진행가능</h4><p>방문 없이도 편리하게, 온라인으로 사건 진행 OK</p></div>
         </article>
         <article class="card reveal" style="--delay:240ms">
-          <img class="card__img" data-slot="SEC2_CARD_IMAGE" src="https://picsum.photos/seed/lock/104" alt="">
+          <img class="card__img" src="https://github.com/Lamanujan/Law-Firm/raw/main/images/section2_card3.jpg?raw=true" alt="">
           <div><h4>1:1 비밀상담</h4><p>1:1 비밀 상담으로 마음 편히 이야기하세요</p></div>
         </article>
         <article class="card reveal" style="--delay:320ms">
-          <img class="card__img" data-slot="SEC2_CARD_IMAGE" src="https://picsum.photos/seed/hourglass/104" alt="">
+          <img class="card__img" src="https://github.com/Lamanujan/Law-Firm/raw/main/images/section2_card4.png?raw=true" alt="">
           <div><h4>추심 독촉 즉시방어!</h4><p>신속한 대응으로 즉시 막아드립니다</p></div>
         </article>
         <article class="card reveal" style="--delay:400ms">
-          <img class="card__img" data-slot="SEC2_CARD_IMAGE" src="https://picsum.photos/seed/money/104" alt="">
+          <img class="card__img" src="https://github.com/Lamanujan/Law-Firm/raw/main/images/section2_card5.jpg?raw=true" alt="">
           <div><h4>모든채무(도박, 주식 등) 탕감 가능</h4><p>도박·주식 등 모든 채무 탕감 가능성을 열어드립니다</p></div>
         </article>
       </div>
@@ -302,23 +313,23 @@
       <div class="accent"></div>
       <p class="sub">거짓 없는 성공사례와 믿을 수 있는 실제 후기</p>
 
-      <div class="case-head">성공사례</div>
+    <div class="case-head">성공사례</div>
       <div class="case-slider">
         <div class="case-track" id="caseTrack">
           <div class="case-card" data-content="어렵지 않은 설명과 빠른 진행 덕분에 무사히 인가 결정을 받을 수 있었습니다. 정말 감사합니다." data-age="20대" data-name="이*우" data-result="80% 탕감">
-            <div class="poster"><img data-slot="CASE_POSTER_IMAGE" src="https://images.unsplash.com/photo-1611652022419-a9419f74343e?q=80&w=1200&auto=format&fit=crop" alt=""></div>
+            <div class="poster"><img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/success1.jpg?raw=true" alt=""></div>
           </div>
           <div class="case-card" data-content="연체가 길어져 불안했는데 친절한 안내로 마음이 한결 편해졌습니다." data-age="50대" data-name="박*자" data-result="인가 완료">
-            <div class="poster"><img data-slot="CASE_POSTER_IMAGE" src="https://images.unsplash.com/photo-1555375771-81763a1f9f20?q=80&w=1200&auto=format&fit=crop" alt=""></div>
+            <div class="poster"><img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/success2.jpg?raw=true" alt=""></div>
           </div>
           <div class="case-card" data-content="불가능이라 했던 상황도 이룸은 해냈습니다. 끝까지 책임져주셔서 고맙습니다." data-age="30대" data-name="김*현" data-result="93% 탕감">
-            <div class="poster"><img data-slot="CASE_POSTER_IMAGE" src="https://images.unsplash.com/photo-1528747045269-390fe33c19f2?q=80&w=1200&auto=format&fit=crop" alt=""></div>
+            <div class="poster"><img src="https://github.com/Lamanujan/Law-Firm/blob/main/images/success3.jpg?raw=true" alt=""></div>
           </div>
           <div class="case-card" data-content="사건 설명이 명확했고 처리 속도가 빨랐습니다." data-age="40대" data-name="정*호" data-result="면책 확정">
-            <div class="poster"><img data-slot="CASE_POSTER_IMAGE" src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=1200&auto=format&fit=crop" alt=""></div>
+            <div class="poster"><img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=1200&auto=format&fit=crop" alt=""></div>
           </div>
           <div class="case-card" data-content="생활비 대출로 힘들었는데 길을 찾아주셨어요." data-age="20대" data-name="최*민" data-result="75% 탕감">
-            <div class="poster"><img data-slot="CASE_POSTER_IMAGE" src="https://images.unsplash.com/photo-1555374018-13a8994ab246?q=80&w=1200&auto=format&fit=crop" alt=""></div>
+            <div class="poster"><img src="https://images.unsplash.com/photo-1555374018-13a8994ab246?q=80&w=1200&auto=format&fit=crop" alt=""></div>
           </div>
         </div>
       </div>
@@ -336,27 +347,27 @@
       <div class="reviews-wrap" id="reviewsWrap" title="마우스를 올리면 정지합니다">
         <div class="reviews-track" id="reviewsTrack">
           <article class="review">
-            <img data-slot="REVIEW_AVATAR_IMAGE" src="https://picsum.photos/seed/r1/160" alt="">
+            <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/review1.jpg?raw=true" alt="">
             <div><p class="who">박** / 30대</p><p>상담부터 끝까지 한결같이 친절했습니다. 덕분에 마음고생 끝!</p></div>
           </article>
           <article class="review">
-            <img data-slot="REVIEW_AVATAR_IMAGE" src="https://picsum.photos/seed/r2/160" alt="">
+            <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/review2.jpg?raw=true" alt="">
             <div><p class="who">김** / 50대</p><p>진행 내내 소통이 빨라서 안심할 수 있었어요.</p></div>
           </article>
           <article class="review">
-            <img data-slot="REVIEW_AVATAR_IMAGE" src="https://picsum.photos/seed/r3/160" alt="">
+            <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/review3.jpg?raw=true" alt="">
             <div><p class="who">이** / 20대</p><p>복잡한 부분도 쉽게 설명해 주셔서 이해가 잘 됐습니다.</p></div>
           </article>
           <article class="review">
-            <img data-slot="REVIEW_AVATAR_IMAGE" src="https://picsum.photos/seed/r4/160" alt="">
+            <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/review4.jpg?raw=true" alt="">
             <div><p class="who">최** / 40대</p><p>신속 정확, 믿고 맡길 수 있었습니다. 강추합니다.</p></div>
           </article>
           <article class="review">
-            <img data-slot="REVIEW_AVATAR_IMAGE" src="https://picsum.photos/seed/r5/160" alt="">
+            <img src="https://picsum.photos/seed/r5/160" alt="">
             <div><p class="who">정** / 30대</p><p>케이스에 맞는 전략으로 결과를 이끌어 주셨어요.</p></div>
           </article>
           <article class="review">
-            <img data-slot="REVIEW_AVATAR_IMAGE" src="https://picsum.photos/seed/r6/160" alt="">
+            <img src="https://picsum.photos/seed/r6/160" alt="">
             <div><p class="who">문** / 20대</p><p>처음부터 끝까지 든든한 파트너였습니다.</p></div>
           </article>
         </div>
@@ -365,7 +376,7 @@
       <div class="more-wrap">
         <a class="more-btn" id="moreBtn" href="https://www.daangn.com/" target="_blank" rel="noopener">
           후기 더보기
-          <svg class="more-ico" data-slot="ICON_ARROW" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4 L18 12 L6 20"/></svg>
+          <svg class="more-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4 L18 12 L6 20"/></svg>
         </a>
       </div>
     </div>
@@ -396,7 +407,7 @@
       <div id="viewCheck" class="s5-card s5-wiz">
         <div class="s5-step" data-step="1">
           <div class="s5-wizgrid">
-            <div class="s5-illust"><img data-slot="STEP_ILLUST_IMAGE" src="https://picsum.photos/seed/brief/700/520" alt=""></div>
+            <div class="s5-illust"><img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/self1.png?raw=true" alt=""></div>
             <div class="s5-q">
               <h3>1. 현재 소득활동을 하고 있나요?</h3>
               <div class="s5-choices">
@@ -411,7 +422,7 @@
 
         <div class="s5-step hidden" data-step="2">
           <div class="s5-wizgrid">
-            <div class="s5-illust"><img data-slot="STEP_ILLUST_IMAGE" src="https://picsum.photos/seed/money/700/520" alt=""></div>
+            <div class="s5-illust"><img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/self6-1.png?raw=true" alt=""></div>
             <div class="s5-q">
               <h3>2. 채무금액을 입력해주세요.</h3>
               <div class="s5-choices">
@@ -427,7 +438,7 @@
 
         <div class="s5-step hidden" data-step="3">
           <div class="s5-wizgrid">
-            <div class="s5-illust"><img data-slot="STEP_ILLUST_IMAGE" src="https://picsum.photos/seed/chips/700/520" alt=""></div>
+            <div class="s5-illust"><img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/self6-2.png?raw=true" alt=""></div>
             <div class="s5-q">
               <h3>3. 채무발생 경위를 선택해주세요.(중복가능)</h3>
               <div class="s5-choices">
@@ -443,7 +454,7 @@
 
         <div class="s5-step hidden" data-step="4">
           <div class="s5-wizgrid">
-            <div class="s5-illust"><img data-slot="STEP_ILLUST_IMAGE" src="https://picsum.photos/seed/bank/700/520" alt=""></div>
+            <div class="s5-illust"><img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/self4.png?raw=true" alt=""></div>
             <div class="s5-q">
               <h3>4. 보유하고 있는 재산을 모두 선택해주세요.</h3>
               <div class="s5-choices">
@@ -460,7 +471,7 @@
 
         <div class="s5-step hidden" data-step="5">
           <div class="s5-wizgrid">
-            <div class="s5-illust"><img data-slot="STEP_ILLUST_IMAGE" src="https://picsum.photos/seed/wedding/700/520" alt=""></div>
+            <div class="s5-illust"><img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/self5.png?raw=true" alt=""></div>
             <div class="s5-q">
               <h3>5. 현재 혼인중이신가요?</h3>
               <div class="s5-choices" style="grid-template-columns:1fr 1fr">
@@ -485,7 +496,7 @@
                 </div>
               </div>
               <div class="s5-reshero">
-                <img id="resImg" data-slot="RESULT_IMAGE" src="https://picsum.photos/seed/envelope/720/520" alt="">
+                <img id="resImg" src="https://picsum.photos/seed/envelope/720/520" alt="">
                 <div id="resTitle" class="s5-restitle">결과 확인</div>
                 <div class="s5-ctls" style="justify-content:center;margin-top:16px">
                   <button class="s5-navbtn" data-prev>이전 단계</button>
@@ -513,7 +524,7 @@
   </section>
 
   <section id="last" class="cta-final" aria-label="상담 안내">
-    <div class="cta-bg" data-slot="CTA_BACKGROUND_IMAGE" style="background-image:url('https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?q=80&w=1920&auto=format&fit=crop')"></div>
+    <div class="cta-bg" style="background-image:url('https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?q=80&w=1920&auto=format&fit=crop')"></div>
     <div class="cta-dim"></div>
     <div class="cta-box">
       <h2 class="cta-title">포기하지마세요.<br>이름법률사무소에서 당신의 새 시작을 돕겠습니다.</h2>
@@ -539,7 +550,7 @@
   <div class="sticky-bar" role="complementary" aria-label="빠른 상담">
     <div class="inner">
       <div class="call-inline">
-        <img data-slot="ICON_PHONE" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23032017' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12.81.3 1.6.54 2.36a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.72-1.5a2 2 0 0 1 2.11-.45c.76.24 1.55.42 2.36.54A2 2 0 0 1 22 16.92z'/%3E%3C/svg%3E" alt="">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23032017' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12.81.3 1.6.54 2.36a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.72-1.5a2 2 0 0 1 2.11-.45c.76.24 1.55.42 2.36.54A2 2 0 0 1 22 16.92z'/%3E%3C/svg%3E" alt="">
         <span class="label blink">24h 무료상담</span>
         <span class="num">1533-0560</span>
       </div>
@@ -550,8 +561,6 @@
       <a id="kakaoBtn" class="btn btn--kakao" href="https://open.kakao.com/o/YOUR_OPENCHAT_URL" target="_blank" rel="noopener">kakao상담</a>
     </div>
   </div>
-
-  <footer class="site-foot">ⓒ <span id="y"></span> 이름법률사무소. All rights reserved.</footer>
 
   <script>
     const qs=(s,p=document)=>p.querySelector(s);const qsa=(s,p=document)=>[...p.querySelectorAll(s)];
@@ -583,7 +592,12 @@
 
     (function(){const modal=qs('#consultModal');const openBtn=qs('#openConsult');const nameEl=qs('#mName'),phoneEl=qs('#mPhone'),agreeEl=qs('#mAgree');const submitEl=qs('#mSubmit');function open(){modal.classList.add('show');modal.setAttribute('aria-hidden','false');phoneEl.focus()}function close(){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}openBtn.addEventListener('click',open);modal.addEventListener('click',e=>{if(e.target.hasAttribute('data-close'))close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});submitEl.addEventListener('click',async()=>{const phone=(phoneEl.value||'').trim();if(!phone)return alert('연락처를 입력해주세요.');if(!agreeEl.checked)return alert('개인정보 수집·이용 동의가 필요합니다.');try{await saveToDB({name:(nameEl.value||'').trim(),phone,agree:true,createdAt:new Date().toISOString(),source:'cta-final'});nameEl.value='';phoneEl.value='';agreeEl.checked=false;close();toast('상담신청이 접수되었습니다. 곧 연락드릴게요!')}catch(e){alert('저장 중 오류가 발생했습니다: '+e.message)}})})();
 
-    qs('#y').textContent=new Date().getFullYear()
+    (function(){function maxScrollY(){const doc=document.documentElement;return Math.max(0,doc.scrollHeight-window.innerHeight)}function atBottom(){return window.scrollY>=maxScrollY()-1}
+      window.addEventListener('wheel',function(e){if(atBottom()&&e.deltaY>0){e.preventDefault();window.scrollTo(0,maxScrollY())}},{passive:false});
+      let startY=0;window.addEventListener('touchstart',function(e){if(e.changedTouches&&e.changedTouches.length){startY=e.changedTouches[0].clientY}},{passive:true});
+      window.addEventListener('touchmove',function(e){if(!e.changedTouches||!e.changedTouches.length)return;const dy=startY-e.changedTouches[0].clientY;if(atBottom()&&dy>0){e.preventDefault();window.scrollTo(0,maxScrollY())}},{passive:false});
+      window.addEventListener('keydown',function(e){const keys=['PageDown','ArrowDown',' ','Spacebar'];if(keys.includes(e.key)&&atBottom()){e.preventDefault();window.scrollTo(0,maxScrollY())}});
+    })();
   </script>
 </body>
 </html>

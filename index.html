@@ -62,7 +62,7 @@ img{max-width:100%;height:auto;display:block}
 .cases .accent{width:140px;height:8px;border-radius:999px;background:linear-gradient(135deg,#36DA9C,#209FE9);margin:16px auto 10px;opacity:.95}
 .cases .sub{text-align:center;margin:0 0 22px;color:#0b0f16;font-family:'GmarketSansMedium';opacity:.95;font-size:26px}
 .case-swiper{position:relative;margin-top:86px;padding-top:84px}
-.case-viewport{overflow:hidden;max-width:980px;margin:0 auto;padding-inline:18px}
+.case-viewport{overflow:hidden;max-width:980px;margin:0 auto;padding-inline:18px;touch-action:pan-y}
 .case-track{--spv:3;--gap:18px;display:flex;gap:var(--gap);will-change:transform}
 .case-slide{position:relative;flex:0 0 calc((100% - var(--gap)*(var(--spv) - 1))/var(--spv))}
 .case-card{position:relative;border-radius:18px;overflow:hidden;background:transparent;z-index:1;border:0;outline:0}
@@ -252,26 +252,94 @@ img{max-width:100%;height:auto;display:block}
   #last .cta-actions{margin-top:14px}
   #last .cta-actions .cta-pill{width:100%;justify-content:center;padding:12px 18px;font-size:16px}
 }
-@media (max-width:600px){
-  .hero__title{font-size:clamp(22px,6.8vw,30px)}
-  .hero__desc{font-size:clamp(16px,4.8vw,20px);margin-bottom:36px}
-  #goConsult{left:16px;bottom:calc(var(--sticky-h) + 22px)}
-  .section-title{font-size:clamp(24px,7vw,34px)}
-  .section-sub{font-size:clamp(16px,4.6vw,22px)}
-  .cards{gap:18px}
-  .s5-ipt-wrap{max-width:100%}
-  .s5 .container{width:94%}
+@media (max-width:640px){
+  .s5-ctls{position:static;transform:none;margin-top:16px}
+  #self.s5{padding-bottom:calc(var(--sticky-h) + env(safe-area-inset-bottom,0px) + 16px)}
+  .s5-wiz{padding:24px 16px 20px}
+  .s5-wizgrid{min-height:unset;grid-template-columns:1fr;gap:16px}
+  .s5-resgrid{grid-template-columns:1fr;gap:16px}
+  .s5-reshero{min-height:0}
+  .s5-resicon{width:clamp(90px,22vw,140px)}
 }
-@media (max-width:380px){
-  :root{--nav-h:60px}
-  .brand__logoimg{height:38px}
-  .menu a{font-size:14px}
-  .content-left{margin-left:14px}
-  .hero__title{font-size:20px}
-  .hero__desc{font-size:16px;margin-bottom:30px}
-  #goConsult{left:14px;bottom:calc(var(--sticky-h) + 18px)}
-  #last .cta-title{margin-bottom:6px}
-  #last .cta-actions{margin-top:12px}
+
+/* Ultra-narrow general fixes */
+@media (max-width: 640px){
+  .hero{min-height:calc(100dvh - var(--sticky-h))}
+  .s5-grid2{grid-template-columns:1fr}
+}
+
+/* ≤360px tuning (covers 344px too) */
+@media (max-width: 360px){
+  :root{--nav-h:56px}
+  .nav{padding:0 8px}
+  .brand__logoimg{height:34px}
+  .menu a{font-size:13px}
+  .content-left{margin-left:12px;max-width:94%}
+  .hero__title{font-size:clamp(18px,6.2vw,24px)}
+  .hero__desc{font-size:clamp(14px,4.8vw,18px);margin-bottom:28px}
+  #goConsult{left:12px;bottom:calc(var(--sticky-h) + 14px)}
+  .cases .container{padding-inline:10px}
+  .case-viewport{padding-inline:10px}
+  .case-track{gap:10px}
+  .review{padding:16px}
+  .review img{width:64px;height:64px}
+  .review p{font-size:14px}
+  .s5{padding:56px 12px 92px}
+  .s5-title{font-size:28px}
+  .s5-wiz{padding:18px 12px 16px}
+  .s5-wizgrid{min-height:unset;grid-template-columns:1fr;gap:12px}
+  .s5-q h3{font-size:18px}
+  .s5-choices{width:100%;gap:10px}
+  .s5-chip{width:100%;max-width:none;padding:12px 14px;font-size:14px}
+  .s5-illust img{width:82%}
+  .s5-illust--icons img{width:clamp(88px,32vw,120px)}
+  .s5-choices--step3{grid-template-columns:1fr;gap:10px}
+  .s5-ctls{position:static;transform:none;margin-top:12px}
+  #self.s5{padding-bottom:calc(var(--sticky-h) + env(safe-area-inset-bottom,0px) + 12px)}
+  .s5-resgrid{grid-template-columns:1fr;gap:12px}
+  .s5-resicon{width:clamp(80px,22vw,120px)}
+  #resText{font-size:clamp(20px,6.2vw,26px)}
+  .s5-res-heroimg{width:clamp(160px,70%,260px);margin-top:10px}
+  .s5-ipt{font-size:15px;padding:10px 12px}
+  .sticky-bar .inner{gap:8px}
+  .input-underline{width:100%;max-width:none}
+  .btn{padding:10px 12px;font-size:14px}
+  .cta-title{font-size:clamp(20px,6.4vw,26px)}
+  .cta-actions .cta-pill{width:100%;justify-content:center;padding:12px 16px;font-size:15px}
+}
+
+/* precise tightening for ≤344px */
+@media (max-width: 344px){
+  .s5{padding:52px 10px 90px}
+  .s5-wiz{padding:16px 10px 14px}
+  .s5-chip{padding:11px 12px;font-size:13.5px}
+  .s5-illust--icons img{width:clamp(80px,31vw,112px)}
+  .case-viewport{padding-inline:8px}
+  .case-track{gap:8px}
+  .live-wrap{height:340px}
+}
+
+/* ≤320px mini phones */
+@media (max-width: 320px){
+  :root{--nav-h:52px}
+  .brand__logoimg{height:30px}
+  .hero__title{font-size:clamp(16px,6.8vw,20px)}
+  .hero__desc{font-size:clamp(13px,5.2vw,16px)}
+  .section-title{font-size:clamp(20px,7.5vw,26px)}
+  .section-sub{font-size:clamp(14px,5vw,18px)}
+  .cards{gap:14px}
+  .card{padding:16px;gap:12px}
+  .card__img{width:72px;height:72px}
+  .case-viewport{padding-inline:10px}
+  .case-track{gap:10px}
+  .s5-title{font-size:26px}
+  .s5-q h3{font-size:17px}
+  .s5-chip{padding:11px 12px;font-size:13px}
+  .s5-illust--icons img{width:clamp(76px,34vw,108px)}
+  #resText{font-size:clamp(18px,6.5vw,24px)}
+  .s5-resicon{width:clamp(70px,24vw,100px)}
+  .s5-res-heroimg{width:clamp(150px,72%,230px)}
+  .review p{font-size:13px}
 }
 </style>
 </head>
@@ -407,372 +475,3 @@ img{max-width:100%;height:auto;display:block}
     </div>
   </div>
 </section>
-<section id="self" class="s5" aria-label="셀프 자격확인 및 변제금 계산기">
-  <div class="container">
-    <h1 class="s5-title">개인회생 나도 가능할까?<br><span class="s5-badge">셀프 Check!</span></h1>
-    <div class="s5-tabs">
-      <button class="s5-tab s5-tab--on" id="tabCheck" type="button">셀프 자격확인</button>
-      <button class="s5-tab s5-tab--off" id="tabCalc" type="button">변제액계산기</button>
-    </div>
-
-    <div id="viewCheck" class="s5-card s5-wiz">
-      <div class="s5-step" data-step="1">
-        <div class="s5-wizgrid">
-          <div class="s5-illust">
-            <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/self1.png?raw=true" alt="소득활동 일러스트">
-          </div>
-          <div class="s5-q">
-            <h3>1. 현재 소득활동을 하고 있나요?</h3>
-            <div class="s5-choices">
-              <button class="s5-chip" data-name="income" data-value="none">소득 활동이 어려워요</button>
-              <button class="s5-chip" data-name="income" data-value="monthly">매달 소득이 있어요</button>
-              <button class="s5-chip" data-name="income" data-value="pension">연금을 받고 있어요</button>
-            </div>
-            <div class="s5-ctls"><button class="s5-navbtn" data-next>다음 단계</button></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="s5-step hidden" data-step="2">
-        <div class="s5-wizgrid">
-          <div class="s5-illust">
-            <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/self2.png?raw=true" alt="채무금액 입력 일러스트">
-          </div>
-          <div class="s5-q">
-            <h3>2. 채무금액을 입력해주세요.</h3>
-            <div class="s5-choices">
-              <div class="s5-ipt-wrap unit-krw">
-                <input id="debtInput" class="s5-ipt" type="text" inputmode="numeric" placeholder="예: 30,000,000" aria-label="채무금액">
-                <span class="unit">원</span>
-              </div>
-            </div>
-            <div class="s5-ctls"><button class="s5-navbtn" data-prev>이전 단계</button><button class="s5-navbtn" data-next>다음 단계</button></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="s5-step hidden" data-step="3">
-        <div class="s5-wizgrid">
-          <div class="s5-illust s5-illust--icons" aria-hidden="true">
-            <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/self3-1.png?raw=true" alt="투자 아이콘">
-            <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/self3-2.png?raw=true" alt="카지노 칩 아이콘">
-            <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/self3-3.png?raw=true" alt="술잔 아이콘">
-          </div>
-          <div class="s5-q s5-q--step3">
-            <h3>3. 채무발생 경위를 선택해주세요.(중복가능)</h3>
-            <div class="s5-choices s5-choices--step3">
-              <button class="s5-chip" data-name="causes" data-value="생활비">생활비</button>
-              <button class="s5-chip" data-name="causes" data-value="투자·도박">투자 · 도박</button>
-              <button class="s5-chip" data-name="causes" data-value="사기피해">사기피해</button>
-              <button class="s5-chip" data-name="causes" data-value="사업자금">사업자금</button>
-            </div>
-            <div class="s5-ctls">
-              <button class="s5-navbtn" data-prev>이전 단계</button>
-              <button class="s5-navbtn" data-next>다음 단계</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="s5-step hidden" data-step="4">
-        <div class="s5-wizgrid">
-          <div class="s5-illust">
-            <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/self4.png?raw=true" alt="보유 재산 선택 일러스트">
-          </div>
-          <div class="s5-q">
-            <h3>4. 보유하고 있는 재산을 모두 선택해주세요.</h3>
-            <div class="s5-choices" style="grid-template-columns:1fr 1fr">
-              <button class="s5-chip" data-name="assets" data-value="예금 및 현금">예금 및 현금</button>
-              <button class="s5-chip" data-name="assets" data-value="차량">차량</button>
-              <button class="s5-chip" data-name="assets" data-value="부동산">부동산</button>
-              <button class="s5-chip" data-name="assets" data-value="그 외">그 외</button>
-              <button class="s5-chip" data-name="assets" data-value="보험금">보험금</button>
-            </div>
-            <div class="s5-ctls"><button class="s5-navbtn" data-prev>이전 단계</button><button class="s5-navbtn" data-next>다음 단계</button></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="s5-step hidden" data-step="5">
-        <div class="s5-wizgrid">
-          <div class="s5-illust">
-            <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/self5.png?raw=true" alt="혼인 여부 선택 일러스트">
-          </div>
-          <div class="s5-q">
-            <h3>5. 현재 혼인중이신가요?</h3>
-            <div class="s5-choices" style="grid-template-columns:1fr 1fr">
-              <button class="s5-chip" data-name="marital" data-value="기혼">기혼</button>
-              <button class="s5-chip" data-name="marital" data-value="그 외">그 외</button>
-            </div>
-            <div class="s5-ctls"><button class="s5-navbtn" data-prev>이전 단계</button><button class="s5-navbtn" data-next>다음 단계</button></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="s5-step hidden" data-step="6">
-        <div class="s5-result">
-          <div class="s5-resgrid">
-            <div class="s5-resleft">
-              <h3 style="font-size:34px;margin:0 0 8px">맞춤 확인 결과</h3>
-              <p>고객님의 데이터를 기반으로 분석한 결과입니다.<br>보다 정확하고 자세한 결과를 알고 싶다면<br>무료 상담신청을 이용해주세요</p>
-              <div class="s5-reslist">
-                <div class="s5-resrow"><strong>정기적인 소득발생</strong><span id="r-income" class="s5-pill">—</span></div>
-                <div class="s5-resrow"><strong>채무 천만원 이상 보유</strong><span id="r-debt" class="s5-pill">—</span></div>
-                <div class="s5-resrow"><strong>재산보다 많은 채무</strong><span id="r-balance" class="s5-pill">—</span></div>
-              </div>
-            </div>
-            <div class="s5-reshero">
-              <div id="resTitle" class="s5-restitle">
-                <img id="resIcon" class="s5-resicon hidden" src="" alt="">
-                <span id="resText">결과 확인</span>
-              </div>
-              <img id="resHeroImg" class="s5-res-heroimg" src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=960&auto=format&fit=crop" alt="상담 일러스트" aria-hidden="true">
-              <div class="s5-ctls" style="justify-content:center;margin-top:16px">
-                <button class="s5-navbtn" data-prev>이전 단계</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="viewCalc" class="s5-card s5-calc hidden">
-      <h3 style="font-size:34px;margin:0 0 8px">📟 변제금액계산기</h3>
-      <p class="s5-hint">채무·이자·기간 입력만으로 월 변제금, 총 이자, 변제율 한 번에 확인<br><small style="color:#6d8dbd">* 실제 금액은 상담 후 안내됩니다. / 계산결과는 참고용입니다.</small></p>
-      <div class="s5-grid2">
-        <div class="s5-fg"><label for="cDebt">채무 총액 (원) *</label><input id="cDebt" class="s5-ipt" inputmode="numeric" placeholder="예: 30,000,000"></div>
-        <div class="s5-fg"><label for="cIncome">월평균수입 (원)</label><input id="cIncome" class="s5-ipt" inputmode="numeric" placeholder="예: 2,500,000"></div>
-        <div class="s5-fg"><label for="cRate">연이자율 (%) *</label><input id="cRate" class="s5-ipt" inputmode="decimal" placeholder="예: 10"></div>
-        <div class="s5-fg"><label for="cLiving">월평균생계비 (원)</label><input id="cLiving" class="s5-ipt" inputmode="numeric" placeholder="예: 1,200,000"></div>
-        <div class="s5-fg"><label for="cMonths">변제기간 (개월) *</label><input id="cMonths" class="s5-ipt" inputmode="numeric" placeholder="예: 36"></div>
-      </div>
-      <div class="s5-cctls"><button id="runCalc" class="s5-run">계산하기</button><button id="resetCalc" class="s5-reset" type="button">다시 계산</button></div>
-      <div id="out" class="s5-out hidden"></div>
-    </div>
-  </div>
-</section>
-
-<section id="last" class="cta-final" aria-label="상담 안내">
-  <div class="cta-bg" style="background-image:url('https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?q=80&w=1920&auto=format&fit=crop')"></div>
-  <div class="cta-dim"></div>
-  <div class="cta-box">
-    <h2 class="cta-title" style="margin-bottom: 80px;">포기하지마세요.<br>이룸법률사무소에서 당신의 새 시작을 돕겠습니다.</h2>
-    <div class="cta-actions">
-      <button class="cta-pill cta-primary" id="openConsult">24h 무료상담 바로가기</button>
-      <a class="cta-pill cta-kakao" href="https://open.kakao.com/o/YOUR_OPENCHAT_URL" target="_blank" rel="noopener">kakao상담</a>
-    </div>
-  </div>
-</section>
-
-<div class="sticky-bar" role="complementary" aria-label="빠른 상담">
-  <div class="inner">
-    <div class="call-inline">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23032017' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12 .81 .3 1.6 .54 2.36a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.72-1.5a2 2 0 0 1 2.11-.45c.76 .24 1.55 .42 2.36 .54A2 2 0 0 1 22 16.92z'/%3E%3C/svg%3E" alt="전화 아이콘">
-      <span class="label blink">24h 무료상담</span>
-      <span class="num">1533-0560</span>
-    </div>
-    <span class="sep" aria-hidden="true">|</span>
-    <input id="phoneInput" class="input-underline" type="tel" inputmode="tel" placeholder="연락처를 입력해주세요" aria-label="연락처">
-    <label class="agree"><input type="checkbox" id="agreeChk"><span>개인정보 수집에 동의합니다.</span><button id="openTerms" class="link" type="button" onclick="window.open('/terms.html','_blank')">[약관보기]</button></label>
-    <button id="submitConsult" class="btn">상담신청</button>
-    <a id="kakaoBtn" class="btn btn--kakao" href="https://open.kakao.com/o/YOUR_OPENCHAT_URL" target="_blank" rel="noopener">kakao상담</a>
-  </div>
-</div>
-
-<footer class="site-footer" role="contentinfo">
-  <div class="inner">
-    <div class="brand">
-      <img src="https://github.com/Lamanujan/Law-Firm/raw/main/images/logo_on.png?raw=true" alt="이룸 로고">
-    </div>
-    <div class="addr">
-대표 | 장혜승
-사업자등록번호 | 306-12-67673
-ADD | 부산광역시 연제구 법원남로15번길 9, 3층(거제동, 덕원빌딩)
-TEL | 1533-0560 / FAX | 051-714-0168
-E-MAIL | ipa@withlp.com
-    </div>
-    <div class="copy">Copyright 2025 이룸 All rights reserved.</div>
-  </div>
-</footer>
-
-<style>
-.s5-res-heroimg{width:clamp(220px,38%,360px);height:auto;margin-top:14px;filter:drop-shadow(0 14px 32px rgba(0,0,0,.12))}
-@media (max-width:980px){.s5-res-heroimg{width:clamp(200px,60%,320px)}}
-</style>
-
-<script>
-const qs=(s,p=document)=>p.querySelector(s);const qsa=(s,p=document)=>[...p.querySelectorAll(s)];
-
-(()=>{const btn=qs('#menuToggle');const menu=qs('#mainMenu');if(!btn||!menu)return;btn.addEventListener('click',()=>{const on=menu.classList.toggle('on');btn.setAttribute('aria-expanded',on)});})();
-
-(()=>{const slides=qsa('.slide');let i=0;const titles=['의뢰인 수 2567명','어두운 현실 속 한줄기 빛이 되겠습니다.','개인회생, 파산은 도산전문변호사에게','포기하지마세요 이룸법률사무소가 해결해 드리겠습니다.'];const descs=['실제 탕감율 <strong>97.8%</strong>','지금 바로 무료 상담으로 새로운 시작을 준비하세요.','빠르고 정확한 진행으로 결과를 만듭니다.','무료 상담으로 첫걸음을 함께합니다.'];const titleEl=qs('#heroTitle');const descEl=qs('#heroDesc');function applyText(idx){titleEl.innerHTML=titles[idx]||titles[0];descEl.innerHTML=descs[idx]||descs[0]}applyText(0);setInterval(()=>{slides[i]?.classList.remove('active');i=(i+1)%slides.length;slides[i]?.classList.add('active');applyText(i)},5200);})();
-
-const goBtn=qs('#goConsult');if(goBtn){goBtn.addEventListener('click',()=>window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}))}
-
-(()=> {
-  const wrap = document.querySelector('#revSwiper');
-  const viewport = wrap?.querySelector('.reviews-viewport');
-  const track = document.querySelector('#reviewsTrack');
-  if (!wrap || !track || !viewport) return;
-  let i = 0, timer = null;
-  const spv = () => window.matchMedia('(max-width:640px)').matches ? 1 : window.matchMedia('(max-width:980px)').matches ? 2 : 3;
-  const gapPx = () => parseFloat(getComputedStyle(track).gap || '0');
-  function cardWidth() {
-    const first = track.querySelector('.review');
-    let w = first?.offsetWidth || 0;
-    if (w) return w;
-    w = first?.getBoundingClientRect().width || 0;
-    if (w) return w;
-    const p = spv(), g = gapPx(), vw = viewport.clientWidth || 0;
-    return vw ? (vw - g * (p - 1)) / p : 0;
-  }
-  function move(n) {
-    const per = spv();
-    const total = track.children.length;
-    const lastStart = Math.max(0, total - per);
-    i = n;
-    if (i > lastStart) i = 0;
-    if (i < 0) i = lastStart;
-    const w = cardWidth();
-    if (!w) { requestAnimationFrame(() => move(i)); return; }
-    const x = i * (w + gapPx());
-    track.style.transform = `translateX(-${x}px)`;
-  }
-  function play(){ stop(); timer=setInterval(()=>move(i+1),4200) }
-  function stop(){ if(timer) clearInterval(timer); timer=null }
-  function imagesLoaded(el){
-    const imgs=[...el.querySelectorAll('img')].filter(img=>!img.complete);
-    if(!imgs.length) return Promise.resolve();
-    return Promise.all(imgs.map(img=>new Promise(res=>{img.addEventListener('load',res,{once:true});img.addEventListener('error',res,{once:true});})));
-  }
-  function init(){ move(0); play(); }
-  imagesLoaded(track).then(init);
-  window.addEventListener('load',()=>!timer&&init());
-  window.addEventListener('resize',()=>move(i));
-  wrap.addEventListener('mouseenter',stop);
-  wrap.addEventListener('mouseleave',()=>!timer&&play());
-  document.addEventListener('visibilitychange',()=>{ if(document.hidden) stop(); else if(!timer) play(); });
-})();
-
-const caseData=[
-  {img:'https://github.com/Lamanujan/Law-Firm/raw/main/images/success1.jpg?raw=true',content:'어렵지 않은 설명과 빠른 진행 덕분에 무사히 인가 결정을 받을 수 있었습니다. 정말 감사드립니다.',age:'20대', name:'서**', result:'80% 탕감'},
-  {img:'https://github.com/Lamanujan/Law-Firm/raw/main/images/success2.jpg?raw=true',content:'단기간에 결과를 받아 생활이 안정됐습니다. 진심으로 감사드립니다.',age:'40대', name:'이**', result:'전액 면책'},
-  {img:'https://github.com/Lamanujan/Law-Firm/raw/main/images/success3.jpg?raw=true',content:'세심한 배려와 빠른 진행 덕에 무사히 인가되었습니다.',age:'50대', name:'하**', result:'72% 탕감'},
-  {img:'https://github.com/Lamanujan/Law-Firm/raw/main/images/success4.jpg?raw=true',content:'쉽고 명확한 설명으로 절차를 이해할 수 있었고 결과도 좋았습니다.',age:'30대', name:'김**', result:'전액 탕감'}
-];
-
-(()=> {
-  const track=qs('#caseTrack');const tagsEl=qs('#caseTags');const cmtEl=qs('#caseComment');const infoEl=qs('#caseInfo');if(!track)return;
-  let data=caseData.slice();let idx=0;let timer=null;let busy=false;
-  const spv=()=>window.matchMedia('(max-width:640px)').matches?1:window.matchMedia('(max-width:980px)').matches?2:3;
-  const setSPVVar=()=>track.style.setProperty('--spv',spv());
-  const slideItem=d=>`<div class="case-slide"><div class="case-card"><img src="${d.img}" alt="성공사례 이미지"></div></div>`;
-  const gap=()=>parseFloat(getComputedStyle(track).gap||'0');
-  const slideW=()=>track.querySelector('.case-slide')?.getBoundingClientRect().width||0;
-  function build(){setSPVVar();const n=spv();const clones=data.slice(0,n);track.innerHTML=data.map(slideItem).join('')+clones.map(slideItem).join('');idx=0;setTranslate();updateMeta()}
-  function setTranslate(){const x=-(slideW()+gap())*idx;track.style.transition='transform .55s ease';track.style.transform=`translateX(${x}px)`}
-  function jump0(){track.style.transition='none';idx=0;track.style.transform='translateX(0)';void track.offsetHeight;track.style.transition='transform .55s ease'}
-  function step(){if(busy)return;busy=true;idx+=1;setTranslate();track.addEventListener('transitionend',function onEnd(){if(idx>=data.length){jump0()}updateMeta();busy=false;},{once:true});}
-  function play(){stop();timer=setInterval(step,3600)}
-  function stop(){if(timer){clearInterval(timer);timer=null}}
-  function updateMeta(){const d=data[idx%data.length]||data[0];tagsEl.innerHTML=[d.age,d.name,d.result].map(t=>`<span class="meta-chip">${t}</span>`).join('');cmtEl.textContent=`“${d.content}”`;infoEl.textContent=''}
-  qs('#caseSwiper').addEventListener('mouseenter',stop);
-  qs('#caseSwiper').addEventListener('mouseleave',play);
-  window.addEventListener('resize',build);
-  build();play();
-})();
-
-(()=>{const wrap=qs('#liveWrap');const list=qs('#liveList');if(!wrap||!list)return;const mask=full=>full&&full.length>0?full[0]+'XX':'—';const data=[{type:'개인파산',date:'25.07.16',name:'하진우',result:'4,800만원 부채 전부 탕감'},{type:'개인회생',date:'25.07.18',name:'김선아',result:'월 40만원 36개월 변제 1,100만원 및 이자 탕감'},{type:'개인회생',date:'25.07.18',name:'김민수',result:'월 238만원 36개월 변제 9,400만원 및 이자 탕감'},{type:'개인회생',date:'25.07.18',name:'김도윤',result:'4,800만원 부채 전부 탕감'},{type:'개인파산',date:'25.07.16',name:'하예린',result:'월 40만원 36개월 변제 1,100만원 및 이자 탕감'},{type:'개인파산',date:'25.07.16',name:'하서준',result:'월 238만원 36개월 변제 9,400만원 및 이자 탕감'},{type:'개인회생',date:'25.07.18',name:'김지현',result:'4,800만원 부채 전부 탕감'}];const row=d=>`<div class="live-row"><div class="tag ${d.type==='개인파산'?'tag--bk':'tag--rehab'}">${d.type}</div><div class="live-date">${d.date}</div><div class="live-name">${mask(d.name)}</div><div class="live-result">${d.result}</div></div>`;list.innerHTML=data.map(row).join('')+data.map(row).join('');let y=0,running=true;wrap.addEventListener('mouseenter',()=>running=false);wrap.addEventListener('mouseleave',()=>running=true);function loop(){if(running){y-=0.7;list.style.transform=`translateY(${y}px)`;const half=list.scrollHeight/2;if(Math.abs(y)>=half){y=0;list.style.transform='translateY(0)'}}requestAnimationFrame(loop)}requestAnimationFrame(loop)})();
-
-(()=>{const tabCheck=qs('#tabCheck'),tabCalc=qs('#tabCalc');const viewCheck=qs('#viewCheck'),viewCalc=qs('#viewCalc');if(!tabCheck||!tabCalc)return;tabCheck.addEventListener('click',()=>{tabCheck.classList.add('s5-tab--on');tabCheck.classList.remove('s5-tab--off');tabCalc.classList.remove('s5-tab--on');tabCalc.classList.add('s5-tab--off');viewCheck.classList.remove('hidden');viewCalc.classList.add('hidden')});tabCalc.addEventListener('click',()=>{tabCalc.classList.add('s5-tab--on');tabCalc.classList.remove('s5-tab--off');tabCheck.classList.remove('s5-tab--on');tabCheck.classList.add('s5-tab--off');viewCalc.classList.remove('hidden');viewCheck.classList.add('hidden')})})();
-
-(()=> {
-  const steps=[...document.querySelectorAll('#viewCheck .s5-step')];
-  if(!steps.length)return;
-  const s5state={step:1,income:null,debt:0,causes:new Set(),assets:new Set(),marital:null};
-  const ASSET_VAL={'예금 및 현금':5000000,'차량':10000000,'부동산':300000000,'그 외':5000000,'보험금':5000000};
-  const toNumber=v=>Number(String(v||'').replace(/[^\d.]/g,''));const fmt=n=>isNaN(n)?'':n.toLocaleString();
-
-  function s5go(n){s5state.step=Math.max(1,Math.min(6,n));steps.forEach(s=>s.classList.toggle('hidden',Number(s.dataset.step)!==s5state.step));if(s5state.step===6)renderResult()}
-
-  document.querySelectorAll('#viewCheck .s5-chip').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const name=btn.dataset.name,val=btn.dataset.value;
-      if(name==='income'||name==='marital'){
-        document.querySelectorAll(`#viewCheck .s5-chip[data-name="${name}"]`).forEach(b=>b.classList.remove('is-on'));
-        btn.classList.add('is-on');s5state[name]=val;
-      }else{
-        btn.classList.toggle('is-on');
-        if(btn.classList.contains('is-on'))s5state[name].add(val);else s5state[name].delete(val)
-      }
-    })
-  });
-
-  const debtInput=document.getElementById('debtInput');
-  if(debtInput){debtInput.addEventListener('input',e=>{const raw=toNumber(e.target.value);s5state.debt=raw;e.target.value=fmt(raw)})}
-
-  document.getElementById('viewCheck').addEventListener('click',e=>{
-    const q=e.target.closest('[data-next],[data-prev]');if(!q)return;
-    q.classList.add('is-active');setTimeout(()=>q.classList.remove('is-active'),220);
-    if(q.hasAttribute('data-prev'))return s5go(s5state.step-1);
-    if(s5state.step===1&&!s5state.income)return alert('선택해주세요.');
-    if(s5state.step===2&&!s5state.debt)return alert('채무금액을 입력해주세요.');
-    if(s5state.step===5&&!s5state.marital)return alert('선택해주세요.');
-    s5go(s5state.step+1)
-  });
-
-  function pill(el,ok){el.className='s5-pill '+(ok?'s5-pill--ok':'s5-pill--no');el.textContent=ok?'충족':'불충족'}
-
-  function renderResult(){
-    const incomeRegular=(s5state.income==='monthly'||s5state.income==='pension');
-    const enoughDebt=s5state.debt>=10000000;
-    const assetSum=[...s5state.assets].reduce((s,a)=>s+(ASSET_VAL[a]||0),0);
-    const debtMore=s5state.debt>assetSum;
-
-    pill(document.getElementById('r-income'),incomeRegular);
-    pill(document.getElementById('r-debt'),enoughDebt);
-    pill(document.getElementById('r-balance'),debtMore);
-
-    let title='조건 재확인 필요';
-    let icon='';
-
-    if(enoughDebt){
-      if(incomeRegular){
-        if(debtMore){
-          title='개인 회생 신청 가능';
-          icon='https://github.com/Lamanujan/Law-Firm/raw/main/images/self6-2.png?raw=true';
-        }else{
-          title='개인 회생 검토 필요(재산>채무)';
-          icon='';
-        }
-      }else{
-        title='개인 파산 신청 가능';
-        icon='https://github.com/Lamanujan/Law-Firm/raw/main/images/self6-1.png?raw=true';
-      }
-    }
-
-    const resText=qs('#resText');
-    const resIcon=qs('#resIcon');
-
-    resText.textContent=title;
-
-    if(icon){
-      resIcon.src=icon;
-      resIcon.classList.remove('hidden');
-      resIcon.setAttribute('aria-hidden','true');
-    }else{
-      resIcon.classList.add('hidden');
-      resIcon.removeAttribute('src');
-    }
-
-    const heroImg=qs('#resHeroImg');
-    if(heroImg && !heroImg.src) {
-      heroImg.src='https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=960&auto=format&fit=crop';
-    }
-  }
-})();
-
-(()=>{const readNum=id=>Number(String(document.getElementById(id)?.value||'').replace(/[^\d.]/g,''));const setVal=(id,v)=>{const el=document.getElementById(id);if(!el)return;el.value=v?Number(v).toLocaleString():''};['cDebt','cIncome','cLiving'].forEach(id=>{const el=document.getElementById(id);if(!el)return;el.addEventListener('input',e=>{const v=Number(String(e.target.value).replace(/[^\d.]/g,''));e.target.value=isNaN(v)?'':v.toLocaleString()})});const run=qs('#runCalc');if(!run)return;run.addEventListener('click',()=>{const P=readNum('cDebt'),mIncome=readNum('cIncome'),mLiving=readNum('cLiving');const r=Number(document.getElementById('cRate').value)/100/12;const n=Number(document.getElementById('cMonths').value);if(!P||(!r&&r!==0)||!n){alert('필수 항목(*)을 입력해주세요.');return}const pmt=r>0?P*(r)/(1-Math.pow(1+r,-n)):P/n;const avail=Math.max(0,(mIncome||0)-(mLiving||0));const monthly=Math.min(pmt,avail||pmt);const totalPay=monthly*n;const totalInterest=Math.max(0,totalPay-P);const ratio=mIncome?(monthly/mIncome*100):null;const out=document.getElementById('out');out.innerHTML=`<div><strong>월 변제금</strong> : <b>${Math.round(monthly).toLocaleString()}</b> 원</div><div><strong>총 상환액</strong> : ${Math.round(totalPay).toLocaleString()} 원</div><div><strong>총 이자</strong> : ${Math.round(totalInterest).toLocaleString()} 원</div>${ratio!==null?`<div><strong>소득 대비 변제율</strong> : ${ratio.toFixed(1)}%</div>`:''}<div style="margin-top:8px;color:#6b7280;font-size:14px">※ 실제 심사 및 기관 기준에 따라 달라질 수 있습니다.</div>`;out.classList.remove('hidden')});const reset=qs('#resetCalc');if(reset){reset.addEventListener('click',()=>{['cDebt','cIncome','cLiving','cRate','cMonths'].forEach(id=>setVal(id,''));document.getElementById('out').classList.add('hidden');document.getElementById('out').innerHTML=''})}})();
-</script>
-</body>
-</html>
